@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import ru.spb.iac.storager.server.data.indicators.IndicatorBootstrap;
 import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
 import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
 import ru.spb.iac.storager.server.data.users.UserBootstrap;
@@ -21,6 +22,9 @@ public class BootstrapOrchestrator {
     private TerritoryBootstrap territoryBootstrap;
 
     @Autowired
+    private IndicatorBootstrap indicatorBootstrap;
+
+    @Autowired
     private UserBootstrap userBootstrap;
 
     @PostConstruct
@@ -28,5 +32,6 @@ public class BootstrapOrchestrator {
         userBootstrap.run();
         periodBootstrap.run();
         territoryBootstrap.run();
+        indicatorBootstrap.run();
     }
 }
