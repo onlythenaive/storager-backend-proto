@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
+import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
 import ru.spb.iac.storager.server.data.users.UserBootstrap;
 
 @Component
@@ -17,11 +18,15 @@ public class BootstrapOrchestrator {
     private PeriodBootstrap periodBootstrap;
 
     @Autowired
+    private TerritoryBootstrap territoryBootstrap;
+
+    @Autowired
     private UserBootstrap userBootstrap;
 
     @PostConstruct
     public void run() {
         userBootstrap.run();
         periodBootstrap.run();
+        territoryBootstrap.run();
     }
 }
