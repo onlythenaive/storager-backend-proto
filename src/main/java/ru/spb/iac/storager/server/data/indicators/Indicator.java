@@ -3,6 +3,8 @@ package ru.spb.iac.storager.server.data.indicators;
 import javax.persistence.*;
 import java.util.List;
 
+import ru.spb.iac.storager.server.data.grants.Grant;
+
 @Entity
 @Table(name = "indicators")
 public class Indicator {
@@ -24,6 +26,9 @@ public class Indicator {
 
     @OneToMany(mappedBy = "ascendant")
     private List<Indicator> descendants;
+
+    @OneToMany(mappedBy = "indicator")
+    private List<Grant> grants;
 
     public Integer getId() {
         return id;
@@ -59,5 +64,13 @@ public class Indicator {
 
     public void setDescendants(List<Indicator> descendants) {
         this.descendants = descendants;
+    }
+
+    public List<Grant> getGrants() {
+        return grants;
+    }
+
+    public void setGrants(List<Grant> grants) {
+        this.grants = grants;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import ru.spb.iac.storager.server.data.indicators.IndicatorBootstrap;
 import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
+import ru.spb.iac.storager.server.data.providers.ProviderBootstrap;
 import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
 import ru.spb.iac.storager.server.data.users.UserBootstrap;
 
@@ -25,6 +26,9 @@ public class BootstrapOrchestrator {
     private IndicatorBootstrap indicatorBootstrap;
 
     @Autowired
+    private ProviderBootstrap providerBootstrap;
+
+    @Autowired
     private UserBootstrap userBootstrap;
 
     @PostConstruct
@@ -33,5 +37,6 @@ public class BootstrapOrchestrator {
         periodBootstrap.run();
         territoryBootstrap.run();
         indicatorBootstrap.run();
+        providerBootstrap.run();
     }
 }
