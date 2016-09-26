@@ -1,8 +1,9 @@
 package ru.spb.iac.storager.server.data.periods;
 
-import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.google.common.collect.ImmutableList;
 
 @Component
 public class PeriodBootstrap {
@@ -12,12 +13,12 @@ public class PeriodBootstrap {
 
     public void run() {
         periodRepository.save(ImmutableList.of(
-                new Period("DAY", "День"),
-                new Period("WEEK", "Неделя"),
-                new Period("MONTH", "Месяц"),
-                new Period("QUARTER", "Квартал"),
-                new Period("HALF_YEAR", "Полугодие"),
-                new Period("YEAR", "Год")
+                Period.of("DAY", "День"),
+                Period.of("WEEK", "Неделя"),
+                Period.of("MONTH", "Месяц"),
+                Period.of("QUARTER", "Квартал"),
+                Period.of("HALF_YEAR", "Полугодие"),
+                Period.of("YEAR", "Год")
         ));
     }
 }

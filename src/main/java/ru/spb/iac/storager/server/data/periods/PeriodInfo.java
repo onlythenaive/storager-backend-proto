@@ -1,6 +1,8 @@
 package ru.spb.iac.storager.server.data.periods;
 
-public class PeriodInfo {
+import java.io.Serializable;
+
+public class PeriodInfo implements Serializable {
 
     public static PeriodInfo fromPeriod(Period period) {
         PeriodInfo result = new PeriodInfo();
