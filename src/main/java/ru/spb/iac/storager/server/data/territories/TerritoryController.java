@@ -39,4 +39,16 @@ public class TerritoryController {
     public List<TerritoryInfo> getRoots() {
         return territoryService.getRoots();
     }
+
+    // TODO: add authorization policy
+    @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
+    public void remove(@PathVariable(name = "code") String code) {
+        territoryService.remove(code);
+    }
+
+    // TODO: add authorization policy
+    @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
+    public TerritoryInfo update(@PathVariable(name = "code") String code, @RequestBody TerritoryInfo info) {
+        return territoryService.update(code, info);
+    }
 }

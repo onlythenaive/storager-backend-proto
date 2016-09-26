@@ -5,20 +5,20 @@ import java.io.Serializable;
 public class TerritoryInfo implements Serializable {
 
     public static TerritoryInfo fromTerritory(Territory territory) {
-        TerritoryInfo result = new TerritoryInfo();
-        result.setCode(territory.getCode());
-        result.setAscendantCode(territory.getAscendant() != null ? territory.getAscendant().getCode() : null);
-        result.setTitle(territory.getTitle());
-        result.setTerminal(territory.getDescendants().size() == 0);
-        return result;
+        TerritoryInfo info = new TerritoryInfo();
+        info.setCode(territory.getCode());
+        info.setAscendantCode(territory.getAscendant() != null ? territory.getAscendant().getCode() : null);
+        info.setTitle(territory.getTitle());
+        info.setTerminal(territory.getDescendants().size() == 0);
+        return info;
     }
 
     public static TerritoryInfo of(String code, String ascendantCode, String title) {
-        TerritoryInfo result = new TerritoryInfo();
-        result.code = code;
-        result.ascendantCode = ascendantCode;
-        result.title = title;
-        return result;
+        TerritoryInfo info = new TerritoryInfo();
+        info.code = code;
+        info.ascendantCode = ascendantCode;
+        info.title = title;
+        return info;
     }
 
     private String code;

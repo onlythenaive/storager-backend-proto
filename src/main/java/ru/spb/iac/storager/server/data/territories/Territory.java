@@ -73,8 +73,4 @@ public class Territory {
     public List<Territory> getDescendants() {
         return descendants;
     }
-
-    public void setDescendants(List<Territory> descendants) {
-        this.descendants = descendants;
-    }
 }

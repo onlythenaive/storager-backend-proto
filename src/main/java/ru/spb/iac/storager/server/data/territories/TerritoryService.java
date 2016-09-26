@@ -15,8 +15,7 @@ public class TerritoryService {
     private TerritoryRepository territoryRepository;
 
     public TerritoryInfo create(TerritoryInfo info) {
-        Territory ascendant = info.getAscendantCode() != null ? territoryRepository.findByCode(info.getAscendantCode()) : null;
-        Territory territory = Territory.of(info.getCode(), info.getTitle(), ascendant);
+        Territory territory = Territory.of(info.getCode(), info.getTitle(), getAscendant(info));
         return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
     }
 
@@ -48,6 +47,11 @@ public class TerritoryService {
         Territory territory = territoryRepository.findByCode(code);
         territory.setCode(info.getCode());
         territory.setTitle(info.getTitle());
+        territory.setAscendant(getAscendant(info));
         return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
+    }
+
+    private Territory getAscendant(TerritoryInfo info) {
+        return info.getAscendantCode() != null ? territoryRepository.findByCode(info.getAscendantCode()) : null;
     }
 }
