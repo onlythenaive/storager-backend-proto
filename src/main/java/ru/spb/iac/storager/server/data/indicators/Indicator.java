@@ -1,23 +1,38 @@
 package ru.spb.iac.storager.server.data.indicators;
 
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-
-import ru.spb.iac.storager.server.data.grants.Grant;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "indicators")
 public class Indicator {
 
+    public static Indicator of(String code, String title, Indicator ascendant) {
+        Indicator indicator = new Indicator();
+        indicator.code = code;
+        indicator.title = title;
+        indicator.ascendant = ascendant;
+        indicator.descendants = new ArrayList<>();
+        return indicator;
+    }
+
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "code")
+    @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, unique = true)
     private String title;
 
     @ManyToOne
@@ -26,9 +41,6 @@ public class Indicator {
 
     @OneToMany(mappedBy = "ascendant")
     private List<Indicator> descendants;
-
-    @OneToMany(mappedBy = "indicator")
-    private List<Grant> grants;
 
     public Integer getId() {
         return id;
@@ -60,17 +72,5 @@ public class Indicator {
 
     public List<Indicator> getDescendants() {
         return descendants;
-    }
-
-    public void setDescendants(List<Indicator> descendants) {
-        this.descendants = descendants;
-    }
-
-    public List<Grant> getGrants() {
-        return grants;
-    }
-
-    public void setGrants(List<Grant> grants) {
-        this.grants = grants;
     }
 }

@@ -5,28 +5,26 @@ import java.io.Serializable;
 public class IndicatorInfo implements Serializable {
 
     public static IndicatorInfo fromIndicator(Indicator indicator) {
-        IndicatorInfo result = new IndicatorInfo();
-        result.setCode(indicator.getCode());
-        result.setAscendantCode(indicator.getAscendant() != null ? indicator.getAscendant().getCode() : null);
-        result.setTitle(indicator.getTitle());
-        result.setTerminal(indicator.getDescendants() == null || indicator.getDescendants().size() == 0);
-        return result;
+        IndicatorInfo info = new IndicatorInfo();
+        info.setCode(indicator.getCode());
+        info.setAscendantCode(indicator.getAscendant() != null ? indicator.getAscendant().getCode() : null);
+        info.setTitle(indicator.getTitle());
+        info.setTerminal(indicator.getDescendants().size() == 0);
+        return info;
+    }
+
+    public static IndicatorInfo of(String code, String ascendantCode, String title) {
+        IndicatorInfo info = new IndicatorInfo();
+        info.code = code;
+        info.ascendantCode = ascendantCode;
+        info.title = title;
+        return info;
     }
 
     private String code;
     private String ascendantCode;
     private String title;
     private Boolean terminal;
-
-    public IndicatorInfo() {
-
-    }
-
-    public IndicatorInfo(String code, String ascendantCode, String title) {
-        this.code = code;
-        this.ascendantCode = ascendantCode;
-        this.title = title;
-    }
 
     public String getCode() {
         return code;

@@ -1,11 +1,11 @@
 package ru.spb.iac.storager.server.data.indicators;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -14,22 +14,18 @@ public class IndicatorService {
     @Autowired
     private IndicatorRepository indicatorRepository;
 
-    public IndicatorInfo create(IndicatorInfo indicatorInfo) {
-        Indicator indicator = new Indicator();
-        indicator.setCode(indicatorInfo.getCode());
-        indicator.setAscendant(indicatorInfo.getAscendantCode() != null ? indicatorRepository.findByCode(indicatorInfo.getAscendantCode()) : null);
-        indicator.setTitle(indicatorInfo.getTitle());
-        indicatorRepository.save(indicator);
-        return getByCode(indicatorInfo.getCode());
+    public IndicatorInfo create(IndicatorInfo info) {
+        Indicator indicator = Indicator.of(info.getCode(), info.getTitle(), getAscendant(info));
+        return IndicatorInfo.fromIndicator(indicatorRepository.save(indicator));
     }
 
     public IndicatorInfo getByCode(String code) {
         return IndicatorInfo.fromIndicator(indicatorRepository.findByCode(code));
     }
 
-    public List<IndicatorInfo> getDescendantsByCode(String code) {
+    public List<IndicatorInfo> getDescendants(String code) {
         return indicatorRepository
-                .findDescendantsByCode(code)
+                .findDescendants(code)
                 .stream()
                 .map(IndicatorInfo::fromIndicator)
                 .collect(Collectors.toList());
@@ -41,5 +37,21 @@ public class IndicatorService {
                 .stream()
                 .map(IndicatorInfo::fromIndicator)
                 .collect(Collectors.toList());
+    }
+
+    public void remove(String code) {
+        indicatorRepository.delete(indicatorRepository.findByCode(code));
+    }
+
+    public IndicatorInfo update(String code, IndicatorInfo info) {
+        Indicator indicator = indicatorRepository.findByCode(code);
+        indicator.setCode(info.getCode());
+        indicator.setTitle(info.getTitle());
+        indicator.setAscendant(getAscendant(info));
+        return IndicatorInfo.fromIndicator(indicatorRepository.save(indicator));
+    }
+
+    private Indicator getAscendant(IndicatorInfo info) {
+        return info.getAscendantCode() != null ? indicatorRepository.findByCode(info.getAscendantCode()) : null;
     }
 }
