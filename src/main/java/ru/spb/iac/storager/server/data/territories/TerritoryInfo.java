@@ -9,7 +9,15 @@ public class TerritoryInfo implements Serializable {
         result.setCode(territory.getCode());
         result.setAscendantCode(territory.getAscendant() != null ? territory.getAscendant().getCode() : null);
         result.setTitle(territory.getTitle());
-        result.setTerminal(territory.getDescendants() == null || territory.getDescendants().size() == 0);
+        result.setTerminal(territory.getDescendants().size() == 0);
+        return result;
+    }
+
+    public static TerritoryInfo of(String code, String ascendantCode, String title) {
+        TerritoryInfo result = new TerritoryInfo();
+        result.code = code;
+        result.ascendantCode = ascendantCode;
+        result.title = title;
         return result;
     }
 
@@ -17,16 +25,6 @@ public class TerritoryInfo implements Serializable {
     private String ascendantCode;
     private String title;
     private Boolean terminal;
-
-    public TerritoryInfo() {
-
-    }
-
-    public TerritoryInfo(String code, String ascendantCode, String title) {
-        this.code = code;
-        this.ascendantCode = ascendantCode;
-        this.title = title;
-    }
 
     public String getCode() {
         return code;

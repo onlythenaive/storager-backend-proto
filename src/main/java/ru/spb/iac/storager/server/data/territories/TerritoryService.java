@@ -1,11 +1,11 @@
 package ru.spb.iac.storager.server.data.territories;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -14,22 +14,19 @@ public class TerritoryService {
     @Autowired
     private TerritoryRepository territoryRepository;
 
-    public TerritoryInfo create(TerritoryInfo territoryInfo) {
-        Territory territory = new Territory();
-        territory.setCode(territoryInfo.getCode());
-        territory.setAscendant(territoryInfo.getAscendantCode() != null ? territoryRepository.findByCode(territoryInfo.getAscendantCode()) : null);
-        territory.setTitle(territoryInfo.getTitle());
-        territoryRepository.save(territory);
-        return getByCode(territoryInfo.getCode());
+    public TerritoryInfo create(TerritoryInfo info) {
+        Territory ascendant = info.getAscendantCode() != null ? territoryRepository.findByCode(info.getAscendantCode()) : null;
+        Territory territory = Territory.of(info.getCode(), info.getTitle(), ascendant);
+        return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
     }
 
     public TerritoryInfo getByCode(String code) {
         return TerritoryInfo.fromTerritory(territoryRepository.findByCode(code));
     }
 
-    public List<TerritoryInfo> getDescendantsByCode(String code) {
+    public List<TerritoryInfo> getDescendants(String code) {
         return territoryRepository
-                .findDescendantsByCode(code)
+                .findDescendants(code)
                 .stream()
                 .map(TerritoryInfo::fromTerritory)
                 .collect(Collectors.toList());
