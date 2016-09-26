@@ -2,10 +2,12 @@ package ru.spb.iac.storager.server.data.periods;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableList;
 
 @Component
+@Transactional
 public class PeriodBootstrap {
 
     @Autowired
