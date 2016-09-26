@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableList;
 
+// TODO: add development-only restriction
 @Component
 @Transactional
 public class PeriodBootstrap {
