@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server.data.users;
+package ru.spb.iac.storager.server.data.security.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

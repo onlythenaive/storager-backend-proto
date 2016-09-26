@@ -10,7 +10,7 @@ import ru.spb.iac.storager.server.data.indicators.IndicatorBootstrap;
 import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
 import ru.spb.iac.storager.server.data.providers.ProviderBootstrap;
 import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
-import ru.spb.iac.storager.server.data.users.UserBootstrap;
+import ru.spb.iac.storager.server.data.security.users.UserBootstrap;
 
 @Component
 @Lazy(false)

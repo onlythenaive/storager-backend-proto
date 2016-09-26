@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server.data.users;
+package ru.spb.iac.storager.server.data.security.users;
 
 import com.google.common.collect.ImmutableList;
 
