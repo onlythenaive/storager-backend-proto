@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/storager-server.iml" filepath="$PROJECT_DIR$/.idea/modules/storager-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/storager-server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/storager-server_main.iml" group="storager-server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/storager-server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/storager-server_test.iml" group="storager-server" />
     </modules>
   </component>
 </project>
