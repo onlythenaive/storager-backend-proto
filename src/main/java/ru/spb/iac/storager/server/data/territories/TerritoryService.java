@@ -39,4 +39,15 @@ public class TerritoryService {
                 .map(TerritoryInfo::fromTerritory)
                 .collect(Collectors.toList());
     }
+
+    public void remove(String code) {
+        territoryRepository.delete(territoryRepository.findByCode(code));
+    }
+
+    public TerritoryInfo update(String code, TerritoryInfo info) {
+        Territory territory = territoryRepository.findByCode(code);
+        territory.setCode(info.getCode());
+        territory.setTitle(info.getTitle());
+        return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
+    }
 }
