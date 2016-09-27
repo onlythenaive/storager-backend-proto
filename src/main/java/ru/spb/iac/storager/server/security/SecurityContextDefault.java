@@ -6,10 +6,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.INTERFACES)
-public class SecurityContextDefault implements SecurityContext {
+public class SecurityContextDefault implements SecurityContextConfigurer {
+
+    private AuthorizedUser authorizedUser;
 
     @Override
-    public Object userAuthorizedWith(String... roles) {
-        return new Object();
+    public AuthorizedUser getAuthorizedUser() {
+        return authorizedUser;
+    }
+
+    @Override
+    public AuthorizedUser userAuthorizedWith(String... roles) {
+        return authorizedUser;
+    }
+
+    @Override
+    public void setAuthorizedUser(AuthorizedUser authorizedUser) {
+        this.authorizedUser = authorizedUser;
     }
 }

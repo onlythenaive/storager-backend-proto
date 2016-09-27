@@ -1,0 +1,43 @@
+package ru.spb.iac.storager.server.security;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.common.collect.ImmutableSet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import ru.spb.iac.storager.server.data.users.User;
+import ru.spb.iac.storager.server.data.users.UserRepository;
+
+@Component
+public class UserSecurityInterceptor extends HandlerInterceptorAdapter {
+
+    @Autowired
+    private SecurityContextConfigurer securityContext;
+
+    @Autowired
+    private UserTokenService userTokenService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+        String tokenId = request.getHeader("X-Auth-Token");
+        if (tokenId == null) {
+            return true;
+        }
+        UserToken token = userTokenService.get(tokenId);
+        if (token == null) {
+            return true;
+        }
+        User user = userRepository.findByLogin(token.getLogin());
+        if (user == null || !user.getEnabled()) {
+            return true;
+        }
+        securityContext.setAuthorizedUser(AuthorizedUser.of(user.getLogin(), ImmutableSet.copyOf(user.getRoles().split(" ")), token));
+        return true;
+    }
+}
