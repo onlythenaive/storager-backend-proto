@@ -14,7 +14,6 @@ public class PeriodService {
     @Autowired
     private PeriodRepository periodRepository;
 
-    // TODO: add authorization policy (requires: USER)
     List<PeriodInfo> getAll() {
         return periodRepository
                 .findAll()

@@ -14,18 +14,15 @@ public class TerritoryService {
     @Autowired
     private TerritoryRepository territoryRepository;
 
-    // TODO: add authorization policy (requires: ADMIN)
     public TerritoryInfo create(TerritoryInfo info) {
         Territory territory = Territory.of(info.getCode(), info.getTitle(), getAscendant(info));
         return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
     }
 
-    // TODO: add authorization policy (requires: USER | ADMIN)
     public TerritoryInfo getByCode(String code) {
         return TerritoryInfo.fromTerritory(territoryRepository.findByCode(code));
     }
 
-    // TODO: add authorization policy (requires: USER | ADMIN)
     public List<TerritoryInfo> getDescendants(String code) {
         return territoryRepository
                 .findDescendants(code)
@@ -34,7 +31,6 @@ public class TerritoryService {
                 .collect(Collectors.toList());
     }
 
-    // TODO: add authorization policy (requires: USER | ADMIN)
     public List<TerritoryInfo> getRoots() {
         return territoryRepository
                 .findRoots()
@@ -43,12 +39,10 @@ public class TerritoryService {
                 .collect(Collectors.toList());
     }
 
-    // TODO: add authorization policy (requires: ADMIN)
     public void remove(String code) {
         territoryRepository.delete(territoryRepository.findByCode(code));
     }
 
-    // TODO: add authorization policy (requires: ADMIN)
     public TerritoryInfo update(String code, TerritoryInfo info) {
         Territory territory = territoryRepository.findByCode(code);
         territory.setCode(info.getCode());

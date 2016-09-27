@@ -25,12 +25,10 @@ public class ProviderService {
     @Autowired
     private ProviderRepository providerRepository;
 
-    // TODO: add authorization policy (requires: ADMIN)
     public ProviderInfo create(ProviderInfo info) {
         return ProviderInfo.fromProvider(providerRepository.save(Provider.of(info.getTitle(), info.getDescription(), UUID.randomUUID().toString())));
     }
 
-    // TODO: add authorization policy (requires: USER | ADMIN)
     public PagedResult<ProviderInfo> getPage(Integer page, Integer size) {
         Page<Provider> providerPage = providerRepository.findAll(new PageRequest(page - 1, size));
         List<ProviderInfo> infos = providerPage
@@ -41,17 +39,14 @@ public class ProviderService {
         return PagedResult.of(infos, page, providerPage.getTotalPages());
     }
 
-    // TODO: add authorization policy (requires: USER | ADMIN)
     public ProviderInfo getById(Integer id) {
         return ProviderInfo.fromProvider(providerRepository.findOne(id));
     }
 
-    // TODO: add authorization policy (requires: ADMIN)
     public void remove(Integer id) {
         providerRepository.delete(id);
     }
 
-    // TODO: add authorization policy (requires: ADMIN)
     public ProviderInfo update(Integer id, ProviderInfo info) {
         Provider provider = providerRepository.findOne(id);
         provider.setTitle(info.getTitle());
@@ -59,7 +54,6 @@ public class ProviderService {
         return ProviderInfo.fromProvider(providerRepository.save(provider));
     }
 
-    // TODO: add authorization policy (requires: ADMIN)
     public ProviderInfo updateGrants(Integer id, List<String> indicatorCodes) {
         Provider provider = providerRepository.findOne(id);
         for (String code : indicatorCodes) {
@@ -70,7 +64,6 @@ public class ProviderService {
         return ProviderInfo.fromProvider(providerRepository.save(provider));
     }
 
-    // TODO: add authorization policy (requires: ADMIN)
     public ProviderInfo updateToken(Integer id) {
         Provider provider = providerRepository.findOne(id);
         provider.setToken(UUID.randomUUID().toString());

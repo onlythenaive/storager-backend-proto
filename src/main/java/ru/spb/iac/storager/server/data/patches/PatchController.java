@@ -16,11 +16,13 @@ public class PatchController {
     @Autowired
     private PatchService patchService;
 
+    // TODO: add authorization policy (requires: ADMIN)
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public PatchInfo getById(@PathVariable(name = "id") Integer id) {
         return patchService.getById(id);
     }
 
+    // TODO: add authorization policy (requires: ADMIN)
     @RequestMapping(method = RequestMethod.GET)
     public PagedResult<PatchInfo> getPage(@RequestParam(name = "providerTitle", required = false) String providerTitle,
                                           @RequestParam(name = "status", required = false) String status,

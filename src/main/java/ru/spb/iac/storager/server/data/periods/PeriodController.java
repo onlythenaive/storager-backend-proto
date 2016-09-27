@@ -14,6 +14,7 @@ public class PeriodController {
     @Autowired
     private PeriodService periodService;
 
+    // TODO: add authorization policy (requires: USER | ADMIN)
     @RequestMapping(method = RequestMethod.GET)
     Collection<PeriodInfo> getAll() {
         return periodService.getAll();
