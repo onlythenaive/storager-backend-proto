@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server;
+package ru.spb.iac.storager.server.security;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.spb.iac.storager.server.SecurityContext;
+import ru.spb.iac.storager.server.security.SecurityContext;
 
 @RestController
 @RequestMapping("/data/territories")

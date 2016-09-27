@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server;
+package ru.spb.iac.storager.server.security;
 
 public interface SecurityContext {
 

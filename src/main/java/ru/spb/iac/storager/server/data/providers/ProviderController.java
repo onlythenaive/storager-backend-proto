@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.spb.iac.storager.server.SecurityContext;
+import ru.spb.iac.storager.server.security.SecurityContext;
 import ru.spb.iac.storager.server.data.shared.PagedResult;
 
 @RestController
