@@ -1,7 +1,5 @@
 package ru.spb.iac.storager.server.data.patches;
 
-import ru.spb.iac.storager.server.data.points.Point;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,20 +7,20 @@ import java.util.stream.Collectors;
 public class PatchInfo implements Serializable {
 
     public static PatchInfo fromPatch(Patch patch) {
-        PatchInfo result = new PatchInfo();
-        result.setId(patch.getId());
-        result.setComment(patch.getComment());
-        result.setCreatedAt(patch.getCreatedAt().toString());
-        result.setStatus(patch.getStatus());
-        result.setProviderId(patch.getProvider().getId());
-        result.setIndicatorInfos(patch.getPoints()
+        PatchInfo info = new PatchInfo();
+        info.setId(patch.getId());
+        info.setComment(patch.getComment());
+        info.setCreatedAt(patch.getCreatedAt().toString());
+        info.setStatus(patch.getStatus());
+        info.setProviderId(patch.getProvider().getId());
+        info.setIndicatorInfos(patch.getPoints()
                 .stream()
                 .collect(Collectors.groupingBy(point -> point.getIndicator().getCode()))
                 .entrySet()
                 .stream()
-                .map(e -> new PatchIndicatorInfo(e.getKey(), e.getValue().size()))
+                .map(e -> PatchIndicatorInfo.of(e.getKey(), e.getValue().size()))
                 .collect(Collectors.toList()));
-        return result;
+        return info;
     }
 
     private Integer id;

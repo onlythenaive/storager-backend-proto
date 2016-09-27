@@ -17,31 +17,46 @@ import ru.spb.iac.storager.server.data.territories.Territory;
 @Table(name = "points")
 public class Point {
 
+    public static Point of(Double real, Double plan, String time, Indicator indicator, Patch patch, Period period, Territory territory) {
+        Point point = new Point();
+        point.real = real;
+        point.plan = plan;
+        point.time = time;
+        point.indicator = indicator;
+        point.patch = patch;
+        point.period = period;
+        point.territory = territory;
+        return point;
+    }
+
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "real")
+    @Column(name = "real", nullable = false, updatable = false)
     private Double real;
 
-    @Column(name = "plan")
+    @Column(name = "plan", updatable = false)
     private Double plan;
 
+    @Column(name = "time", updatable = false)
+    private String time;
+
     @ManyToOne
-    @JoinColumn(name = "indicator_id")
+    @JoinColumn(name = "indicator_id", nullable = false, updatable = false)
     private Indicator indicator;
 
     @ManyToOne
-    @JoinColumn(name = "patch_id")
+    @JoinColumn(name = "patch_id", nullable = false, updatable = false)
     private Patch patch;
 
     @ManyToOne
-    @JoinColumn(name = "period_id")
+    @JoinColumn(name = "period_id", nullable = false, updatable = false)
     private Period period;
 
     @ManyToOne
-    @JoinColumn(name = "territory_id")
+    @JoinColumn(name = "territory_id", nullable = false, updatable = false)
     private Territory territory;
 
     public Integer getId () {
@@ -52,47 +67,27 @@ public class Point {
         return real;
     }
 
-    public void setReal (final Double real) {
-        this.real = real;
-    }
-
     public Double getPlan () {
         return plan;
     }
 
-    public void setPlan (final Double plan) {
-        this.plan = plan;
+    public String getTime() {
+        return time;
     }
 
     public Indicator getIndicator () {
         return indicator;
     }
 
-    public void setIndicator (final Indicator indicator) {
-        this.indicator = indicator;
-    }
-
     public Patch getPatch () {
         return patch;
-    }
-
-    public void setPatch (final Patch patch) {
-        this.patch = patch;
     }
 
     public Period getPeriod () {
         return period;
     }
 
-    public void setPeriod (final Period period) {
-        this.period = period;
-    }
-
     public Territory getTerritory () {
         return territory;
-    }
-
-    public void setTerritory (final Territory territory) {
-        this.territory = territory;
     }
 }

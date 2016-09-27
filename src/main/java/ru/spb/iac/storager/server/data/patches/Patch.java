@@ -1,6 +1,7 @@
 package ru.spb.iac.storager.server.data.patches;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,25 +20,35 @@ import ru.spb.iac.storager.server.data.providers.Provider;
 @Table(name = "patches")
 public class Patch {
 
+    public static Patch of(String comment, String status, Provider provider) {
+        Patch patch = new Patch();
+        patch.comment = comment;
+        patch.createdAt = Instant.now();
+        patch.status = status;
+        patch.points = new ArrayList<>();
+        patch.provider = provider;
+        return patch;
+    }
+
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "comment")
+    @Column(name = "comment", nullable = false, updatable = false)
     private String comment;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false, updatable = false)
     private String status;
 
     @OneToMany(mappedBy = "patch")
     private List<Point> points;
 
     @ManyToOne
-    @JoinColumn(name = "provider_id")
+    @JoinColumn(name = "provider_id", nullable = false, updatable = false)
     private Provider provider;
 
     public Integer getId () {
@@ -46,10 +57,6 @@ public class Patch {
 
     public String getComment () {
         return comment;
-    }
-
-    public void setComment (final String comment) {
-        this.comment = comment;
     }
 
     public Instant getCreatedAt () {
@@ -66,9 +73,5 @@ public class Patch {
 
     public Provider getProvider () {
         return provider;
-    }
-
-    public void setProvider (final Provider provider) {
-        this.provider = provider;
     }
 }
