@@ -12,9 +12,9 @@ public interface IndicatorRepository extends JpaRepository<Indicator, Integer> {
 
     Indicator findByCode(String code);
 
-    @Query("FROM Indicator t WHERE t.ascendant.code = :code")
+    @Query("SELECT i FROM Indicator AS i WHERE i.ascendant.code = :code")
     List<Indicator> findDescendants(@Param("code") String code);
 
-    @Query("FROM Indicator t WHERE t.ascendant IS NULL")
+    @Query("SELECT i FROM Indicator AS i WHERE i.ascendant IS NULL")
     List<Indicator> findRoots();
 }
