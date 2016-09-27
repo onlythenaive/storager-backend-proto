@@ -29,19 +29,19 @@ public class Provider {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "registered_at")
+    @Column(name = "registered_at", nullable = false, updatable = false)
     private Instant registeredAt;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "token")
+    @Column(name = "token", nullable = false, unique = true)
     private String token;
 
     @OneToMany(mappedBy = "provider")
