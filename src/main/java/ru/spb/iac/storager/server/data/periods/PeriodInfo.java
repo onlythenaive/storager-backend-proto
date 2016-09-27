@@ -5,10 +5,10 @@ import java.io.Serializable;
 public class PeriodInfo implements Serializable {
 
     public static PeriodInfo fromPeriod(Period period) {
-        PeriodInfo result = new PeriodInfo();
-        result.setCode(period.getCode());
-        result.setTitle(period.getTitle());
-        return result;
+        PeriodInfo info = new PeriodInfo();
+        info.setCode(period.getCode());
+        info.setTitle(period.getTitle());
+        return info;
     }
 
     private String code;
