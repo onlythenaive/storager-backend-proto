@@ -1,19 +1,11 @@
-package ru.spb.iac.storager.server.data.security.users;
-
-import com.google.common.collect.ImmutableList;
+package ru.spb.iac.storager.server.data.users;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
+
+import com.google.common.collect.ImmutableSet;
 
 public class UserInfo implements Serializable {
-
-    private String login;
-    private String email;
-    private String fullname;
-    private String registeredAt;
-    private Boolean enabled;
-    private Boolean root;
-    private List<String> roles;
 
     public static UserInfo fromUser(User user) {
         UserInfo result = new UserInfo();
@@ -23,9 +15,17 @@ public class UserInfo implements Serializable {
         result.setRegisteredAt(user.getRegisteredAt().toString());
         result.setEnabled(user.getEnabled());
         result.setRoot(user.getRoot());
-        result.setRoles(ImmutableList.copyOf(user.getRoles().split(" ")));
+        result.setRoles(ImmutableSet.copyOf(user.getRoles().split(" ")));
         return result;
     }
+
+    private String login;
+    private String email;
+    private String fullname;
+    private String registeredAt;
+    private Boolean enabled;
+    private Boolean root;
+    private Set<String> roles;
 
     public String getLogin() {
         return login;
@@ -75,11 +75,11 @@ public class UserInfo implements Serializable {
         this.root = root;
     }
 
-    public List<String> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 }

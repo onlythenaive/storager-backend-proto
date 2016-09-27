@@ -11,7 +11,7 @@ import ru.spb.iac.storager.server.data.patches.PatchBootstrap;
 import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
 import ru.spb.iac.storager.server.data.providers.ProviderBootstrap;
 import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
-import ru.spb.iac.storager.server.data.security.users.UserBootstrap;
+import ru.spb.iac.storager.server.data.users.UserBootstrap;
 
 // TODO: add development-only restriction
 @Component

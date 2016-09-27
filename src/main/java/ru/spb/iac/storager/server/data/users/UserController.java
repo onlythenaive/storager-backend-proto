@@ -1,26 +1,25 @@
-package ru.spb.iac.storager.server.data.security.users;
+package ru.spb.iac.storager.server.data.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import ru.spb.iac.storager.server.SecurityContext;
 
 @RestController
-@RequestMapping("/data/security/users")
+@RequestMapping("/data/users")
 public class UserController {
+
+    @Autowired
+    private SecurityContext securityContext;
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<UserInfo> getAll() {
-        return userService.getAll();
-    }
-
     @RequestMapping(path = "/current", method = RequestMethod.GET)
     public UserInfo getCurrent() {
+        securityContext.userAuthorizedWithAnyRole();
         return userService.getByLogin("guest");
     }
 }
