@@ -18,7 +18,7 @@ public class SecurityService {
     public UserToken logon(UserCredentials credentials) {
         User user = userRepository.findByLogin(credentials.getLogin());
         if (user == null || !user.getEnabled() || !user.getSecret().equals(credentials.getSecret())) {
-            throw new RuntimeException("not authorized");
+            throw new NotAuthorizedException();
         }
         return userTokenService.create(user.getLogin());
     }

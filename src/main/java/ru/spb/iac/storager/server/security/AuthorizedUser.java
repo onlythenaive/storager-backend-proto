@@ -3,18 +3,22 @@ package ru.spb.iac.storager.server.security;
 import java.io.Serializable;
 import java.util.Set;
 
+import ru.spb.iac.storager.server.data.users.User;
+
 public class AuthorizedUser implements Serializable {
 
-    public static AuthorizedUser of(String login, Set<String> roles, UserToken token) {
-        AuthorizedUser user = new AuthorizedUser();
-        user.login = login;
-        user.roles = roles;
-        user.token = token;
-        return user;
+    public static AuthorizedUser fromUserAndToken(User user, UserToken token) {
+        AuthorizedUser authorized = new AuthorizedUser();
+        authorized.login = user.getLogin();
+        authorized.roles = User.parseRoles(user.getRoles());
+        authorized.root = user.getRoot();
+        authorized.token = token;
+        return authorized;
     }
 
     private String login;
     private Set<String> roles;
+    private boolean root;
     private UserToken token;
 
     public String getLogin() {
@@ -23,6 +27,10 @@ public class AuthorizedUser implements Serializable {
 
     public Set<String> getRoles() {
         return roles;
+    }
+
+    public boolean isRoot() {
+        return root;
     }
 
     public UserToken getToken() {

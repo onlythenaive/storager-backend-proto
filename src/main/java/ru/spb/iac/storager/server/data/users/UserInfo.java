@@ -3,8 +3,6 @@ package ru.spb.iac.storager.server.data.users;
 import java.io.Serializable;
 import java.util.Set;
 
-import com.google.common.collect.ImmutableSet;
-
 public class UserInfo implements Serializable {
 
     public static UserInfo fromUser(User user) {
@@ -15,7 +13,7 @@ public class UserInfo implements Serializable {
         result.setRegisteredAt(user.getRegisteredAt().toString());
         result.setEnabled(user.getEnabled());
         result.setRoot(user.getRoot());
-        result.setRoles(ImmutableSet.copyOf(user.getRoles().split(" ")));
+        result.setRoles(User.parseRoles(user.getRoles()));
         return result;
     }
 

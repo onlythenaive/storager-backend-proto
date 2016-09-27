@@ -23,7 +23,9 @@ public class SecurityController {
 
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public void logout() {
-        AuthorizedUser user = securityContext.userAuthorizedWithAnyRole();
-        securityService.logout(user.getToken().getId());
+        AuthorizedUser user = securityContext.getAuthorizedUser();
+        if (user != null) {
+            securityService.logout(user.getToken().getId());
+        }
     }
 }

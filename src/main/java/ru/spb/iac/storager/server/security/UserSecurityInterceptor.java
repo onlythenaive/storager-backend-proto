@@ -3,7 +3,6 @@ package ru.spb.iac.storager.server.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.collect.ImmutableSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -27,17 +26,31 @@ public class UserSecurityInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String tokenId = request.getHeader("X-Auth-Token");
         if (tokenId == null) {
+            authorizeAsGuest();
             return true;
         }
         UserToken token = userTokenService.get(tokenId);
         if (token == null) {
+            authorizeAsGuest();
             return true;
         }
         User user = userRepository.findByLogin(token.getLogin());
         if (user == null || !user.getEnabled()) {
+            authorizeAsGuest();
             return true;
         }
-        securityContext.setAuthorizedUser(AuthorizedUser.of(user.getLogin(), ImmutableSet.copyOf(user.getRoles().split(" ")), token));
+        authorize(user, token);
         return true;
+    }
+
+    private void authorize(User user, UserToken token) {
+        securityContext.setAuthorizedUser(AuthorizedUser.fromUserAndToken(user, token));
+    }
+
+    private void authorizeAsGuest() {
+        User guest = userRepository.findByLogin("guest");
+        if (guest != null && guest.getEnabled()) {
+            authorize(guest, UserToken.generate(guest.getLogin()));
+        }
     }
 }

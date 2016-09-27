@@ -1,6 +1,9 @@
 package ru.spb.iac.storager.server.data.users;
 
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +25,10 @@ public class User {
         user.root = root;
         user.roles = roles;
         return user;
+    }
+
+    public static Set<String> parseRoles(String roles) {
+        return new HashSet<String>(Arrays.asList(roles.split(" ")));
     }
 
     @Id
