@@ -27,18 +27,18 @@ public class Grant {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "indicator_id")
+    @JoinColumn(name = "indicator_id", nullable = false, updatable = false)
     private Indicator indicator;
 
     @ManyToOne
-    @JoinColumn(name = "provider_id")
+    @JoinColumn(name = "provider_id", nullable = false, updatable = false)
     private Provider provider;
 
     public Integer getId() {
