@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.spb.iac.storager.server.data.shared.LimitedResult;
+import ru.spb.iac.storager.server.data.shared.PagedResult;
 
 @RestController
 @RequestMapping("/data/providers")
@@ -23,14 +24,14 @@ public class ProviderController {
         return providerService.create(info);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public LimitedResult<ProviderInfo> filter() {
-        return providerService.filter();
-    }
-
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ProviderInfo getById(@PathVariable(name = "id") Integer id) {
         return providerService.getById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public PagedResult<ProviderInfo> getPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size) {
+        return providerService.getPage(page, size);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)

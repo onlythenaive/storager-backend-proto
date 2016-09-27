@@ -3,18 +3,18 @@ package ru.spb.iac.storager.server.data.shared;
 import java.io.Serializable;
 import java.util.List;
 
-public class LimitedResult<T> implements Serializable {
+public class PagedResult<T> implements Serializable {
 
-    public static <T> LimitedResult<T> of(List<T> items, int offset, int total) {
-        LimitedResult<T> result = new LimitedResult<>();
+    public static <T> PagedResult<T> of(List<T> items, int page, int total) {
+        PagedResult<T> result = new PagedResult<>();
         result.items = items;
-        result.offset = offset;
+        result.page = page;
         result.total = total;
         return result;
     }
 
     private List<T> items;
-    private Integer offset;
+    private Integer page;
     private Integer total;
 
     public List<T> getItems() {
@@ -25,12 +25,12 @@ public class LimitedResult<T> implements Serializable {
         this.items = items;
     }
 
-    public Integer getOffset() {
-        return offset;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setOffset(Integer offset) {
-        this.offset = offset;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
     public Integer getTotal() {

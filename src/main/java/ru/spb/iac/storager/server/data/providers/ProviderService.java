@@ -5,13 +5,15 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.spb.iac.storager.server.data.grants.Grant;
 import ru.spb.iac.storager.server.data.indicators.Indicator;
 import ru.spb.iac.storager.server.data.indicators.IndicatorRepository;
-import ru.spb.iac.storager.server.data.shared.LimitedResult;
+import ru.spb.iac.storager.server.data.shared.PagedResult;
 
 @Service
 @Transactional
@@ -28,15 +30,15 @@ public class ProviderService {
         return ProviderInfo.fromProvider(providerRepository.save(Provider.of(info.getTitle(), info.getDescription(), UUID.randomUUID().toString())));
     }
 
-    // TODO: add filtering/limiting
     // TODO: add authorization policy (requires: USER | ADMIN)
-    public LimitedResult<ProviderInfo> filter() {
-        List<ProviderInfo> infos = providerRepository
-                .findAll()
+    public PagedResult<ProviderInfo> getPage(Integer page, Integer size) {
+        Page<Provider> providerPage = providerRepository.findAll(new PageRequest(page - 1, size));
+        List<ProviderInfo> infos = providerPage
+                .getContent()
                 .stream()
                 .map(ProviderInfo::fromProvider)
                 .collect(Collectors.toList());
-        return LimitedResult.of(infos, 0, infos.size());
+        return PagedResult.of(infos, page, providerPage.getTotalPages());
     }
 
     // TODO: add authorization policy (requires: USER | ADMIN)
