@@ -1,7 +1,5 @@
 package ru.spb.iac.storager.server.data.providers;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +13,14 @@ public class ProviderBootstrap {
     private ProviderService providerService;
 
     public void run() {
-        providerService.create(ProviderInfo.of("Организация А", "описание организации А", UUID.randomUUID().toString()));
-        providerService.create(ProviderInfo.of("Организация Б", "описание организации Б", UUID.randomUUID().toString()));
+        providerService.create(createInfo("Организация А", "описание организации А"));
+        providerService.create(createInfo("Организация Б", "описание организации Б"));
+    }
+
+    private ProviderInfo createInfo(String title, String description) {
+        ProviderInfo info = new ProviderInfo();
+        info.setTitle(title);
+        info.setDescription(description);
+        return info;
     }
 }

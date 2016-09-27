@@ -13,14 +13,6 @@ public class IndicatorInfo implements Serializable {
         return info;
     }
 
-    public static IndicatorInfo of(String code, String ascendantCode, String title) {
-        IndicatorInfo info = new IndicatorInfo();
-        info.code = code;
-        info.ascendantCode = ascendantCode;
-        info.title = title;
-        return info;
-    }
-
     private String code;
     private String ascendantCode;
     private String title;

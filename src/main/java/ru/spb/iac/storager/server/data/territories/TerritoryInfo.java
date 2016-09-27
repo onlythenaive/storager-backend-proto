@@ -13,14 +13,6 @@ public class TerritoryInfo implements Serializable {
         return info;
     }
 
-    public static TerritoryInfo of(String code, String ascendantCode, String title) {
-        TerritoryInfo info = new TerritoryInfo();
-        info.code = code;
-        info.ascendantCode = ascendantCode;
-        info.title = title;
-        return info;
-    }
-
     private String code;
     private String ascendantCode;
     private String title;

@@ -13,7 +13,15 @@ public class TerritoryBootstrap {
     private TerritoryService territoryService;
 
     public void run() {
-        territoryService.create(TerritoryInfo.of("1", null, "Территория 1"));
-        territoryService.create(TerritoryInfo.of("1.1", "1", "Территория 1.1"));
+        territoryService.create(createInfo("1", null, "Территория 1"));
+        territoryService.create(createInfo("1.1", "1", "Территория 1.1"));
+    }
+
+    private TerritoryInfo createInfo(String code, String ascendantCode, String title) {
+        TerritoryInfo info = new TerritoryInfo();
+        info.setCode(code);
+        info.setAscendantCode(ascendantCode);
+        info.setTitle(title);
+        return info;
     }
 }

@@ -17,14 +17,6 @@ public class ProviderInfo implements Serializable {
         return info;
     }
 
-    public static ProviderInfo of(String title, String description, String token) {
-        ProviderInfo info = new ProviderInfo();
-        info.title = title;
-        info.description = description;
-        info.token = token;
-        return info;
-    }
-
     private Integer id;
     private String title;
     private String description;
