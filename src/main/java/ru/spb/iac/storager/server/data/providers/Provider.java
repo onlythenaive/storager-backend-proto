@@ -1,16 +1,31 @@
 package ru.spb.iac.storager.server.data.providers;
 
-import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.data.grants.Grant;
 
 @Entity
 @Table(name = "providers")
 public class Provider {
+
+    public static Provider of(String title, String description, String token) {
+        Provider provider = new Provider();
+        provider.title = title;
+        provider.description = description;
+        provider.token = token;
+        provider.registeredAt = Instant.now();
+        provider.grants = new ArrayList<>();
+        return provider;
+    }
 
     @Id
     @GeneratedValue
@@ -31,18 +46,6 @@ public class Provider {
 
     @OneToMany(mappedBy = "provider")
     private List<Grant> grants;
-
-    public Provider () {
-
-    }
-
-    public Provider (String title, String description) {
-        this.title = title;
-        this.description = description;
-        this.token = UUID.randomUUID().toString();
-        this.registeredAt = Instant.now();
-        this.grants = new ArrayList<>();
-    }
 
     public Integer getId() {
         return id;
@@ -78,9 +81,5 @@ public class Provider {
 
     public List<Grant> getGrants() {
         return grants;
-    }
-
-    public void setGrants(List<Grant> grants) {
-        this.grants = grants;
     }
 }

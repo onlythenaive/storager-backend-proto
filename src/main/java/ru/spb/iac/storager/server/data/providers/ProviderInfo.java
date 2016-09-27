@@ -7,14 +7,22 @@ import java.util.stream.Collectors;
 public class ProviderInfo implements Serializable {
 
     public static ProviderInfo fromProvider(Provider provider) {
-        ProviderInfo result = new ProviderInfo();
-        result.setId(provider.getId());
-        result.setTitle(provider.getTitle());
-        result.setDescription(provider.getDescription());
-        result.setToken(provider.getToken());
-        result.setRegisteredAt(provider.getRegisteredAt().toString());
-        result.setGrants(provider.getGrants().stream().map(g -> g.getIndicator().getCode()).collect(Collectors.toList()));
-        return result;
+        ProviderInfo info = new ProviderInfo();
+        info.setId(provider.getId());
+        info.setTitle(provider.getTitle());
+        info.setDescription(provider.getDescription());
+        info.setToken(provider.getToken());
+        info.setRegisteredAt(provider.getRegisteredAt().toString());
+        info.setGrants(provider.getGrants().stream().map(g -> g.getIndicator().getCode()).collect(Collectors.toList()));
+        return info;
+    }
+
+    public static ProviderInfo of(String title, String description, String token) {
+        ProviderInfo info = new ProviderInfo();
+        info.title = title;
+        info.description = description;
+        info.token = token;
+        return info;
     }
 
     private Integer id;
@@ -23,15 +31,6 @@ public class ProviderInfo implements Serializable {
     private String token;
     private String registeredAt;
     private List<String> grants;
-
-    public ProviderInfo() {
-
-    }
-
-    public ProviderInfo(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
 
     public Integer getId() {
         return id;

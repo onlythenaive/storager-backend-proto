@@ -1,7 +1,14 @@
 package ru.spb.iac.storager.server.data.grants;
 
 import java.time.Instant;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.data.indicators.Indicator;
 import ru.spb.iac.storager.server.data.providers.Provider;
@@ -9,6 +16,14 @@ import ru.spb.iac.storager.server.data.providers.Provider;
 @Entity
 @Table(name = "grants")
 public class Grant {
+
+    public static Grant of(Indicator indicator, Provider provider) {
+        Grant grant = new Grant();
+        grant.createdAt = Instant.now();
+        grant.indicator = indicator;
+        grant.provider = provider;
+        return grant;
+    }
 
     @Id
     @GeneratedValue
@@ -25,16 +40,6 @@ public class Grant {
     @ManyToOne
     @JoinColumn(name = "provider_id")
     private Provider provider;
-
-    public Grant() {
-
-    }
-
-    public Grant(Indicator indicator, Provider provider) {
-        this.createdAt = Instant.now();
-        this.indicator = indicator;
-        this.provider = provider;
-    }
 
     public Integer getId() {
         return id;
