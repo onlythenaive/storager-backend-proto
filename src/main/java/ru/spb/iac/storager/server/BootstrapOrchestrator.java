@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import ru.spb.iac.storager.server.data.indicators.IndicatorBootstrap;
+import ru.spb.iac.storager.server.data.patches.PatchBootstrap;
 import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
 import ru.spb.iac.storager.server.data.providers.ProviderBootstrap;
 import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
 import ru.spb.iac.storager.server.data.security.users.UserBootstrap;
 
+// TODO: add development-only restriction
 @Component
 @Lazy(false)
 public class BootstrapOrchestrator {
@@ -26,6 +28,9 @@ public class BootstrapOrchestrator {
     private IndicatorBootstrap indicatorBootstrap;
 
     @Autowired
+    private PatchBootstrap patchBootstrap;
+
+    @Autowired
     private ProviderBootstrap providerBootstrap;
 
     @Autowired
@@ -38,5 +43,6 @@ public class BootstrapOrchestrator {
         territoryBootstrap.run();
         indicatorBootstrap.run();
         providerBootstrap.run();
+        patchBootstrap.run();
     }
 }

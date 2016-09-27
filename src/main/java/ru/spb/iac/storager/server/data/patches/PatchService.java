@@ -62,13 +62,12 @@ public class PatchService {
 
     public PagedResult<PatchInfo> getPage(String providerTitle, String status, String createdSince, String createdUntil, int page, int size) {
         Page<Patch> patchPage = patchRepository.findPageWithFilter(
-              /*  defaultedProviderTitle(providerTitle),
+                defaultedProviderTitle(providerTitle),
                 defaultedStatus(status),
                 defaultedCreatedSince(createdSince),
                 defaultedCreatedUntil(createdUntil),
-               */ new PageRequest(page - 1, size)
+                new PageRequest(page - 1, size)
         );
-
         List<PatchInfo> infos = patchPage
                 .getContent()
                 .stream()
