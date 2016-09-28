@@ -48,7 +48,7 @@ public class UserSecurityInterceptor extends HandlerInterceptorAdapter {
     }
 
     private void authorizeAsGuest() {
-        User guest = userRepository.findByLogin("guest");
+        User guest = userRepository.findByLogin(User.GUEST_LOGIN);
         if (guest != null && guest.getEnabled()) {
             authorize(guest, UserToken.generate(guest.getLogin()));
         }

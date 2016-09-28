@@ -16,7 +16,7 @@ public class SecurityController {
     @Autowired
     private SecurityService securityService;
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    @RequestMapping(path = "/logon", method = RequestMethod.POST)
     public UserToken logon(@RequestBody UserCredentials credentials) {
         return securityService.logon(credentials);
     }

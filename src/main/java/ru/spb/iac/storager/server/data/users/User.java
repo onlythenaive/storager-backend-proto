@@ -14,6 +14,8 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
+    public static final String GUEST_LOGIN = "guest";
+
     public static User of(String login, String secret, String email, String fullname, boolean enabled, boolean root, String roles) {
         User user = new User();
         user.login = login;
