@@ -17,20 +17,21 @@ public class SecurityContextDefault implements SecurityContextConfigurer {
 
     @Override
     public AuthorizedUser userAuthorizedWith(String... roles) {
-        if (authorizedUser != null) {
-            if (authorizedUser.isRoot()) {
+        if (authorizedUser == null) {
+            throw NotAuthorizedException.noAuthorizedUser();
+        }
+        if (authorizedUser.isRoot()) {
+            return authorizedUser;
+        }
+        if (roles == null || roles.length == 0) {
+            return authorizedUser;
+        }
+        for (String role : roles) {
+            if (authorizedUser.getRoles().contains(role)) {
                 return authorizedUser;
-            }
-            if (roles == null || roles.length == 0) {
-                return authorizedUser;
-            }
-            for (String role : roles) {
-                if (authorizedUser.getRoles().contains(role)) {
-                    return authorizedUser;
-                }
             }
         }
-        throw new NotAuthorizedException();
+        throw NotAuthorizedException.insufficientPermissions(authorizedUser.getLogin(), roles);
     }
 
     @Override
