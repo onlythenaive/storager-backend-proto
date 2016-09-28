@@ -1,20 +1,34 @@
 package ru.spb.iac.storager.server;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
+import ru.spb.iac.storager.server.data.shared.BusinessLogicException;
 import ru.spb.iac.storager.server.security.NotAuthorizedException;
 
 @ControllerAdvice
-public class ErrorHandler extends ResponseEntityExceptionHandler {
+public class ErrorHandler {
+
+    @ExceptionHandler(BusinessLogicException.class)
+    public ResponseEntity<?> handleBusinessLogicException(BusinessLogicException exception) {
+        return new ResponseEntity<>(exception.getReason(), HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(NotAuthorizedException.class)
-    protected ResponseEntity<Object> handleNotAuthorized(NotAuthorizedException exception, WebRequest request) {
-        return handleExceptionInternal(exception, exception.getReason(), new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
+    public ResponseEntity<?> handleNotAuthorized(NotAuthorizedException exception) {
+        return new ResponseEntity<>(exception.getReason(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<?> handleNotFound(NoHandlerFoundException exception) {
+        return new ResponseEntity<>(exception.getRequestURL(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<?> handleUnknownException(Throwable throwable) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
