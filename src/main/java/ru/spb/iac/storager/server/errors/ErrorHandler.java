@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import ru.spb.iac.storager.server.security.errors.SecurityException;
+import ru.spb.iac.storager.server.errors.shared.ReasonableException;
+import ru.spb.iac.storager.server.errors.security.SecurityException;
 
 @ControllerAdvice
 public class ErrorHandler {

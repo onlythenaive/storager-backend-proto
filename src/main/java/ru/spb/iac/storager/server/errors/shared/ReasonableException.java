@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server.errors;
+package ru.spb.iac.storager.server.errors.shared;
 
 public abstract class ReasonableException extends RuntimeException {
 

@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
-import ru.spb.iac.storager.server.security.errors.NotAuthenticatedException;
-import ru.spb.iac.storager.server.security.errors.NotAuthorizedException;
+import ru.spb.iac.storager.server.errors.security.NotAuthenticatedException;
+import ru.spb.iac.storager.server.errors.security.NotAuthorizedException;
 
 @Component
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.INTERFACES)

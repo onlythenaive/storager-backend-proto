@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 import ru.spb.iac.storager.server.domain.users.User;
 import ru.spb.iac.storager.server.domain.users.UserRepository;
-import ru.spb.iac.storager.server.security.errors.GuestUnavailableException;
-import ru.spb.iac.storager.server.security.errors.InvalidCredentialsException;
-import ru.spb.iac.storager.server.security.errors.InvalidTokenException;
-import ru.spb.iac.storager.server.security.errors.MissingLoginException;
-import ru.spb.iac.storager.server.security.errors.MissingTokenException;
+import ru.spb.iac.storager.server.errors.security.GuestUnavailableException;
+import ru.spb.iac.storager.server.errors.security.InvalidCredentialsException;
+import ru.spb.iac.storager.server.errors.security.InvalidTokenException;
+import ru.spb.iac.storager.server.errors.security.MissingLoginException;
+import ru.spb.iac.storager.server.errors.security.MissingTokenException;
 
 @Service
 public class SecurityService {

@@ -1,9 +1,9 @@
-package ru.spb.iac.storager.server.security.errors;
+package ru.spb.iac.storager.server.errors.security;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import ru.spb.iac.storager.server.errors.Reason;
+import ru.spb.iac.storager.server.errors.shared.Reason;
 
 public final class NotAuthorizedException extends SecurityException {
 
