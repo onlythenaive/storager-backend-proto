@@ -14,15 +14,15 @@ public class IndicatorBootstrap {
     private IndicatorService indicatorService;
 
     public void run() {
-        indicatorService.create(createInfo("1", null, "Показатель 1"));
-        indicatorService.create(createInfo("1.1", "1", "Показатель 1.1"));
+        indicatorService.create(createData("1", null, "Показатель 1"));
+        indicatorService.create(createData("1.1", "1", "Показатель 1.1"));
     }
 
-    private IndicatorInfo createInfo(String code, String ascendantCode, String title) {
-        IndicatorInfo info = new IndicatorInfo();
-        info.setCode(code);
-        info.setAscendantCode(ascendantCode);
-        info.setTitle(title);
-        return info;
+    private IndicatorData createData(final String code, final String ascendantCode, final String title) {
+        final IndicatorData data = new IndicatorData();
+        data.setCode(code);
+        data.setAscendantCode(ascendantCode);
+        data.setTitle(title);
+        return data;
     }
 }

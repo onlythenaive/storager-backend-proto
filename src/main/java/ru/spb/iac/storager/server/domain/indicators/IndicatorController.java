@@ -22,25 +22,25 @@ public class IndicatorController {
     private IndicatorService indicatorService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public IndicatorInfo create(@RequestBody IndicatorInfo indicatorInfo) {
+    public IndicatorData create(@RequestBody IndicatorData data) {
         securityContext.userAuthorizedWith("ADMIN");
-        return indicatorService.create(indicatorInfo);
+        return indicatorService.create(data);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
-    public IndicatorInfo getByCode(@PathVariable(name = "code") String code) {
+    public IndicatorData getByCode(@PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return indicatorService.getByCode(code);
     }
 
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
-    public List<IndicatorInfo> getDescendants(@PathVariable(name = "code") String code) {
+    public List<IndicatorData> getDescendants(@PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return indicatorService.getDescendants(code);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<IndicatorInfo> getRoots() {
+    public List<IndicatorData> getRoots() {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return indicatorService.getRoots();
     }
@@ -52,8 +52,8 @@ public class IndicatorController {
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
-    public IndicatorInfo update(@PathVariable(name = "code") String code, @RequestBody IndicatorInfo info) {
+    public IndicatorData update(@PathVariable(name = "code") String code, @RequestBody IndicatorData data) {
         securityContext.userAuthorizedWith("ADMIN");
-        return indicatorService.update(code, info);
+        return indicatorService.update(code, data);
     }
 }

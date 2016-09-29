@@ -12,46 +12,42 @@ import org.springframework.transaction.annotation.Transactional;
 public class IndicatorService {
 
     @Autowired
+    private IndicatorMapper indicatorMapper;
+
+    @Autowired
     private IndicatorRepository indicatorRepository;
 
-    public IndicatorInfo create(IndicatorInfo info) {
-        Indicator indicator = new Indicator(info.getCode(), info.getTitle(), getAscendant(info));
-        return IndicatorInfo.fromIndicator(indicatorRepository.save(indicator));
+    public IndicatorData create(final IndicatorData data) {
+        return indicatorMapper.fromEntity(indicatorRepository.save(indicatorMapper.fromData(data)));
     }
 
-    public IndicatorInfo getByCode(String code) {
-        return IndicatorInfo.fromIndicator(indicatorRepository.findByCode(code));
+    public IndicatorData getByCode(final String code) {
+        return indicatorMapper.fromEntity(indicatorRepository.findByCode(code));
     }
 
-    public List<IndicatorInfo> getDescendants(String code) {
+    public List<IndicatorData> getDescendants(final String code) {
         return indicatorRepository
                 .findDescendants(code)
                 .stream()
-                .map(IndicatorInfo::fromIndicator)
+                .map(indicatorMapper::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    public List<IndicatorInfo> getRoots() {
+    public List<IndicatorData> getRoots() {
         return indicatorRepository
                 .findRoots()
                 .stream()
-                .map(IndicatorInfo::fromIndicator)
+                .map(indicatorMapper::fromEntity)
                 .collect(Collectors.toList());
     }
 
-    public void remove(String code) {
+    public void remove(final String code) {
         indicatorRepository.delete(indicatorRepository.findByCode(code));
     }
 
-    public IndicatorInfo update(String code, IndicatorInfo info) {
-        Indicator indicator = indicatorRepository.findByCode(code);
-        indicator.setCode(info.getCode());
-        indicator.setTitle(info.getTitle());
-        indicator.setAscendant(getAscendant(info));
-        return IndicatorInfo.fromIndicator(indicatorRepository.save(indicator));
-    }
-
-    private Indicator getAscendant(IndicatorInfo info) {
-        return info.getAscendantCode() != null ? indicatorRepository.findByCode(info.getAscendantCode()) : null;
+    public IndicatorData update(final String code, final IndicatorData data) {
+        final Indicator indicator = indicatorRepository.findByCode(code);
+        indicatorMapper.withData(indicator, data);
+        return indicatorMapper.fromEntity(indicatorRepository.save(indicator));
     }
 }
