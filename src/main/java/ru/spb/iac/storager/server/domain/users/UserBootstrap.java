@@ -13,9 +13,9 @@ public class UserBootstrap {
 
     public void run() {
         userRepository.save(ImmutableList.of(
-                User.of("guest", "guest", "guest@storager.iac.spb.ru", "Гостевой доступ", true, false, "GUEST"),
-                User.of("user", "user123", "user@storager.iac.spb.ru", "Юзеров Ю.Ю.", true, false, "USER"),
-                User.of("admin", "admin123", "admin@storager.iac.spb.ru", "Админов А.А.", true, false, "USER ADMIN")
+                new User("guest", "guest", "guest@storager.iac.spb.ru", "Гостевой доступ", true, false, "GUEST"),
+                new User("user", "user123", "user@storager.iac.spb.ru", "Юзеров Ю.Ю.", true, false, "USER"),
+                new User("admin", "admin123", "admin@storager.iac.spb.ru", "Админов А.А.", true, false, "USER ADMIN")
         ));
     }
 }

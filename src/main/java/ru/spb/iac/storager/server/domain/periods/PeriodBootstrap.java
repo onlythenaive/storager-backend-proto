@@ -17,12 +17,12 @@ public class PeriodBootstrap {
 
     public void run() {
         periodRepository.save(ImmutableList.of(
-                Period.of("DAY", "День"),
-                Period.of("WEEK", "Неделя"),
-                Period.of("MONTH", "Месяц"),
-                Period.of("QUARTER", "Квартал"),
-                Period.of("HALF_YEAR", "Полугодие"),
-                Period.of("YEAR", "Год")
+                new Period("DAY", "День"),
+                new Period("WEEK", "Неделя"),
+                new Period("MONTH", "Месяц"),
+                new Period("QUARTER", "Квартал"),
+                new Period("HALF_YEAR", "Полугодие"),
+                new Period("YEAR", "Год")
         ));
     }
 }

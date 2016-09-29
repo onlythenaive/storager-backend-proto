@@ -15,15 +15,6 @@ import javax.persistence.Table;
 @Table(name = "territories")
 public class Territory {
 
-    public static Territory of(String code, String title, Territory ascendant) {
-        Territory territory = new Territory();
-        territory.code = code;
-        territory.title = title;
-        territory.ascendant = ascendant;
-        territory.descendants = new ArrayList<>();
-        return territory;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -41,6 +32,17 @@ public class Territory {
 
     @OneToMany(mappedBy = "ascendant")
     private List<Territory> descendants;
+
+    protected Territory() {
+
+    }
+
+    public Territory(String code, String title, Territory ascendant) {
+        this.code = code;
+        this.title = title;
+        this.ascendant = ascendant;
+        this.descendants = new ArrayList<>();
+    }
 
     public Integer getId() {
         return id;

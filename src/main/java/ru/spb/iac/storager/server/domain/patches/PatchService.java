@@ -43,7 +43,7 @@ public class PatchService {
     public PatchInfo create(PatchInvoice invoice) {
         String comment = invoice.getComment();
         Provider provider = providerRepository.findByToken(invoice.getProviderToken());
-        Patch patch = Patch.of(comment, "SUCCESS", provider);
+        Patch patch = new Patch(comment, "SUCCESS", provider);
         invoice.getPoints().forEach(p -> {
             Double real = p.getReal();
             Double plan = p.getPlan();
@@ -51,7 +51,7 @@ public class PatchService {
             Indicator indicator = indicatorRepository.findByCode(p.getIndicatorCode());
             Period period = periodRepository.findByCode(p.getPeriodCode());
             Territory territory = territoryRepository.findByCode(p.getTerritoryCode());
-            patch.getPoints().add(Point.of(real, plan, time, indicator, patch, period, territory));
+            patch.getPoints().add(new Point(real, plan, time, indicator, patch, period, territory));
         });
         return PatchInfo.fromPatch(patchRepository.save(patch));
     }

@@ -10,13 +10,6 @@ import javax.persistence.Table;
 @Table(name = "periods")
 public class Period {
 
-    public static Period of(String code, String title) {
-        Period period = new Period();
-        period.code = code;
-        period.title = title;
-        return period;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -27,6 +20,15 @@ public class Period {
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    protected Period() {
+
+    }
+
+    protected Period(String code, String title) {
+        this.code = code;
+        this.title = title;
+    }
 
     public Integer getId() {
         return id;

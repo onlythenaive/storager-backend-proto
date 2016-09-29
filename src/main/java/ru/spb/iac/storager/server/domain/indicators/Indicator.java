@@ -15,15 +15,6 @@ import javax.persistence.Table;
 @Table(name = "indicators")
 public class Indicator {
 
-    public static Indicator of(String code, String title, Indicator ascendant) {
-        Indicator indicator = new Indicator();
-        indicator.code = code;
-        indicator.title = title;
-        indicator.ascendant = ascendant;
-        indicator.descendants = new ArrayList<>();
-        return indicator;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -44,6 +35,17 @@ public class Indicator {
 
     public Integer getId() {
         return id;
+    }
+
+    protected Indicator() {
+
+    }
+
+    public Indicator (String code, String title, Indicator ascendant) {
+        this.code = code;
+        this.title = title;
+        this.ascendant = ascendant;
+        this.descendants = new ArrayList<>();
     }
 
     public String getCode() {

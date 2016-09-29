@@ -18,18 +18,6 @@ import org.springframework.context.annotation.Profile;
 @Profile("dev.local")
 public class User {
 
-    public static User of(String login, String secret, String email, String fullname, boolean enabled, boolean root, String roles) {
-        User user = new User();
-        user.login = login;
-        user.secret = secret;
-        user.email = email;
-        user.fullname = fullname;
-        user.enabled = enabled;
-        user.root = root;
-        user.roles = roles;
-        return user;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -58,6 +46,20 @@ public class User {
 
     @Column(name = "roles", nullable = false, updatable = false)
     private String roles;
+
+    protected User() {
+
+    }
+
+    protected User(String login, String secret, String email, String fullname, boolean enabled, boolean root, String roles) {
+        this.login = login;
+        this.secret = secret;
+        this.email = email;
+        this.fullname = fullname;
+        this.enabled = enabled;
+        this.root = root;
+        this.roles = roles;
+    }
 
     public Integer getId() {
         return id;

@@ -21,15 +21,6 @@ import ru.spb.iac.storager.server.domain.providers.Provider;
 @Table(name = "patches")
 public class Patch {
 
-    public static Patch of(String comment, String status, Provider provider) {
-        Patch patch = new Patch();
-        patch.comment = comment;
-        patch.status = status;
-        patch.points = new ArrayList<>();
-        patch.provider = provider;
-        return patch;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -50,6 +41,17 @@ public class Patch {
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false, updatable = false)
     private Provider provider;
+
+    protected Patch() {
+
+    }
+
+    public Patch(String comment, String status, Provider provider) {
+        this.comment = comment;
+        this.status = status;
+        this.points = new ArrayList<>();
+        this.provider = provider;
+    }
 
     public Integer getId () {
         return id;

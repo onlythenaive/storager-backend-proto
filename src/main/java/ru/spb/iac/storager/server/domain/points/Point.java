@@ -17,18 +17,6 @@ import ru.spb.iac.storager.server.domain.territories.Territory;
 @Table(name = "points")
 public class Point {
 
-    public static Point of(Double real, Double plan, String time, Indicator indicator, Patch patch, Period period, Territory territory) {
-        Point point = new Point();
-        point.real = real;
-        point.plan = plan;
-        point.time = time;
-        point.indicator = indicator;
-        point.patch = patch;
-        point.period = period;
-        point.territory = territory;
-        return point;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -58,6 +46,20 @@ public class Point {
     @ManyToOne
     @JoinColumn(name = "territory_id", nullable = false, updatable = false)
     private Territory territory;
+
+    protected Point() {
+
+    }
+
+    public Point (Double real, Double plan, String time, Indicator indicator, Patch patch, Period period, Territory territory) {
+        this.real = real;
+        this.plan = plan;
+        this.time = time;
+        this.indicator = indicator;
+        this.patch = patch;
+        this.period = period;
+        this.territory = territory;
+    }
 
     public Integer getId () {
         return id;

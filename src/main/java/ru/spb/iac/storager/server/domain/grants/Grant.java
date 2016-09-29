@@ -21,13 +21,6 @@ import ru.spb.iac.storager.server.domain.providers.Provider;
 })
 public class Grant {
 
-    public static Grant of(Indicator indicator, Provider provider) {
-        Grant grant = new Grant();
-        grant.indicator = indicator;
-        grant.provider = provider;
-        return grant;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -43,6 +36,15 @@ public class Grant {
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false, updatable = false)
     private Provider provider;
+
+    protected Grant() {
+
+    }
+
+    public Grant(Indicator indicator, Provider provider) {
+        this.indicator = indicator;
+        this.provider = provider;
+    }
 
     public Integer getId() {
         return id;

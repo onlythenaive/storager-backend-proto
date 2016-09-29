@@ -18,15 +18,6 @@ import ru.spb.iac.storager.server.domain.grants.Grant;
 @Table(name = "providers")
 public class Provider {
 
-    public static Provider of(String title, String description, String token) {
-        Provider provider = new Provider();
-        provider.title = title;
-        provider.description = description;
-        provider.token = token;
-        provider.grants = new ArrayList<>();
-        return provider;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
@@ -46,6 +37,17 @@ public class Provider {
 
     @OneToMany(mappedBy = "provider")
     private List<Grant> grants;
+
+    protected Provider() {
+
+    }
+
+    public Provider(String title, String description, String token) {
+        this.title = title;
+        this.description = description;
+        this.token = token;
+        this.grants = new ArrayList<>();
+    }
 
     public Integer getId() {
         return id;

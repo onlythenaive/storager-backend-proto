@@ -15,7 +15,7 @@ public class IndicatorService {
     private IndicatorRepository indicatorRepository;
 
     public IndicatorInfo create(IndicatorInfo info) {
-        Indicator indicator = Indicator.of(info.getCode(), info.getTitle(), getAscendant(info));
+        Indicator indicator = new Indicator(info.getCode(), info.getTitle(), getAscendant(info));
         return IndicatorInfo.fromIndicator(indicatorRepository.save(indicator));
     }
 

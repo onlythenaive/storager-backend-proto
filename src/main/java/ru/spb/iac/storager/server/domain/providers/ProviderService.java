@@ -26,7 +26,7 @@ public class ProviderService {
     private ProviderRepository providerRepository;
 
     public ProviderInfo create(ProviderInfo info) {
-        return ProviderInfo.fromProvider(providerRepository.save(Provider.of(info.getTitle(), info.getDescription(), UUID.randomUUID().toString())));
+        return ProviderInfo.fromProvider(providerRepository.save(new Provider(info.getTitle(), info.getDescription(), UUID.randomUUID().toString())));
     }
 
     public PagedResult<ProviderInfo> getPage(Integer page, Integer size) {
@@ -58,7 +58,7 @@ public class ProviderService {
         Provider provider = providerRepository.findOne(id);
         for (String code : indicatorCodes) {
             Indicator indicator = indicatorRepository.findByCode(code);
-            Grant grant = Grant.of(indicator, provider);
+            Grant grant = new Grant(indicator, provider);
             provider.getGrants().add(grant);
         }
         return ProviderInfo.fromProvider(providerRepository.save(provider));

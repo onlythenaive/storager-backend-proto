@@ -15,7 +15,7 @@ public class TerritoryService {
     private TerritoryRepository territoryRepository;
 
     public TerritoryInfo create(TerritoryInfo info) {
-        Territory territory = Territory.of(info.getCode(), info.getTitle(), getAscendant(info));
+        Territory territory = new Territory(info.getCode(), info.getTitle(), getAscendant(info));
         return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
     }
 
