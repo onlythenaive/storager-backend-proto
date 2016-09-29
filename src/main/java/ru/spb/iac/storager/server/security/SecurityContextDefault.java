@@ -1,42 +1,45 @@
 package ru.spb.iac.storager.server.security;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-import ru.spb.iac.storager.server.errors.NotAuthorizedException;
+
+import ru.spb.iac.storager.server.security.errors.NotAuthenticatedException;
+import ru.spb.iac.storager.server.security.errors.NotAuthorizedException;
 
 @Component
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class SecurityContextDefault implements SecurityContextConfigurer {
 
-    private AuthorizedUser authorizedUser;
+    private UserAuthentication userAuthentication;
 
-    @Override
-    public AuthorizedUser getAuthorizedUser() {
-        return authorizedUser;
+    public UserAuthentication getUserAuthentication() {
+        return userAuthentication;
     }
 
     @Override
-    public AuthorizedUser userAuthorizedWith(String... roles) {
-        if (authorizedUser == null) {
-            throw NotAuthorizedException.noAuthorizedUser();
+    public UserAuthentication userAuthorizedWith(final String... roles) {
+        if (userAuthentication == null) {
+            throw new NotAuthenticatedException();
         }
-        if (authorizedUser.isRoot()) {
-            return authorizedUser;
+        if (userAuthentication.isRoot()) {
+            return userAuthentication;
         }
         if (roles == null || roles.length == 0) {
-            return authorizedUser;
+            return userAuthentication;
         }
-        for (String role : roles) {
-            if (authorizedUser.getRoles().contains(role)) {
-                return authorizedUser;
+        for (final String role : roles) {
+            if (userAuthentication.getRoles().contains(role)) {
+                return userAuthentication;
             }
         }
-        throw NotAuthorizedException.insufficientPermissions(authorizedUser.getLogin(), roles);
+        throw new NotAuthorizedException(userAuthentication.getLogin(), new HashSet<>(Arrays.asList(roles)));
     }
 
-    @Override
-    public void setAuthorizedUser(AuthorizedUser authorizedUser) {
-        this.authorizedUser = authorizedUser;
+    public void setUserAuthentication(final UserAuthentication userAuthentication) {
+        this.userAuthentication = userAuthentication;
     }
 }

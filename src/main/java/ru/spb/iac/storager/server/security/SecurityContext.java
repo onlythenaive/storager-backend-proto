@@ -2,11 +2,11 @@ package ru.spb.iac.storager.server.security;
 
 public interface SecurityContext {
 
-    AuthorizedUser getAuthorizedUser();
+    UserAuthentication getUserAuthentication();
 
-    AuthorizedUser userAuthorizedWith(String... roles);
+    UserAuthentication userAuthorizedWith(String... roles);
 
-    default AuthorizedUser userAuthorizedWithAnyRole() {
+    default UserAuthentication userAuthorizedWithAnyRole() {
         return userAuthorizedWith();
     }
 }

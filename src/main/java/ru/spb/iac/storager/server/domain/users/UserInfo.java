@@ -13,7 +13,7 @@ public class UserInfo implements Serializable {
         result.setRegisteredAt(user.getRegisteredAt().toString());
         result.setEnabled(user.getEnabled());
         result.setRoot(user.getRoot());
-        result.setRoles(User.parseRoles(user.getRoles()));
+        result.setRoles(user.getRolesParsed());
         return result;
     }
 

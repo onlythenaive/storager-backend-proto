@@ -15,8 +15,6 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-    public static final String GUEST_LOGIN = "guest";
-
     public static User of(String login, String secret, String email, String fullname, boolean enabled, boolean root, String roles) {
         User user = new User();
         user.login = login;
@@ -27,10 +25,6 @@ public class User {
         user.root = root;
         user.roles = roles;
         return user;
-    }
-
-    public static Set<String> parseRoles(String roles) {
-        return new HashSet<String>(Arrays.asList(roles.split(" ")));
     }
 
     @Id
@@ -96,6 +90,10 @@ public class User {
 
     public String getRoles() {
         return roles;
+    }
+
+    public Set<String> getRolesParsed() {
+        return new HashSet<>(Arrays.asList(roles.split(" ")));
     }
 
     @PrePersist

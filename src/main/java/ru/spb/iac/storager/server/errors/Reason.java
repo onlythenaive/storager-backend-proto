@@ -1,11 +1,8 @@
 package ru.spb.iac.storager.server.errors;
 
-import java.io.Serializable;
+public interface Reason {
 
-public class Reason implements Serializable {
+    String getCode();
 
-    private String code;
-    private Object data;
-    private String description;
-    private String when;
+    String getDescription();
 }
