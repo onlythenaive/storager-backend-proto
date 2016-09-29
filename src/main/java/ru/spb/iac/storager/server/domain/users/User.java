@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +23,6 @@ public class User {
         user.secret = secret;
         user.email = email;
         user.fullname = fullname;
-        user.registeredAt = Instant.now();
         user.enabled = enabled;
         user.root = root;
         user.roles = roles;
@@ -96,5 +96,10 @@ public class User {
 
     public String getRoles() {
         return roles;
+    }
+
+    @PrePersist
+    private void onPrePersist() {
+        registeredAt = Instant.now();
     }
 }

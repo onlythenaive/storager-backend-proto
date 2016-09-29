@@ -8,18 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import ru.spb.iac.storager.server.domain.indicators.Indicator;
 import ru.spb.iac.storager.server.domain.providers.Provider;
 
 @Entity
-@Table(name = "grants")
+@Table(name = "grants", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"indicator_id", "provider_id"})
+})
 public class Grant {
 
     public static Grant of(Indicator indicator, Provider provider) {
         Grant grant = new Grant();
-        grant.createdAt = Instant.now();
         grant.indicator = indicator;
         grant.provider = provider;
         return grant;
@@ -55,5 +58,10 @@ public class Grant {
 
     public Provider getProvider() {
         return provider;
+    }
+
+    @PrePersist
+    private void onPersist() {
+        createdAt = Instant.now();
     }
 }

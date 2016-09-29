@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.domain.grants.Grant;
@@ -22,7 +23,6 @@ public class Provider {
         provider.title = title;
         provider.description = description;
         provider.token = token;
-        provider.registeredAt = Instant.now();
         provider.grants = new ArrayList<>();
         return provider;
     }
@@ -81,5 +81,10 @@ public class Provider {
 
     public List<Grant> getGrants() {
         return grants;
+    }
+
+    @PrePersist
+    private void onPrePersist() {
+        registeredAt = Instant.now();
     }
 }

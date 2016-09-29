@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.domain.points.Point;
@@ -23,7 +24,6 @@ public class Patch {
     public static Patch of(String comment, String status, Provider provider) {
         Patch patch = new Patch();
         patch.comment = comment;
-        patch.createdAt = Instant.now();
         patch.status = status;
         patch.points = new ArrayList<>();
         patch.provider = provider;
@@ -74,4 +74,8 @@ public class Patch {
     public Provider getProvider () {
         return provider;
     }
-}
+
+    @PrePersist
+    private void onPrePersist() {
+        createdAt = Instant.now();
+    }}
