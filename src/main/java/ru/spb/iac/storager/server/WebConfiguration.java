@@ -20,7 +20,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry
                 .addInterceptor(userSecurityInterceptor)
-                .addPathPatterns("/data/**");
+                .addPathPatterns("/data/**")
+                .addPathPatterns("/security/**")
+                .excludePathPatterns("/security/logon");
     }
 
     @Override
