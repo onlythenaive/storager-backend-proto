@@ -9,11 +9,16 @@ $ gradle clean build
 ```
 
 ## Deployment
-To start the application at the default (8080) port:
+To start the application on 8080 port:
 ```
-$ java -jar build/libs/storager-server.jar
+$ java -jar build/libs/storager-server.jar --port=8080
 ```
 You can also run the application without creating a JAR:
 ```
-$ gradle bootRun
+$ gradle bootRun -Dport=8080
 ```
+
+### Parameters
+Application can be configured with several parameters:
+* "port": HTTP port which is used for application deployment, default is "8080"
+* "profile": deployment profile ["production", "dev.local"], default is "production"
