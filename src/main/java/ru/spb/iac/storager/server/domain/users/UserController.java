@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.spb.iac.storager.server.security.SecurityContext;
+import ru.spb.iac.storager.server.security.UserAuthentication;
 
 @RestController
 @RequestMapping("/data/users")
@@ -19,7 +20,7 @@ public class UserController {
 
     @RequestMapping(path = "/current", method = RequestMethod.GET)
     public UserInfo getCurrent() {
-        securityContext.userAuthorizedWithAnyRole();
-        return userService.getByLogin("guest");
+        final UserAuthentication authentication = securityContext.userAuthorizedWithAnyRole();
+        return userService.getByLogin(authentication.getLogin());
     }
 }
