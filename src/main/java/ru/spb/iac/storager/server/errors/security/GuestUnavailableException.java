@@ -4,7 +4,7 @@ import ru.spb.iac.storager.server.errors.shared.Reason;
 
 public final class GuestUnavailableException extends SecurityException {
 
-    public static final class ReasonImpl implements Reason {
+    public static final class GuestUnavailableReason implements Reason {
 
         @Override
         public String getCode() {
@@ -17,7 +17,7 @@ public final class GuestUnavailableException extends SecurityException {
         }
     }
 
-    private static final Reason reason = new ReasonImpl();
+    private static final Reason reason = new GuestUnavailableReason();
 
     @Override
     public Reason getReason() {

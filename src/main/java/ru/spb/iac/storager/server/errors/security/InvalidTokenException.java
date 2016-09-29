@@ -4,11 +4,11 @@ import ru.spb.iac.storager.server.errors.shared.Reason;
 
 public final class InvalidTokenException extends SecurityException {
 
-    public static final class ReasonImpl implements Reason {
+    public static final class InvalidTokenReason implements Reason {
 
         private final String token;
 
-        public ReasonImpl(final String token) {
+        public InvalidTokenReason(final String token) {
             this.token = token;
         }
 
@@ -29,8 +29,8 @@ public final class InvalidTokenException extends SecurityException {
 
     private final Reason reason;
 
-    public InvalidTokenException(String token) {
-        this.reason = new ReasonImpl(token);
+    public InvalidTokenException(final String token) {
+        this.reason = new InvalidTokenReason(token);
     }
 
     @Override

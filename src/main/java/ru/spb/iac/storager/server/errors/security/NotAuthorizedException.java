@@ -7,12 +7,12 @@ import ru.spb.iac.storager.server.errors.shared.Reason;
 
 public final class NotAuthorizedException extends SecurityException {
 
-    public static final class ReasonImpl implements Reason {
+    public static final class NotAuthorizedReason implements Reason {
 
         private final String login;
         private final Set<String> requiredRoles;
 
-        public ReasonImpl(final String login, final Set<String> requiredRoles) {
+        public NotAuthorizedReason(final String login, final Set<String> requiredRoles) {
             this.login = login;
             this.requiredRoles = new HashSet<>(requiredRoles);
         }
@@ -38,8 +38,8 @@ public final class NotAuthorizedException extends SecurityException {
 
     private final Reason reason;
 
-    public NotAuthorizedException(String login, Set<String> requiredRoles) {
-        this.reason = new ReasonImpl(login, requiredRoles);
+    public NotAuthorizedException(final String login, final Set<String> requiredRoles) {
+        this.reason = new NotAuthorizedReason(login, requiredRoles);
     }
 
     @Override

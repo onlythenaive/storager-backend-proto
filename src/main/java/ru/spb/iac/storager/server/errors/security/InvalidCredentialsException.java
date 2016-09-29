@@ -4,11 +4,11 @@ import ru.spb.iac.storager.server.errors.shared.Reason;
 
 public final class InvalidCredentialsException extends SecurityException {
 
-    public static final class ReasonImpl implements Reason {
+    public static final class InvalidCredentialsReason implements Reason {
 
         private final String login;
 
-        public ReasonImpl(final String login) {
+        public InvalidCredentialsReason(final String login) {
             this.login = login;
         }
 
@@ -29,8 +29,8 @@ public final class InvalidCredentialsException extends SecurityException {
 
     private final Reason reason;
 
-    public InvalidCredentialsException(String login) {
-        this.reason = new ReasonImpl(login);
+    public InvalidCredentialsException(final String login) {
+        this.reason = new InvalidCredentialsReason(login);
     }
 
     @Override
