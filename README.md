@@ -20,5 +20,5 @@ $ gradle bootRun -Dport=8080
 
 ### Parameters
 Application can be configured with several parameters:
-* "port": HTTP port which is used for application deployment, default is "8080"
-* "profile": deployment profile ["production", "dev.local"], default is "production"
+* "**port**": HTTP port which is used for application deployment, default is "8080"
+* "**profile**": deployment profile ["production", "dev.local"], default is "production"
