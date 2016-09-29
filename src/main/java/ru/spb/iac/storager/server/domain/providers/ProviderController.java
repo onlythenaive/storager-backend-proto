@@ -36,7 +36,8 @@ public class ProviderController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedResult<ProviderInfo> getPage(@RequestParam(name = "page") Integer page, @RequestParam(name = "size") Integer size) {
+    public PagedResult<ProviderInfo> getPage(@RequestParam(name = "page", defaultValue = "1") Integer page,
+                                             @RequestParam(name = "size", defaultValue = "10") Integer size) {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return providerService.getPage(page, size);
     }

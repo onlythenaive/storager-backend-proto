@@ -31,8 +31,8 @@ public class PatchController {
                                           @RequestParam(name = "status", required = false) String status,
                                           @RequestParam(name = "createdSince", required = false) String createdSince,
                                           @RequestParam(name = "createdUntil", required = false) String createdUntil,
-                                          @RequestParam(name = "page") int page,
-                                          @RequestParam(name = "size") int size) {
+                                          @RequestParam(name = "page", defaultValue = "1") int page,
+                                          @RequestParam(name = "size", defaultValue = "10") int size) {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return patchService.getPage(providerTitle, status, createdSince, createdUntil, page, size);
     }
