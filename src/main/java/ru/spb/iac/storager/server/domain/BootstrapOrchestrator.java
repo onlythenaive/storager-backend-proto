@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import ru.spb.iac.storager.server.domain.indicators.IndicatorBootstrap;
@@ -13,9 +14,9 @@ import ru.spb.iac.storager.server.domain.providers.ProviderBootstrap;
 import ru.spb.iac.storager.server.domain.territories.TerritoryBootstrap;
 import ru.spb.iac.storager.server.domain.users.UserBootstrap;
 
-// TODO: add development-only restriction
 @Component
 @Lazy(false)
+@Profile("dev.local")
 public class BootstrapOrchestrator {
 
     @Autowired

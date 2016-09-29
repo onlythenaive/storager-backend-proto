@@ -1,14 +1,15 @@
 package ru.spb.iac.storager.server.domain.periods;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableList;
 
-// TODO: add development-only restriction
 @Component
 @Transactional
+@Profile("dev.local")
 public class PeriodBootstrap {
 
     @Autowired

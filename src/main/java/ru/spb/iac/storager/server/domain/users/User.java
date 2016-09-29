@@ -11,8 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Profile;
+
 @Entity
 @Table(name = "users")
+@Profile("dev.local")
 public class User {
 
     public static User of(String login, String secret, String email, String fullname, boolean enabled, boolean root, String roles) {

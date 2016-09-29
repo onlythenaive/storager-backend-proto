@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.spb.iac.storager.server.domain.points.PointInvoice;
 import ru.spb.iac.storager.server.domain.providers.ProviderRepository;
 
-// TODO: add development-only restriction
 @Component
 @Transactional
+@Profile("dev.local")
 public class PatchBootstrap {
 
     @Autowired
