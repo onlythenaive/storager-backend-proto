@@ -1,11 +1,13 @@
 package ru.spb.iac.storager.server.domain.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.google.common.collect.ImmutableList;
 
 @Component
+@Profile("dev.local")
 public class UserBootstrap {
 
     @Autowired

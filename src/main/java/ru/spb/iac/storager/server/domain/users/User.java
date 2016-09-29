@@ -8,14 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import org.springframework.context.annotation.Profile;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
 @Table(name = "users")
-@Profile("dev.local")
 public class User {
 
     @Id
@@ -47,11 +48,16 @@ public class User {
     @Column(name = "roles", nullable = false, updatable = false)
     private String roles;
 
+    @Transient
+    private Set<String> rolesParsed;
+
+    @JpaConstructor
     protected User() {
 
     }
 
-    protected User(String login, String secret, String email, String fullname, boolean enabled, boolean root, String roles) {
+    protected User(final String login, final String secret, final String email, final String fullname,
+                   final boolean enabled, final boolean root, final String roles) {
         this.login = login;
         this.secret = secret;
         this.email = email;
@@ -98,11 +104,16 @@ public class User {
     }
 
     public Set<String> getRolesParsed() {
-        return new HashSet<>(Arrays.asList(roles.split(" ")));
+        return new HashSet<>(rolesParsed);
+    }
+
+    @PostLoad
+    private void onLoad() {
+        rolesParsed = new HashSet<>(Arrays.asList(roles.split(" ")));
     }
 
     @PrePersist
-    private void onPrePersist() {
+    private void onPersist() {
         registeredAt = Instant.now();
     }
 }

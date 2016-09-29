@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import ru.spb.iac.storager.server.domain.indicators.Indicator;
 import ru.spb.iac.storager.server.domain.patches.Patch;
 import ru.spb.iac.storager.server.domain.periods.Period;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 import ru.spb.iac.storager.server.domain.territories.Territory;
 
 @Entity
@@ -47,11 +48,13 @@ public class Point {
     @JoinColumn(name = "territory_id", nullable = false, updatable = false)
     private Territory territory;
 
+    @JpaConstructor
     protected Point() {
 
     }
 
-    public Point (Double real, Double plan, String time, Indicator indicator, Patch patch, Period period, Territory territory) {
+    public Point (final Double real, final Double plan, final String time, final Indicator indicator,
+                  final Patch patch, final Period period, final Territory territory) {
         this.real = real;
         this.plan = plan;
         this.time = time;

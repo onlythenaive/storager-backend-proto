@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+
 @Entity
 @Table(name = "periods")
 public class Period {
@@ -21,11 +23,12 @@ public class Period {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @JpaConstructor
     protected Period() {
 
     }
 
-    protected Period(String code, String title) {
+    protected Period(final String code, final String title) {
         this.code = code;
         this.title = title;
     }

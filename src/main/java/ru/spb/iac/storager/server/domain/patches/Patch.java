@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.domain.points.Point;
 import ru.spb.iac.storager.server.domain.providers.Provider;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
 @Table(name = "patches")
@@ -42,11 +43,12 @@ public class Patch {
     @JoinColumn(name = "provider_id", nullable = false, updatable = false)
     private Provider provider;
 
+    @JpaConstructor
     protected Patch() {
 
     }
 
-    public Patch(String comment, String status, Provider provider) {
+    public Patch(final String comment, final String status, final Provider provider) {
         this.comment = comment;
         this.status = status;
         this.points = new ArrayList<>();
@@ -78,6 +80,6 @@ public class Patch {
     }
 
     @PrePersist
-    private void onPrePersist() {
+    private void onPersist() {
         createdAt = Instant.now();
     }}

@@ -9,7 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import ru.spb.iac.storager.server.domain.shared.HierarchicLoopException;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
 @Table(name = "territories")
@@ -33,11 +38,12 @@ public class Territory {
     @OneToMany(mappedBy = "ascendant")
     private List<Territory> descendants;
 
+    @JpaConstructor
     protected Territory() {
 
     }
 
-    public Territory(String code, String title, Territory ascendant) {
+    public Territory(final String code, final String title, final Territory ascendant) {
         this.code = code;
         this.title = title;
         this.ascendant = ascendant;
@@ -52,7 +58,7 @@ public class Territory {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(final String code) {
         this.code = code;
     }
 
@@ -60,7 +66,7 @@ public class Territory {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -68,11 +74,19 @@ public class Territory {
         return ascendant;
     }
 
-    public void setAscendant(Territory ascendant) {
+    public void setAscendant(final Territory ascendant) {
         this.ascendant = ascendant;
     }
 
     public List<Territory> getDescendants() {
         return descendants;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void onPersistAndUpdate() {
+        if (ascendant != null && ascendant.getCode().equals(code)) {
+            throw new HierarchicLoopException(code);
+        }
     }
 }

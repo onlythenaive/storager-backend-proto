@@ -13,6 +13,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.domain.grants.Grant;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
 @Table(name = "providers")
@@ -38,11 +39,12 @@ public class Provider {
     @OneToMany(mappedBy = "provider")
     private List<Grant> grants;
 
+    @JpaConstructor
     protected Provider() {
 
     }
 
-    public Provider(String title, String description, String token) {
+    public Provider(final String title, final String description, final String token) {
         this.title = title;
         this.description = description;
         this.token = token;
@@ -61,7 +63,7 @@ public class Provider {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -69,7 +71,7 @@ public class Provider {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -77,7 +79,7 @@ public class Provider {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(final String token) {
         this.token = token;
     }
 
@@ -86,7 +88,7 @@ public class Provider {
     }
 
     @PrePersist
-    private void onPrePersist() {
+    private void onPersist() {
         registeredAt = Instant.now();
     }
 }

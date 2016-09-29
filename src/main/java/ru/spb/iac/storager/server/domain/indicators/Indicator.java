@@ -9,7 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+
+import ru.spb.iac.storager.server.domain.shared.HierarchicLoopException;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
 @Table(name = "indicators")
@@ -33,26 +38,27 @@ public class Indicator {
     @OneToMany(mappedBy = "ascendant")
     private List<Indicator> descendants;
 
-    public Integer getId() {
-        return id;
-    }
-
+    @JpaConstructor
     protected Indicator() {
 
     }
 
-    public Indicator (String code, String title, Indicator ascendant) {
+    public Indicator (final String code, final String title, final Indicator ascendant) {
         this.code = code;
         this.title = title;
         this.ascendant = ascendant;
         this.descendants = new ArrayList<>();
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(final String code) {
         this.code = code;
     }
 
@@ -60,7 +66,7 @@ public class Indicator {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -68,11 +74,19 @@ public class Indicator {
         return ascendant;
     }
 
-    public void setAscendant(Indicator ascendant) {
+    public void setAscendant(final Indicator ascendant) {
         this.ascendant = ascendant;
     }
 
     public List<Indicator> getDescendants() {
         return descendants;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void onPersistAndUpdate() {
+        if (ascendant != null && ascendant.getCode().equals(code)) {
+            throw new HierarchicLoopException(code);
+        }
     }
 }

@@ -14,6 +14,7 @@ import javax.persistence.UniqueConstraint;
 
 import ru.spb.iac.storager.server.domain.indicators.Indicator;
 import ru.spb.iac.storager.server.domain.providers.Provider;
+import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
 @Table(name = "grants", uniqueConstraints = {
@@ -37,11 +38,12 @@ public class Grant {
     @JoinColumn(name = "provider_id", nullable = false, updatable = false)
     private Provider provider;
 
+    @JpaConstructor
     protected Grant() {
 
     }
 
-    public Grant(Indicator indicator, Provider provider) {
+    public Grant(final Indicator indicator, final Provider provider) {
         this.indicator = indicator;
         this.provider = provider;
     }
