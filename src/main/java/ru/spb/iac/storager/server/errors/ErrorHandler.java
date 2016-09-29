@@ -1,13 +1,10 @@
-package ru.spb.iac.storager.server;
+package ru.spb.iac.storager.server.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import ru.spb.iac.storager.server.data.shared.BusinessLogicException;
-import ru.spb.iac.storager.server.security.NotAuthorizedException;
 
 @ControllerAdvice
 public class ErrorHandler {

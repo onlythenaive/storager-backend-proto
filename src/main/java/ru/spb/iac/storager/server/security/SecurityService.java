@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ru.spb.iac.storager.server.data.users.User;
 import ru.spb.iac.storager.server.data.users.UserRepository;
+import ru.spb.iac.storager.server.errors.NotAuthorizedException;
 
 @Service
 public class SecurityService {

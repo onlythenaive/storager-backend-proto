@@ -3,6 +3,7 @@ package ru.spb.iac.storager.server.security;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import ru.spb.iac.storager.server.errors.NotAuthorizedException;
 
 @Component
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.INTERFACES)

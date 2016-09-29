@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server.security;
+package ru.spb.iac.storager.server.errors;
 
 public class NotAuthorizedException extends RuntimeException {
 

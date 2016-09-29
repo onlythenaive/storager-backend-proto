@@ -1,4 +1,4 @@
-package ru.spb.iac.storager.server.data.shared;
+package ru.spb.iac.storager.server.errors;
 
 public abstract class BusinessLogicException extends RuntimeException {
 
