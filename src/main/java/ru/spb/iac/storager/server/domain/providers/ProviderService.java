@@ -36,7 +36,7 @@ public class ProviderService {
                 .stream()
                 .map(ProviderInfo::fromProvider)
                 .collect(Collectors.toList());
-        return PagedResult.of(infos, page, providerPage.getTotalPages());
+        return new PagedResult<>(infos, page, providerPage.getTotalPages());
     }
 
     public ProviderInfo getById(Integer id) {

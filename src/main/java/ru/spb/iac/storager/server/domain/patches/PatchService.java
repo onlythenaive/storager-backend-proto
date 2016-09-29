@@ -73,7 +73,7 @@ public class PatchService {
                 .stream()
                 .map(PatchInfo::fromPatch)
                 .collect(Collectors.toList());
-        return PagedResult.of(infos, page, patchPage.getTotalPages());
+        return new PagedResult<>(infos, page, patchPage.getTotalPages());
     }
 
     private Instant defaultedCreatedSince(String createdSince) {
