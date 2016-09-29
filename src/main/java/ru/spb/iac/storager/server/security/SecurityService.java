@@ -3,8 +3,8 @@ package ru.spb.iac.storager.server.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ru.spb.iac.storager.server.data.users.User;
-import ru.spb.iac.storager.server.data.users.UserRepository;
+import ru.spb.iac.storager.server.domain.users.User;
+import ru.spb.iac.storager.server.domain.users.UserRepository;
 import ru.spb.iac.storager.server.errors.NotAuthorizedException;
 
 @Service

@@ -3,7 +3,7 @@ package ru.spb.iac.storager.server.security;
 import java.io.Serializable;
 import java.util.Set;
 
-import ru.spb.iac.storager.server.data.users.User;
+import ru.spb.iac.storager.server.domain.users.User;
 
 public class AuthorizedUser implements Serializable {
 

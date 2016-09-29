@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import ru.spb.iac.storager.server.data.users.User;
-import ru.spb.iac.storager.server.data.users.UserRepository;
+import ru.spb.iac.storager.server.domain.users.User;
+import ru.spb.iac.storager.server.domain.users.UserRepository;
 
 @Component
 public class UserSecurityInterceptor extends HandlerInterceptorAdapter {

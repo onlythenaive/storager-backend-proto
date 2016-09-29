@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import ru.spb.iac.storager.server.data.indicators.IndicatorBootstrap;
-import ru.spb.iac.storager.server.data.patches.PatchBootstrap;
-import ru.spb.iac.storager.server.data.periods.PeriodBootstrap;
-import ru.spb.iac.storager.server.data.providers.ProviderBootstrap;
-import ru.spb.iac.storager.server.data.territories.TerritoryBootstrap;
-import ru.spb.iac.storager.server.data.users.UserBootstrap;
+import ru.spb.iac.storager.server.domain.indicators.IndicatorBootstrap;
+import ru.spb.iac.storager.server.domain.patches.PatchBootstrap;
+import ru.spb.iac.storager.server.domain.periods.PeriodBootstrap;
+import ru.spb.iac.storager.server.domain.providers.ProviderBootstrap;
+import ru.spb.iac.storager.server.domain.territories.TerritoryBootstrap;
+import ru.spb.iac.storager.server.domain.users.UserBootstrap;
 
 // TODO: add development-only restriction
 @Component
