@@ -1,0 +1,21 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://iac.spb.ru/storager/server/integration/providing"
+           targetNamespace="http://iac.spb.ru/storager/server/integration/providing"
+           elementFormDefault="qualified">
+
+    <xs:element name="createPatchRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="comment" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
