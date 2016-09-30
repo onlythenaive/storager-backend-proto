@@ -3,19 +3,22 @@
            targetNamespace="http://iac.spb.ru/storager/server/integration/providing"
            elementFormDefault="qualified">
 
-    <xs:element name="createPatchRequest">
+    <xs:element name="getPeriodDictionaryRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getPeriodDictionaryResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="comment" type="xs:string"/>
+                <xs:element name="periods" maxOccurs="unbounded" type="tns:periodData"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="createPatchResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="status" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="periodData">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

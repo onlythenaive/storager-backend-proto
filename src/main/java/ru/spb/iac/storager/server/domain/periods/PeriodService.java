@@ -14,7 +14,7 @@ public class PeriodService {
     @Autowired
     private PeriodRepository periodRepository;
 
-    List<PeriodInfo> getAll() {
+    public List<PeriodInfo> getAll() {
         return periodRepository
                 .findAll()
                 .stream()
