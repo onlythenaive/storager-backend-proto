@@ -3,22 +3,134 @@
            targetNamespace="http://iac.spb.ru/storager/server/integration/providing"
            elementFormDefault="qualified">
 
-    <xs:element name="getPeriodDictionaryRequest">
-        <xs:complexType/>
-    </xs:element>
+    <!-- Indicators -->
 
-    <xs:element name="getPeriodDictionaryResponse">
+    <xs:element name="getIndicatorDescendantsRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="periods" maxOccurs="unbounded" type="tns:periodData"/>
+                <xs:element name="ascendantCode" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="periodData">
+    <xs:element name="getIndicatorDescendantsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="descendants" maxOccurs="unbounded" type="tns:indicatorType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getIndicatorRootsRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getIndicatorRootsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="indicators" maxOccurs="unbounded" type="tns:indicatorType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getIndicatorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getIndicatorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="indicator" type="tns:indicatorType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="indicatorType">
         <xs:sequence>
             <xs:element name="code" type="xs:string"/>
             <xs:element name="title" type="xs:string"/>
+            <xs:element name="ascendantCode" type="xs:string"/>
+            <xs:element name="terminal" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Periods -->
+
+    <xs:element name="getPeriodsRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getPeriodsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="periods" maxOccurs="unbounded" type="tns:periodType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="periodType">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Territories -->
+
+    <xs:element name="getTerritoryDescendantsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ascendantCode" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryDescendantsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="descendants" maxOccurs="unbounded" type="tns:territoryType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryRootsRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="getTerritoryRootsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="territories" maxOccurs="unbounded" type="tns:territoryType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="territory" type="tns:territoryType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="territoryType">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="ascendantCode" type="xs:string"/>
+            <xs:element name="terminal" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

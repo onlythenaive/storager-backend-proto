@@ -17,16 +17,16 @@ public class PeriodEndpoint {
     private PeriodService periodService;
 
     @ResponsePayload
-    @PayloadRoot(namespace = NAMESPACE, localPart = "getPeriodDictionaryRequest")
-    public GetPeriodDictionaryResponse getPeriodDictionary(@RequestPayload GetPeriodDictionaryRequest request) {
-        final GetPeriodDictionaryResponse response = new GetPeriodDictionaryResponse();
+    @PayloadRoot(namespace = NAMESPACE, localPart = "getPeriodsRequest")
+    public GetPeriodsResponse getPeriods(@RequestPayload GetPeriodsRequest request) {
+        final GetPeriodsResponse response = new GetPeriodsResponse();
         periodService
                 .getAll()
-                .forEach(period -> {
-                    PeriodData data = new PeriodData();
-                    data.setCode(period.getCode());
-                    data.setTitle(period.getTitle());
-                    response.getPeriods().add(data);
+                .forEach(data -> {
+                    PeriodType period = new PeriodType();
+                    period.setCode(data.getCode());
+                    period.setTitle(data.getTitle());
+                    response.getPeriods().add(period);
                 });
         return response;
     }
