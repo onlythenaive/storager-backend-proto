@@ -13,7 +13,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import ru.spb.iac.storager.server.domain.shared.HierarchicLoopException;
+import ru.spb.iac.storager.server.errors.domain.HierarchicLoopException;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity

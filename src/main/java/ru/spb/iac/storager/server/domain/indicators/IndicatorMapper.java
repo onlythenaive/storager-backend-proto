@@ -2,33 +2,62 @@ package ru.spb.iac.storager.server.domain.indicators;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import ru.spb.iac.storager.server.errors.domain.InvalidPropertyException;
 
 @Service
+@Transactional
 public class IndicatorMapper {
 
     @Autowired
     private IndicatorRepository indicatorRepository;
 
-    public Indicator fromData(final IndicatorData data) {
-        return new Indicator(data.getCode(), data.getTitle(), getAscendant(data));
-    }
-
-    public void withData(final Indicator indicator, final IndicatorData data) {
-        indicator.setCode(data.getCode());
-        indicator.setTitle(data.getTitle());
-        indicator.setAscendant(getAscendant(data));
-    }
-
-    public IndicatorData fromEntity(final Indicator indicator) {
+    public IndicatorData createData(final Indicator indicator) {
         final IndicatorData data = new IndicatorData();
         data.setCode(indicator.getCode());
-        data.setAscendantCode(indicator.getAscendant() != null ? indicator.getAscendant().getCode() : null);
+        data.setAscendantCode(getAscendantCode(indicator));
         data.setTitle(indicator.getTitle());
-        data.setTerminal(indicator.getDescendants().size() == 0);
+        data.setTerminal(isTerminal(indicator));
         return data;
     }
 
-    private Indicator getAscendant(final IndicatorData data) {
-        return data.getAscendantCode() != null ? indicatorRepository.findByCode(data.getAscendantCode()) : null;
+    public Indicator createEntity(final IndicatorData data) {
+        validate(data);
+        return new Indicator(data.getCode(), data.getTitle(), findAscendant(data.getAscendantCode()));
+    }
+
+    public Indicator updateEntity(final Indicator indicator, final IndicatorData data) {
+        validate(data);
+        indicator.setCode(data.getCode());
+        indicator.setTitle(data.getTitle());
+        indicator.setAscendant(findAscendant(data.getAscendantCode()));
+        return indicator;
+    }
+
+    private void validate(final IndicatorData data) {
+        if (data.getCode() == null) {
+            throw InvalidPropertyException.missingProperty("code");
+        }
+        if (data.getTitle() == null) {
+            throw InvalidPropertyException.missingProperty("title");
+        }
+        final String ascendantCode = data.getAscendantCode();
+        final Indicator ascendant = findAscendant(ascendantCode);
+        if (ascendantCode != null && ascendant == null) {
+            throw new InvalidPropertyException("ascendant code must exist", "ascendantCode", ascendantCode);
+        }
+    }
+
+    private Indicator findAscendant(final String ascendantCode) {
+        return ascendantCode != null ? indicatorRepository.findByCode(ascendantCode) : null;
+    }
+
+    private String getAscendantCode(final Indicator indicator) {
+        return indicator.getAscendant() != null ? indicator.getAscendant().getCode() : null;
+    }
+
+    private boolean isTerminal(final Indicator indicator) {
+        return indicator.getDescendants().isEmpty();
     }
 }

@@ -1,8 +1,8 @@
-package ru.spb.iac.storager.server.domain.indicators;
+package ru.spb.iac.storager.server.domain.territories;
 
 import java.io.Serializable;
 
-public final class IndicatorData implements Serializable {
+public final class TerritoryData implements Serializable {
 
     private String code;
     private String ascendantCode;

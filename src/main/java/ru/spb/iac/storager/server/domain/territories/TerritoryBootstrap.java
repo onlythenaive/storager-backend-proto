@@ -18,11 +18,11 @@ public class TerritoryBootstrap {
         territoryService.create(createInfo("1.1", "1", "Территория 1.1"));
     }
 
-    private TerritoryInfo createInfo(String code, String ascendantCode, String title) {
-        TerritoryInfo info = new TerritoryInfo();
-        info.setCode(code);
-        info.setAscendantCode(ascendantCode);
-        info.setTitle(title);
-        return info;
+    private TerritoryData createInfo(final String code, final String ascendantCode, final String title) {
+        final TerritoryData data = new TerritoryData();
+        data.setCode(code);
+        data.setAscendantCode(ascendantCode);
+        data.setTitle(title);
+        return data;
     }
 }

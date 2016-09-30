@@ -12,46 +12,42 @@ import org.springframework.transaction.annotation.Transactional;
 public class TerritoryService {
 
     @Autowired
+    private TerritoryMapper territoryMapper;
+
+    @Autowired
     private TerritoryRepository territoryRepository;
 
-    public TerritoryInfo create(TerritoryInfo info) {
-        Territory territory = new Territory(info.getCode(), info.getTitle(), getAscendant(info));
-        return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
+    public TerritoryData create(final TerritoryData data) {
+        return territoryMapper.createData(territoryRepository.save(territoryMapper.createEntity(data)));
     }
 
-    public TerritoryInfo getByCode(String code) {
-        return TerritoryInfo.fromTerritory(territoryRepository.findByCode(code));
+    public TerritoryData getByCode(final String code) {
+        return territoryMapper.createData(territoryRepository.findByCode(code));
     }
 
-    public List<TerritoryInfo> getDescendants(String code) {
+    public List<TerritoryData> getDescendants(final String code) {
         return territoryRepository
                 .findDescendants(code)
                 .stream()
-                .map(TerritoryInfo::fromTerritory)
+                .map(territoryMapper::createData)
                 .collect(Collectors.toList());
     }
 
-    public List<TerritoryInfo> getRoots() {
+    public List<TerritoryData> getRoots() {
         return territoryRepository
                 .findRoots()
                 .stream()
-                .map(TerritoryInfo::fromTerritory)
+                .map(territoryMapper::createData)
                 .collect(Collectors.toList());
     }
 
-    public void remove(String code) {
+    public void remove(final String code) {
         territoryRepository.delete(territoryRepository.findByCode(code));
     }
 
-    public TerritoryInfo update(String code, TerritoryInfo info) {
-        Territory territory = territoryRepository.findByCode(code);
-        territory.setCode(info.getCode());
-        territory.setTitle(info.getTitle());
-        territory.setAscendant(getAscendant(info));
-        return TerritoryInfo.fromTerritory(territoryRepository.save(territory));
-    }
-
-    private Territory getAscendant(TerritoryInfo info) {
-        return info.getAscendantCode() != null ? territoryRepository.findByCode(info.getAscendantCode()) : null;
+    public TerritoryData update(final String code, final TerritoryData data) {
+        final Territory territory = territoryRepository.findByCode(code);
+        territoryMapper.updateEntity(territory, data);
+        return territoryMapper.createData(territoryRepository.save(territory));
     }
 }

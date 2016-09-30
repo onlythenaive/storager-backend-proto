@@ -1,26 +1,25 @@
-package ru.spb.iac.storager.server.domain.shared;
+package ru.spb.iac.storager.server.errors.domain;
 
 import ru.spb.iac.storager.server.errors.shared.Reason;
 import ru.spb.iac.storager.server.errors.shared.ReasonableException;
 
-public final class HierarchicLoopException extends ReasonableException {
+public final class InvalidCodeException extends ReasonableException {
 
-    public static final class HierarchicLoopReason implements Reason {
+    public static final class InvalidCodeReason implements Reason {
 
         private final String itemCode;
 
-        public HierarchicLoopReason(final String itemCode) {
+        public InvalidCodeReason(final String itemCode) {
             this.itemCode = itemCode;
         }
-
         @Override
         public String getCode() {
-            return "HIERARCHIC_LOOP";
+            return "INVALID_CODE";
         }
 
         @Override
         public String getDescription() {
-            return "hierarchic item cannot be a descendant of itself";
+            return "no item with specified code does not exist";
         }
 
         public String getItemCode() {
@@ -30,8 +29,8 @@ public final class HierarchicLoopException extends ReasonableException {
 
     private final Reason reason;
 
-    public HierarchicLoopException(final String itemCode) {
-        this.reason = new HierarchicLoopReason(itemCode);
+    public InvalidCodeException(final String itemCode) {
+        this.reason = new InvalidCodeReason(itemCode);
     }
 
     @Override
