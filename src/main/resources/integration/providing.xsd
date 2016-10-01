@@ -133,4 +133,63 @@
             <xs:element name="terminal" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
+
+
+
+    <!-- Patches -->
+
+
+
+    <xs:element name="createPatchRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="description" type="xs:string" nillable="false"/>
+                <xs:element name="points" type="tns:pointInvoiceStruct" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="token" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" type="tns:patchInfoStruct" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" type="tns:patchInfoStruct" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="patchInfoStruct">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" nillable="false"/>
+            <xs:element name="createdAt" type="xs:string" nillable="false"/>
+            <xs:element name="status" type="xs:string" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pointInvoiceStruct">
+        <xs:sequence>
+            <xs:element name="real" type="xs:double" nillable="false"/>
+            <xs:element name="plan" type="xs:double" nillable="true"/>
+            <xs:element name="date" type="xs:string" nillable="false"/>
+            <xs:element name="indicator" type="xs:string" nillable="false"/>
+            <xs:element name="period" type="xs:string" nillable="false"/>
+            <xs:element name="territory" type="xs:string" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
