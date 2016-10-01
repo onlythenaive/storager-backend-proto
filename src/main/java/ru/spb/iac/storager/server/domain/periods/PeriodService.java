@@ -12,13 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class PeriodService {
 
     @Autowired
+    private PeriodMapper periodMapper;
+
+    @Autowired
     private PeriodRepository periodRepository;
 
     public List<PeriodInfo> getAll() {
         return periodRepository
                 .findAll()
                 .stream()
-                .map(PeriodInfo::fromPeriod)
+                .map(periodMapper::intoInfo)
                 .collect(Collectors.toList());
     }
 }

@@ -1,10 +1,14 @@
 package ru.spb.iac.storager.server.domain.periods;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-public interface PeriodRepository extends JpaRepository<Period, Integer> {
+public interface PeriodRepository extends Repository<Period, Integer> {
+
+    List<Period> findAll();
 
     Period findByCode(String code);
 }

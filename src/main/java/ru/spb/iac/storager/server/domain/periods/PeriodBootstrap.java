@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableList;
 public class PeriodBootstrap {
 
     @Autowired
-    private PeriodRepository periodRepository;
+    private PeriodBootstrapRepository periodRepository;
 
     public void run() {
         periodRepository.save(ImmutableList.of(

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ru.spb.iac.storager.server.domain.shared.BootstrapConstructor;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
@@ -28,6 +29,7 @@ public class Period {
 
     }
 
+    @BootstrapConstructor
     protected Period(final String code, final String title) {
         this.code = code;
         this.title = title;
