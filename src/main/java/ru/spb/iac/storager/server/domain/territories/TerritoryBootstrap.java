@@ -14,15 +14,19 @@ public class TerritoryBootstrap {
     private TerritoryService territoryService;
 
     public void run() {
-        territoryService.create(createInfo("1", null, "Территория 1"));
-        territoryService.create(createInfo("1.1", "1", "Территория 1.1"));
+        territoryService.create(generate("1", null, "Территория 1", null));
+        territoryService.create(generate("1.1", "1", "Территория 1.1", null));
     }
 
-    private TerritoryData createInfo(final String code, final String ascendantCode, final String title) {
-        final TerritoryData data = new TerritoryData();
-        data.setCode(code);
-        data.setAscendantCode(ascendantCode);
-        data.setTitle(title);
-        return data;
+    private TerritoryProperties generate(final String code,
+                                         final String ascendantCode,
+                                         final String title,
+                                         final String description) {
+        final TerritoryProperties properties = new TerritoryProperties();
+        properties.setCode(code);
+        properties.setAscendantCode(ascendantCode);
+        properties.setTitle(title);
+        properties.setDescription(description);
+        return properties;
     }
 }

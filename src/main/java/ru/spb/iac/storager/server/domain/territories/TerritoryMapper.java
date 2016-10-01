@@ -2,31 +2,34 @@ package ru.spb.iac.storager.server.domain.territories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class TerritoryMapper {
 
     @Autowired
     private TerritoryRepository territoryRepository;
 
-    public TerritoryData createData(final Territory territory) {
-        final TerritoryData data = new TerritoryData();
-        data.setCode(territory.getCode());
-        data.setAscendantCode(getAscendantCode(territory));
-        data.setTitle(territory.getTitle());
-        data.setTerminal(isTerminal(territory));
-        return data;
+    public TerritoryInfo intoInfo(final Territory territory) {
+        final String code = territory.getCode();
+        final String ascendantCode = getAscendantCode(territory);
+        final String title = territory.getTitle();
+        final String description = territory.getDescription();
+        final Boolean terminal = isTerminal(territory);
+        return new TerritoryInfo(code, ascendantCode, title, description, terminal);
     }
 
-    public Territory createEntity(final TerritoryData data) {
-        return new Territory(data.getCode(), data.getTitle(), getAscendant(data.getAscendantCode()));
+    public Territory intoEntity(final TerritoryProperties properties) {
+        return intoEntity(properties, new Territory());
     }
 
-    public Territory updateEntity(final Territory territory, final TerritoryData data) {
-        territory.setCode(data.getCode());
-        territory.setTitle(data.getTitle());
-        territory.setAscendant(getAscendant(data.getAscendantCode()));
-        return territory;
+    public Territory intoEntity(final TerritoryProperties properties, final Territory entity) {
+        entity.setCode(properties.getCode());
+        entity.setAscendant(getAscendant(properties.getAscendantCode()));
+        entity.setTitle(properties.getTitle());
+        entity.setDescription(properties.getDescription());
+        return entity;
     }
 
     private Territory getAscendant(final String ascendantCode) {

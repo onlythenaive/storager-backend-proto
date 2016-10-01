@@ -22,25 +22,25 @@ public class TerritoryController {
     private TerritoryService territoryService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public TerritoryData create(@RequestBody TerritoryData data) {
+    public TerritoryInfo create(@RequestBody TerritoryProperties properties) {
         securityContext.userAuthorizedWith("ADMIN");
-        return territoryService.create(data);
+        return territoryService.create(properties);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
-    public TerritoryData getByCode(@PathVariable(name = "code") String code) {
+    public TerritoryInfo getByCode(@PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return territoryService.getByCode(code);
     }
 
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
-    public List<TerritoryData> getDescendants(@PathVariable(name = "code") String code) {
+    public List<TerritoryInfo> getDescendants(@PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return territoryService.getDescendants(code);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<TerritoryData> getRoots() {
+    public List<TerritoryInfo> getRoots() {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return territoryService.getRoots();
     }
@@ -52,8 +52,9 @@ public class TerritoryController {
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
-    public TerritoryData update(@PathVariable(name = "code") String code, @RequestBody TerritoryData data) {
+    public TerritoryInfo update(@PathVariable(name = "code") String code,
+                                @RequestBody TerritoryProperties properties) {
         securityContext.userAuthorizedWith("ADMIN");
-        return territoryService.update(code, data);
+        return territoryService.update(code, properties);
     }
 }
