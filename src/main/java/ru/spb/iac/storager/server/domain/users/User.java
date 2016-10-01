@@ -13,6 +13,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import ru.spb.iac.storager.server.domain.shared.BootstrapConstructor;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 
 @Entity
@@ -56,6 +57,7 @@ public class User {
 
     }
 
+    @BootstrapConstructor
     protected User(final String login, final String secret, final String email, final String fullname,
                    final boolean enabled, final boolean root, final String roles) {
         this.login = login;

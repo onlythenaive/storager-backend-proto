@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private UserRepository userRepository;
 
-    UserInfo getByLogin(String login) {
-        return UserInfo.fromUser(userRepository.findByLogin(login));
+    UserData getByLogin(final String login) {
+        return userMapper.intoData(userRepository.findByLogin(login));
     }
 }

@@ -3,19 +3,7 @@ package ru.spb.iac.storager.server.domain.users;
 import java.io.Serializable;
 import java.util.Set;
 
-public class UserInfo implements Serializable {
-
-    public static UserInfo fromUser(User user) {
-        UserInfo result = new UserInfo();
-        result.setLogin(user.getLogin());
-        result.setEmail(user.getEmail());
-        result.setFullname(user.getFullname());
-        result.setRegisteredAt(user.getRegisteredAt().toString());
-        result.setEnabled(user.getEnabled());
-        result.setRoot(user.getRoot());
-        result.setRoles(user.getRolesParsed());
-        return result;
-    }
+public final class UserData implements Serializable {
 
     private String login;
     private String email;
@@ -29,7 +17,7 @@ public class UserInfo implements Serializable {
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(final String login) {
         this.login = login;
     }
 
@@ -37,7 +25,7 @@ public class UserInfo implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -45,7 +33,7 @@ public class UserInfo implements Serializable {
         return fullname;
     }
 
-    public void setFullname(String fullname) {
+    public void setFullname(final String fullname) {
         this.fullname = fullname;
     }
 
@@ -53,7 +41,7 @@ public class UserInfo implements Serializable {
         return registeredAt;
     }
 
-    public void setRegisteredAt(String registeredAt) {
+    public void setRegisteredAt(final String registeredAt) {
         this.registeredAt = registeredAt;
     }
 
@@ -61,7 +49,7 @@ public class UserInfo implements Serializable {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(final Boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -69,7 +57,7 @@ public class UserInfo implements Serializable {
         return root;
     }
 
-    public void setRoot(Boolean root) {
+    public void setRoot(final Boolean root) {
         this.root = root;
     }
 
@@ -77,7 +65,7 @@ public class UserInfo implements Serializable {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(final Set<String> roles) {
         this.roles = roles;
     }
 }
