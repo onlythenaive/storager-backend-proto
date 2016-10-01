@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
 @Table(name = "territories")
@@ -42,6 +43,7 @@ public class Territory {
     private List<Territory> descendants;
 
     @JpaConstructor
+    @MapperConstructor
     protected Territory() {
         this.descendants = new ArrayList<>();
     }
