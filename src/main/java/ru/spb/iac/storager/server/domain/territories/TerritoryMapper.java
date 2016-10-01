@@ -1,5 +1,8 @@
 package ru.spb.iac.storager.server.domain.territories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +19,9 @@ public class TerritoryMapper {
         final String ascendantCode = getAscendantCode(territory);
         final String title = territory.getTitle();
         final String description = territory.getDescription();
+        final List<String> path = getPath(territory);
         final Boolean terminal = isTerminal(territory);
-        return new TerritoryInfo(code, ascendantCode, title, description, terminal);
+        return new TerritoryInfo(code, ascendantCode, title, description, path, terminal);
     }
 
     public Territory intoEntity(final TerritoryProperties properties) {
@@ -38,6 +42,18 @@ public class TerritoryMapper {
 
     private String getAscendantCode(final Territory territory) {
         return territory.getAscendant() != null ? territory.getAscendant().getCode() : null;
+    }
+
+    private List<String> getPath(final Territory territory) {
+        return addToPath(territory.getAscendant(), new ArrayList<>());
+    }
+
+    private List<String> addToPath(final Territory territory, final List<String> path) {
+        if (territory != null) {
+            addToPath(territory.getAscendant(), path);
+            path.add(territory.getCode());
+        }
+        return path;
     }
 
     private boolean isTerminal(final Territory territory) {
