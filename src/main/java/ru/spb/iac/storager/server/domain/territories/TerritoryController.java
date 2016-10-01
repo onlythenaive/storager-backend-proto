@@ -39,7 +39,7 @@ public class TerritoryController {
         return territoryService.getDescendants(code);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path = "/roots", method = RequestMethod.GET)
     public List<TerritoryInfo> getRoots() {
         securityContext.userAuthorizedWith("USER", "ADMIN");
         return territoryService.getRoots();
