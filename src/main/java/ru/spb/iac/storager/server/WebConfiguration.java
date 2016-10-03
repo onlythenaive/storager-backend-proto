@@ -34,6 +34,13 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+    }
+
+    @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer.setUseSuffixPatternMatch(false);
     }

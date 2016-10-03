@@ -2,16 +2,18 @@ buildscript {
 
     repositories {
 
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
+
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
 
 group 'ru.spb.iac.storager'
 version '1.0.0-SNAPSHOT'
@@ -21,7 +23,7 @@ targetCompatibility = 1.8
 
 repositories {
 
-    mavenCentral()
+    jcenter()
 }
 
 task genJaxb {
@@ -69,12 +71,9 @@ configurations {
     jaxb
 }
 
-jar {
+war {
 
-    manifest {
-    }
-
-    archiveName 'storager-server.jar'
+    archiveName 'storager-server.war'
     from genJaxb.classesDir
 }
 
@@ -86,6 +85,7 @@ dependencies {
 
     compile     group: 'org.springframework.boot',  name:  'spring-boot-starter-web'
     compile     group: 'org.springframework.boot',  name:  'spring-boot-starter-data-jpa'
+    providedRuntime     group: 'org.springframework.boot',      name: 'spring-boot-starter-tomcat'
 
     compile     group: 'org.hsqldb',                name:  'hsqldb',                       version: '2.3.1'
 
