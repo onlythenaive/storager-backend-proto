@@ -9,12 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import ru.spb.iac.storager.server.errors.domain.HierarchicLoopException;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
 @Table(name = "territories")
@@ -25,11 +24,16 @@ public class Territory {
     @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
+    @NotNull
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
+    @NotNull
     @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "ascendant_id")
@@ -39,14 +43,8 @@ public class Territory {
     private List<Territory> descendants;
 
     @JpaConstructor
+    @MapperConstructor
     protected Territory() {
-
-    }
-
-    public Territory(final String code, final String title, final Territory ascendant) {
-        this.code = code;
-        this.title = title;
-        this.ascendant = ascendant;
         this.descendants = new ArrayList<>();
     }
 
@@ -70,6 +68,14 @@ public class Territory {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
     public Territory getAscendant() {
         return ascendant;
     }
@@ -80,13 +86,5 @@ public class Territory {
 
     public List<Territory> getDescendants() {
         return descendants;
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void onPersistAndUpdate() {
-        if (ascendant != null && ascendant.getCode().equals(code)) {
-            throw new HierarchicLoopException(code);
-        }
     }
 }

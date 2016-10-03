@@ -19,7 +19,7 @@ public final class InvalidCodeException extends ReasonableException {
 
         @Override
         public String getDescription() {
-            return "no item with specified code does not exist";
+            return "no item with specified code does exist";
         }
 
         public String getItemCode() {
