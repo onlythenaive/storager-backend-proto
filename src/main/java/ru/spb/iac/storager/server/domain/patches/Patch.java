@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Patch {
     @Column(name = "status", nullable = false, updatable = false)
     private String status;
 
-    @OneToMany(mappedBy = "patch")
+    @OneToMany(mappedBy = "patch", cascade = CascadeType.ALL)
     private List<Point> points;
 
     @ManyToOne
