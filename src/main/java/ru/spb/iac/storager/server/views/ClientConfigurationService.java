@@ -1,6 +1,7 @@
 package ru.spb.iac.storager.server.views;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 
 @Service
