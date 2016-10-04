@@ -30,7 +30,7 @@ public class PatchController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public PatchInfo getById(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return patchService.getById(id);
     }
 
@@ -41,7 +41,7 @@ public class PatchController {
                                           @RequestParam(name = "createdUntil", required = false) String createdUntil,
                                           @RequestParam(name = "page", defaultValue = "1") int page,
                                           @RequestParam(name = "size", defaultValue = "10") int size) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return patchService.getPage(providerTitle, status, createdSince, createdUntil, page, size);
     }
 

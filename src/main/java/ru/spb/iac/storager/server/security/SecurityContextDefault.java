@@ -20,8 +20,20 @@ public class SecurityContextDefault implements SecurityContextConfigurer {
         return userAuthentication;
     }
 
+    public void setUserAuthentication(final UserAuthentication userAuthentication) {
+        this.userAuthentication = userAuthentication;
+    }
+
     @Override
-    public UserAuthentication userAuthorizedWith(final String... roles) {
+    public UserAuthentication userAuthenticated() {
+        if (userAuthentication == null) {
+            throw new NotAuthenticatedException();
+        }
+        return userAuthentication;
+    }
+
+    @Override
+    public UserAuthentication userAuthorizedWithAny(final String... roles) {
         if (userAuthentication == null) {
             throw new NotAuthenticatedException();
         }
@@ -37,9 +49,5 @@ public class SecurityContextDefault implements SecurityContextConfigurer {
             }
         }
         throw new NotAuthorizedException(userAuthentication.getLogin(), new HashSet<>(Arrays.asList(roles)));
-    }
-
-    public void setUserAuthentication(final UserAuthentication userAuthentication) {
-        this.userAuthentication = userAuthentication;
     }
 }

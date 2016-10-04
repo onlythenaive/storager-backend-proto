@@ -18,20 +18,18 @@ public class SecurityController {
     private SecurityService securityService;
 
     @RequestMapping(path = "/logon", method = RequestMethod.POST)
-    public UserAuthenticationInfo logon(@RequestBody UserCredentialData credentials) {
+    public UserAuthenticationInfo logon(@RequestBody final UserCredentialData credentials) {
         return securityService.authenticateByCredentials(credentials).toAuthenticationInfo();
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.POST)
     public void logout(@RequestParam(name = "all", defaultValue = "false") boolean all) {
-        final UserAuthentication authentication = securityContext.getUserAuthentication();
-        if (authentication != null) {
-            if (all) {
-                securityService.deauthenticateByLogin(authentication.getLogin());
-            } else {
-                if (authentication.hasToken()) {
-                    securityService.deauthenticateByToken(authentication.getToken().getId());
-                }
+        final UserAuthentication authentication = securityContext.userAuthenticated();
+        if (all) {
+            securityService.deauthenticateByLogin(authentication.getLogin());
+        } else {
+            if (authentication.hasToken()) {
+                securityService.deauthenticateByToken(authentication.getToken().getId());
             }
         }
     }

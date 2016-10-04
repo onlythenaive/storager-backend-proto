@@ -4,9 +4,7 @@ public interface SecurityContext {
 
     UserAuthentication getUserAuthentication();
 
-    UserAuthentication userAuthorizedWith(String... roles);
+    UserAuthentication userAuthenticated();
 
-    default UserAuthentication userAuthorizedWithAnyRole() {
-        return userAuthorizedWith();
-    }
+    UserAuthentication userAuthorizedWithAny(String... roles);
 }

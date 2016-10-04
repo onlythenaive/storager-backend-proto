@@ -14,7 +14,9 @@ public final class UserToken {
 
     private Instant lastUpdate;
 
-    public UserToken(final String login, final Duration deactivation, final Duration expiration) {
+    public UserToken(final String login,
+                     final Duration deactivation,
+                     final Duration expiration) {
         this.id = UUID.randomUUID().toString();
         this.login = login;
         this.creation = Instant.now();

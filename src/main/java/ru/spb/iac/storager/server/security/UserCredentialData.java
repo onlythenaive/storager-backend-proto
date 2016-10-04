@@ -1,8 +1,6 @@
 package ru.spb.iac.storager.server.security;
 
-import java.io.Serializable;
-
-public class UserCredentialData implements Serializable {
+public final class UserCredentialData {
 
     private String login;
     private String secret;

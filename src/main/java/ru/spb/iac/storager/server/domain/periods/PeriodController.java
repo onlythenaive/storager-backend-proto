@@ -21,7 +21,7 @@ public class PeriodController {
 
     @RequestMapping(method = RequestMethod.GET)
     Collection<PeriodInfo> getAll() {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return periodService.getAll();
     }
 }

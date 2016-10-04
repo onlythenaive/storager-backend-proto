@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping(path = "/current", method = RequestMethod.GET)
     public UserInfo getCurrent() {
-        final UserAuthentication authentication = securityContext.userAuthorizedWithAnyRole();
+        final UserAuthentication authentication = securityContext.userAuthenticated();
         return userService.getByLogin(authentication.getLogin());
     }
 }

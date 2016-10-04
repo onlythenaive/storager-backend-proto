@@ -19,7 +19,9 @@ public class UserSecurityInterceptor extends HandlerInterceptorAdapter {
     private SecurityService securityService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+    public boolean preHandle(final HttpServletRequest request,
+                             final HttpServletResponse response,
+                             final Object object) throws Exception {
         final String tokenId = request.getHeader(authTokenHeader);
         securityContext.setUserAuthentication(authenticate(tokenId));
         return true;

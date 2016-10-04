@@ -23,38 +23,38 @@ public class TerritoryController {
 
     @RequestMapping(method = RequestMethod.POST)
     public TerritoryInfo create(@RequestBody TerritoryProperties properties) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return territoryService.create(properties);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
     public TerritoryInfo getByCode(@PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return territoryService.getByCode(code);
     }
 
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
     public List<TerritoryInfo> getDescendants(@PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return territoryService.getDescendants(code);
     }
 
     @RequestMapping(path = "/roots", method = RequestMethod.GET)
     public List<TerritoryInfo> getRoots() {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return territoryService.getRoots();
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
     public void remove(@PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         territoryService.remove(code);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
     public TerritoryInfo update(@PathVariable(name = "code") String code,
                                 @RequestBody TerritoryProperties properties) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return territoryService.update(code, properties);
     }
 }

@@ -25,44 +25,44 @@ public class ProviderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ProviderInfo create(@RequestBody ProviderInfo info) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return providerService.create(info);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ProviderInfo getById(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return providerService.getById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public PagedResult<ProviderInfo> getPage(@RequestParam(name = "page", defaultValue = "1") Integer page,
                                              @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return providerService.getPage(page, size);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void remove(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         providerService.remove(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ProviderInfo update(@PathVariable(name = "id") Integer id, @RequestBody ProviderInfo info) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return providerService.update(id, info);
     }
 
     @RequestMapping(path = "/{id}/grants", method = RequestMethod.PUT)
     public ProviderInfo updateGrants(@PathVariable(name = "id") Integer id, @RequestBody List<String> grants) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return providerService.updateGrants(id, grants);
     }
 
     @RequestMapping(path = "/{id}/token", method = RequestMethod.PUT)
     public ProviderInfo updateToken(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return providerService.updateToken(id);
     }
 }

@@ -23,37 +23,37 @@ public class IndicatorController {
 
     @RequestMapping(method = RequestMethod.POST)
     public IndicatorData create(@RequestBody IndicatorData data) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return indicatorService.create(data);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
     public IndicatorData getByCode(@PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return indicatorService.getByCode(code);
     }
 
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
     public List<IndicatorData> getDescendants(@PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return indicatorService.getDescendants(code);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<IndicatorData> getRoots() {
-        securityContext.userAuthorizedWith("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return indicatorService.getRoots();
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
     public void remove(@PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         indicatorService.remove(code);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
     public IndicatorData update(@PathVariable(name = "code") String code, @RequestBody IndicatorData data) {
-        securityContext.userAuthorizedWith("ADMIN");
+        securityContext.userAuthorizedWithAny("ADMIN");
         return indicatorService.update(code, data);
     }
 }
