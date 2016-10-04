@@ -7,15 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserMapper {
 
-    public UserData intoData(final User entity) {
-        final UserData data = new UserData();
-        data.setLogin(entity.getLogin());
-        data.setEmail(entity.getEmail());
-        data.setFullname(entity.getFullname());
-        data.setRegisteredAt(entity.getRegisteredAt().toString());
-        data.setEnabled(entity.getEnabled());
-        data.setRoot(entity.getRoot());
-        data.setRoles(entity.getRolesParsed());
-        return data;
+    public UserInfo intoInfo(final User entity) {
+        return new UserInfo(
+                entity.getLogin(),
+                entity.getEmail(),
+                entity.getFullname(),
+                entity.getRegisteredAt().toString(),
+                entity.getEnabled(),
+                entity.getRoot(),
+                entity.getRolesParsed()
+        );
     }
 }

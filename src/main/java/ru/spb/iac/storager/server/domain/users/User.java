@@ -58,8 +58,13 @@ public class User {
     }
 
     @BootstrapConstructor
-    protected User(final String login, final String secret, final String email, final String fullname,
-                   final boolean enabled, final boolean root, final String roles) {
+    protected User(final String login,
+                   final String secret,
+                   final String email,
+                   final String fullname,
+                   final boolean enabled,
+                   final boolean root,
+                   final String roles) {
         this.login = login;
         this.secret = secret;
         this.email = email;

@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(path = "/current", method = RequestMethod.GET)
-    public UserData getCurrent() {
+    public UserInfo getCurrent() {
         final UserAuthentication authentication = securityContext.userAuthorizedWithAnyRole();
         return userService.getByLogin(authentication.getLogin());
     }

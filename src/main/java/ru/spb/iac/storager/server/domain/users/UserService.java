@@ -14,7 +14,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    UserData getByLogin(final String login) {
-        return userMapper.intoData(userRepository.findByLogin(login));
+    UserInfo getByLogin(final String login) {
+        if (login == null) {
+            // TODO: throw reasonable exception for missing login
+            throw new RuntimeException();
+        }
+        final User user = userRepository.findByLogin(login);
+        if (user == null) {
+            // TODO: throw reasonable exception for missing user
+            throw new RuntimeException();
+        }
+        return userMapper.intoInfo(user);
     }
 }
