@@ -74,7 +74,7 @@ configurations {
 war {
 
     archiveName 'storager-server.war'
-    from genJaxb.classesDir
+//    from genJaxb.classesDir
 }
 
 dependencies {
@@ -95,6 +95,7 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-ws")
     compile("wsdl4j:wsdl4j:1.6.1")
+    compile     group: 'com.github.jknack',         name: 'handlebars',                     version: '4.0.6'
     jaxb("com.sun.xml.bind:jaxb-xjc:2.2.4-1")
     compile(files(genJaxb.classesDir).builtBy(genJaxb))
 }
