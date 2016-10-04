@@ -35,7 +35,19 @@ public class PatchCreationService {
     private TerritoryRepository territoryRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public PatchInfo create(PatchInvoice invoice) {
+    public PatchInfo create(final PatchInvoice invoice) {
+        final Patch patch = intoEntity(invoice);
+        return PatchInfo.fromPatch(patchRepository.save(patch));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = PatchRollbackException.class)
+    public void createAndRollback(final PatchInvoice invoice) throws PatchRollbackException {
+        final Patch patch = intoEntity(invoice);
+        PatchInfo info = PatchInfo.fromPatch(patchRepository.save(patch));
+        throw new PatchRollbackException(info);
+    }
+
+    private Patch intoEntity(final PatchInvoice invoice) {
         String comment = invoice.getComment();
         Provider provider = providerRepository.findByToken(invoice.getProviderToken());
         Patch patch = new Patch(comment, "SUCCESS", provider);
@@ -48,6 +60,6 @@ public class PatchCreationService {
             Territory territory = territoryRepository.findByCode(p.getTerritoryCode());
             patch.getPoints().add(new Point(real, plan, time, indicator, patch, period, territory));
         });
-        return PatchInfo.fromPatch(patchRepository.save(patch));
+        return patch;
     }
 }

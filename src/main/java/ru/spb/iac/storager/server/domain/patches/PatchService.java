@@ -27,7 +27,7 @@ public class PatchService {
     @Autowired
     private PatchCreationService patchCreationService;
 
-    public PatchInfo create(PatchInvoice invoice) {
+    public PatchInfo create(final PatchInvoice invoice) {
         try {
             return patchCreationService.create(invoice);
         } catch (Exception exception) {
@@ -37,6 +37,15 @@ public class PatchService {
             Patch failedPatch = new Patch(comment, "FAILED", provider);
             return PatchInfo.fromPatch(patchRepository.save(failedPatch));
         }
+    }
+
+    public PatchInfo createAndRollback(final PatchInvoice invoice) {
+        try {
+            patchCreationService.createAndRollback(invoice);
+        } catch (PatchRollbackException exception) {
+            return exception.getInfo();
+        }
+        throw new RuntimeException("should never come here");
     }
 
     public PatchInfo getById(Integer id) {
