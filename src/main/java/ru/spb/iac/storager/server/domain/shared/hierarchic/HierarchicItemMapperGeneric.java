@@ -21,7 +21,13 @@ public abstract class HierarchicItemMapperGeneric<T extends HierarchicItem<T>> i
 
     @Override
     public HierarchicItemInfo intoInfo(final T entity) {
-        return null;
+        final String code = entity.getCode();
+        final String ascendantCode = getAscendantCode(entity);
+        final String title = entity.getTitle();
+        final String description = entity.getDescription();
+        final List<String> path = getPath(entity);
+        final Boolean terminal = isTerminal(entity);
+        return new HierarchicItemInfo(code, ascendantCode, title, description, path, terminal);
     }
 
     protected abstract HierarchicItemRepository<T> getRepository();

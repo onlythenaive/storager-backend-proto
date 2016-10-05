@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemController;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemProperties;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemService;
 import ru.spb.iac.storager.server.security.SecurityContext;
 
 @RestController
 @RequestMapping("/data/indicators")
-public class IndicatorController {
+public class IndicatorController extends HierarchicItemController {
 
     @Autowired
     private SecurityContext securityContext;
@@ -21,40 +25,51 @@ public class IndicatorController {
     @Autowired
     private IndicatorService service;
 
+    @Override
     @RequestMapping(method = RequestMethod.POST)
-    public IndicatorInfo create(final @RequestBody IndicatorProperties properties) {
+    public HierarchicItemInfo create(final @RequestBody HierarchicItemProperties properties) {
         securityContext.userAuthorizedWithAny("ADMIN");
-        return service.create(properties);
+        return super.create(properties);
     }
 
+    @Override
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
-    public IndicatorInfo getByCode(final @PathVariable(name = "code") String code) {
+    public HierarchicItemInfo getByCode(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return service.getByCode(code);
+        return super.getByCode(code);
     }
 
+    @Override
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
-    public List<IndicatorInfo> getDescendants(final @PathVariable(name = "code") String code) {
+    public List<HierarchicItemInfo> getDescendants(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return service.getDescendants(code);
+        return super.getDescendants(code);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<IndicatorInfo> getRoots() {
+    @Override
+    @RequestMapping(path = "/roots", method = RequestMethod.GET)
+    public List<HierarchicItemInfo> getRoots() {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return service.getRoots();
+        return super.getRoots();
     }
 
+    @Override
     @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
     public void remove(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("ADMIN");
-        service.remove(code);
+        super.remove(code);
     }
 
+    @Override
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
-    public IndicatorInfo update(final @PathVariable(name = "code") String code,
-                                      final @RequestBody IndicatorProperties properties) {
+    public HierarchicItemInfo update(final @PathVariable(name = "code") String code,
+                                     final @RequestBody HierarchicItemProperties properties) {
         securityContext.userAuthorizedWithAny("ADMIN");
-        return service.update(code, properties);
+        return super.update(code, properties);
+    }
+
+    @Override
+    protected HierarchicItemService getService() {
+        return service;
     }
 }

@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemProperties;
+
 @Component
 @Transactional
 @Profile("dev.local")
@@ -34,11 +36,11 @@ public class IndicatorBootstrap {
         service.create(properties("4", null, "Показатель 4", "Верхний уровень"));
     }
 
-    private IndicatorProperties properties(final String code,
-                                           final String ascendantCode,
-                                           final String title,
-                                           final String description) {
-        final IndicatorProperties properties = new IndicatorProperties();
+    private HierarchicItemProperties properties(final String code,
+                                                final String ascendantCode,
+                                                final String title,
+                                                final String description) {
+        final HierarchicItemProperties properties = new HierarchicItemProperties();
         properties.setCode(code);
         properties.setAscendantCode(ascendantCode);
         properties.setTitle(title);

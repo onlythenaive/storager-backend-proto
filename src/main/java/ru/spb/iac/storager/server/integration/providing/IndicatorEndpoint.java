@@ -6,8 +6,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import ru.spb.iac.storager.server.domain.indicators.IndicatorInfo;
 import ru.spb.iac.storager.server.domain.indicators.IndicatorService;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
 
 @Endpoint
 public class IndicatorEndpoint {
@@ -21,7 +21,7 @@ public class IndicatorEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorRequest")
     public GetIndicatorResponse getIndicator(@RequestPayload GetIndicatorRequest request) {
         final GetIndicatorResponse response = new GetIndicatorResponse();
-        final IndicatorInfo info = indicatorService.getByCode(request.getCode());
+        final HierarchicItemInfo info = indicatorService.getByCode(request.getCode());
         final IndicatorType indicator = new IndicatorType();
         indicator.setCode(info.getCode());
         indicator.setTitle(info.getTitle());
