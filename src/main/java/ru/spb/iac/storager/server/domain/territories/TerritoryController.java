@@ -19,42 +19,42 @@ public class TerritoryController {
     private SecurityContext securityContext;
 
     @Autowired
-    private TerritoryService territoryService;
+    private TerritoryService service;
 
     @RequestMapping(method = RequestMethod.POST)
     public TerritoryInfo create(final @RequestBody TerritoryProperties properties) {
         securityContext.userAuthorizedWithAny("ADMIN");
-        return territoryService.create(properties);
+        return service.create(properties);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
     public TerritoryInfo getByCode(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return territoryService.getByCode(code);
+        return service.getByCode(code);
     }
 
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
     public List<TerritoryInfo> getDescendants(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return territoryService.getDescendants(code);
+        return service.getDescendants(code);
     }
 
     @RequestMapping(path = "/roots", method = RequestMethod.GET)
     public List<TerritoryInfo> getRoots() {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return territoryService.getRoots();
+        return service.getRoots();
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
     public void remove(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("ADMIN");
-        territoryService.remove(code);
+        service.remove(code);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
     public TerritoryInfo update(final @PathVariable(name = "code") String code,
                                 final @RequestBody TerritoryProperties properties) {
         securityContext.userAuthorizedWithAny("ADMIN");
-        return territoryService.update(code, properties);
+        return service.update(code, properties);
     }
 }
