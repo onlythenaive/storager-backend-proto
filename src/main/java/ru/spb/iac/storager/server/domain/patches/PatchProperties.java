@@ -1,15 +1,14 @@
 package ru.spb.iac.storager.server.domain.patches;
 
-import java.io.Serializable;
 import java.util.List;
 
-import ru.spb.iac.storager.server.domain.points.PointInvoice;
+import ru.spb.iac.storager.server.domain.points.PointProperties;
 
-public class PatchInvoice implements Serializable {
+public final class PatchProperties {
 
     private String comment;
     private String providerToken;
-    private List<PointInvoice> points;
+    private List<PointProperties> points;
 
     public String getComment() {
         return comment;
@@ -27,11 +26,11 @@ public class PatchInvoice implements Serializable {
         this.providerToken = providerToken;
     }
 
-    public List<PointInvoice> getPoints() {
+    public List<PointProperties> getPoints() {
         return points;
     }
 
-    public void setPoints(List<PointInvoice> points) {
+    public void setPoints(List<PointProperties> points) {
         this.points = points;
     }
 }

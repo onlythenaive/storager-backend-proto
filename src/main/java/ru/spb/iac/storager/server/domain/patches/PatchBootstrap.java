@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.spb.iac.storager.server.domain.points.PointInvoice;
+import ru.spb.iac.storager.server.domain.points.PointProperties;
 import ru.spb.iac.storager.server.domain.providers.ProviderRepository;
 
 @Component
@@ -23,26 +23,28 @@ public class PatchBootstrap {
     private ProviderRepository providerRepository;
 
     public void run() {
-        patchService.create(generateInvoice("Организация А", "Тестовая загрузка 1", new String[]{"1", "1.1"}));
-        patchService.create(generateInvoice("Организация А", "Тестовая загрузка 2", new String[]{"1", "1.1"}));
-        patchService.create(generateInvoice("Организация А", "Тестовая загрузка 3", new String[]{"1", "1.1"}));
-        patchService.create(generateInvoice("Организация А", "Тестовая загрузка 4", new String[]{"1", "1.1"}));
+        patchService.create(properties("Организация А", "Тестовая загрузка 1", new String[]{"1", "1.1"}));
+        patchService.create(properties("Организация А", "Тестовая загрузка 2", new String[]{"1", "1.1"}));
+        patchService.create(properties("Организация А", "Тестовая загрузка 3", new String[]{"1", "1.1"}));
+        patchService.create(properties("Организация А", "Тестовая загрузка 4", new String[]{"1", "1.1"}));
     }
 
-    private PatchInvoice generateInvoice(String providerTitle, String comment, String[] indicatorCodes) {
-        PatchInvoice invoice = new PatchInvoice();
-        invoice.setComment(comment);
-        invoice.setProviderToken(providerRepository.findByTitle(providerTitle).getToken());
-        List<PointInvoice> points = new ArrayList<>();
+    private PatchProperties properties(final String providerTitle,
+                                       final String comment,
+                                       final String[] indicatorCodes) {
+        final PatchProperties properties = new PatchProperties();
+        properties.setComment(comment);
+        properties.setProviderToken(providerRepository.findByTitle(providerTitle).getToken());
+        final List<PointProperties> points = new ArrayList<>();
         for (String indicatorCode : indicatorCodes) {
-            points.add(generatePointInvoice(indicatorCode));
+            points.add(pointProperties(indicatorCode));
         }
-        invoice.setPoints(points);
-        return invoice;
+        properties.setPoints(points);
+        return properties;
     }
 
-    private PointInvoice generatePointInvoice(String indicatorCode) {
-        PointInvoice invoice = new PointInvoice();
+    private PointProperties pointProperties(final String indicatorCode) {
+        PointProperties invoice = new PointProperties();
         invoice.setIndicatorCode(indicatorCode);
         invoice.setPeriodCode("MONTH");
         invoice.setPlan(9000.0);

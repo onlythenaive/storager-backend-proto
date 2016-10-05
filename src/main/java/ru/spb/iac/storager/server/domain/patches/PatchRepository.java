@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PatchRepository extends PagingAndSortingRepository<Patch, Integer> {
 
+    @Transactional(readOnly = true)
     @Query("SELECT p FROM Patch AS p " +
             "WHERE p.provider.title LIKE :providerTitle AND p.status LIKE :status " +
             "AND p.createdAt >= :createdSince AND p.createdAt <= :createdUntil")

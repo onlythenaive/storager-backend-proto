@@ -1,32 +1,21 @@
 package ru.spb.iac.storager.server.domain.patches;
 
-import java.io.Serializable;
+public final class PatchIndicatorInfo {
 
-public class PatchIndicatorInfo implements Serializable {
+    private final String indicatorCode;
+    private final Integer totalPoints;
 
-    public static PatchIndicatorInfo of(String indicatorCode, Integer totalPoints) {
-        PatchIndicatorInfo info = new PatchIndicatorInfo();
-        info.indicatorCode = indicatorCode;
-        info.totalPoints = totalPoints;
-        return info;
+    public PatchIndicatorInfo(final String indicatorCode,
+                              final Integer totalPoints) {
+        this.indicatorCode = indicatorCode;
+        this.totalPoints = totalPoints;
     }
-
-    private String indicatorCode;
-    private Integer totalPoints;
 
     public String getIndicatorCode () {
         return indicatorCode;
     }
 
-    public void setIndicatorCode (final String indicatorCode) {
-        this.indicatorCode = indicatorCode;
-    }
-
     public Integer getTotalPoints () {
         return totalPoints;
-    }
-
-    public void setTotalPoints (final Integer totalPoints) {
-        this.totalPoints = totalPoints;
     }
 }

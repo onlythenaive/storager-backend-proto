@@ -1,8 +1,6 @@
 package ru.spb.iac.storager.server.domain.points;
 
-import java.io.Serializable;
-
-public class PointInvoice implements Serializable {
+public final class PointProperties {
 
     private Double real;
     private Double plan;
@@ -15,7 +13,7 @@ public class PointInvoice implements Serializable {
         return real;
     }
 
-    public void setReal(Double real) {
+    public void setReal(final Double real) {
         this.real = real;
     }
 
@@ -23,7 +21,7 @@ public class PointInvoice implements Serializable {
         return plan;
     }
 
-    public void setPlan(Double plan) {
+    public void setPlan(final Double plan) {
         this.plan = plan;
     }
 
@@ -31,7 +29,7 @@ public class PointInvoice implements Serializable {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(final String time) {
         this.time = time;
     }
 
@@ -39,7 +37,7 @@ public class PointInvoice implements Serializable {
         return indicatorCode;
     }
 
-    public void setIndicatorCode(String indicatorCode) {
+    public void setIndicatorCode(final String indicatorCode) {
         this.indicatorCode = indicatorCode;
     }
 
@@ -47,7 +45,7 @@ public class PointInvoice implements Serializable {
         return periodCode;
     }
 
-    public void setPeriodCode(String periodCode) {
+    public void setPeriodCode(final String periodCode) {
         this.periodCode = periodCode;
     }
 
@@ -55,7 +53,7 @@ public class PointInvoice implements Serializable {
         return territoryCode;
     }
 
-    public void setTerritoryCode(String territoryCode) {
+    public void setTerritoryCode(final String territoryCode) {
         this.territoryCode = territoryCode;
     }
 }

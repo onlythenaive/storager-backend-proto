@@ -12,6 +12,7 @@ import ru.spb.iac.storager.server.domain.indicators.Indicator;
 import ru.spb.iac.storager.server.domain.patches.Patch;
 import ru.spb.iac.storager.server.domain.periods.Period;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 import ru.spb.iac.storager.server.domain.territories.Territory;
 
 @Entity
@@ -53,6 +54,7 @@ public class Point {
 
     }
 
+    @MapperConstructor
     public Point (final Double real, final Double plan, final String time, final Indicator indicator,
                   final Patch patch, final Period period, final Territory territory) {
         this.real = real;
