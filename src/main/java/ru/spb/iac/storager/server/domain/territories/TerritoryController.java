@@ -22,19 +22,19 @@ public class TerritoryController {
     private TerritoryService territoryService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public TerritoryInfo create(@RequestBody TerritoryProperties properties) {
+    public TerritoryInfo create(final @RequestBody TerritoryProperties properties) {
         securityContext.userAuthorizedWithAny("ADMIN");
         return territoryService.create(properties);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
-    public TerritoryInfo getByCode(@PathVariable(name = "code") String code) {
+    public TerritoryInfo getByCode(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return territoryService.getByCode(code);
     }
 
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
-    public List<TerritoryInfo> getDescendants(@PathVariable(name = "code") String code) {
+    public List<TerritoryInfo> getDescendants(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("USER", "ADMIN");
         return territoryService.getDescendants(code);
     }
@@ -46,14 +46,14 @@ public class TerritoryController {
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
-    public void remove(@PathVariable(name = "code") String code) {
+    public void remove(final @PathVariable(name = "code") String code) {
         securityContext.userAuthorizedWithAny("ADMIN");
         territoryService.remove(code);
     }
 
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
-    public TerritoryInfo update(@PathVariable(name = "code") String code,
-                                @RequestBody TerritoryProperties properties) {
+    public TerritoryInfo update(final @PathVariable(name = "code") String code,
+                                final @RequestBody TerritoryProperties properties) {
         securityContext.userAuthorizedWithAny("ADMIN");
         return territoryService.update(code, properties);
     }

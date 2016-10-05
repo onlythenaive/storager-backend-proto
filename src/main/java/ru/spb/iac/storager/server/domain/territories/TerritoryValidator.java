@@ -3,6 +3,7 @@ package ru.spb.iac.storager.server.domain.territories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.spb.iac.storager.server.errors.domain.InvalidPropertyException;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,8 +16,7 @@ public class TerritoryValidator {
         validateProperties(properties);
         final String code = properties.getCode();
         if (repository.findByCode(code) != null) {
-            // NOTE: code already exists
-            throw new RuntimeException();
+            throw InvalidPropertyException.duplicateProperty("code", code);
         }
         return properties;
     }
@@ -25,35 +25,29 @@ public class TerritoryValidator {
         validateProperties(properties);
         final String ascendantCode = properties.getAscendantCode();
         if (code.equals(ascendantCode)) {
-            // NOTE: no ascendant
-            throw new RuntimeException();
+            throw new InvalidPropertyException("ascendant territory must exist", "ascendantCode", ascendantCode);
         }
         return properties;
     }
 
     private TerritoryProperties validateProperties(final TerritoryProperties properties) {
         if (properties == null) {
-            // NOTE: no properties specified
-            throw new RuntimeException();
+            throw InvalidPropertyException.missingProperty("code");
         }
         final String code = properties.getCode();
         if (code == null) {
-            // NOTE: no code specified
-            throw new RuntimeException();
+            throw InvalidPropertyException.missingProperty("code");
         }
         final String ascendantCode = properties.getAscendantCode();
         if (code.equals(ascendantCode)) {
-            // NOTE: hierarchic loop
-            throw new RuntimeException();
+            throw new InvalidPropertyException("territory can not be self-ascendant", "ascendantCode", ascendantCode);
         }
         if (ascendantCode != null && repository.findByCode(ascendantCode) == null) {
-            // NOTE: no ascendant
-            throw new RuntimeException();
+            throw new InvalidPropertyException("ascendant territory must exist", "ascendantCode", ascendantCode);
         }
         final String title = properties.getTitle();
         if (title == null) {
-            // NOTE: no title specified
-            throw new RuntimeException();
+            throw InvalidPropertyException.missingProperty("title");
         }
         return properties;
     }

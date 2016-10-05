@@ -41,7 +41,11 @@ public final class InvalidPropertyException extends ReasonableException {
     }
 
     public static InvalidPropertyException missingProperty(final String name) {
-        return new InvalidPropertyException("not optional", name, null);
+        return new InvalidPropertyException("property is not optional", name, null);
+    }
+
+    public static InvalidPropertyException duplicateProperty(final String name, final Object value) {
+        return new InvalidPropertyException("property can not be duplicated", name, value);
     }
 
     private final Reason reason;
