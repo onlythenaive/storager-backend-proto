@@ -37,6 +37,12 @@ public class ProviderController {
         return service.getById(id);
     }
 
+    @RequestMapping(path = "/{id}/token", method = RequestMethod.GET)
+    public ProviderTokenInfo getTokenInfoById(final @PathVariable(name = "id") Integer id) {
+        securityContext.userAuthorizedWithAny(ADMIN);
+        return service.getTokenInfoById(id);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public PagedResult<ProviderInfo> getPage(final @RequestParam(name = "page", defaultValue = "1") Integer page,
                                              final @RequestParam(name = "size", defaultValue = "10") Integer size) {

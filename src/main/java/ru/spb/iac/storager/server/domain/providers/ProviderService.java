@@ -62,6 +62,10 @@ public class ProviderService {
         return mapper.intoInfo(get(id));
     }
 
+    public ProviderTokenInfo getTokenInfoById(final Integer id) {
+        return mapper.intoTokenInfo(get(id));
+    }
+
     public void remove(final Integer id) {
         providerRepository.delete(get(id));
     }

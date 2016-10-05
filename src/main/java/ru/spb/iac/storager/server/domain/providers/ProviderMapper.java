@@ -22,12 +22,18 @@ public class ProviderMapper {
                 entity.getId(),
                 entity.getTitle(),
                 entity.getDescription(),
-                entity.getToken(),
                 entity.getRegisteredAt().toString(),
                 entity.getGrants()
                         .stream()
                         .map(g -> g.getIndicator().getCode())
                         .collect(Collectors.toSet())
+        );
+    }
+
+    ProviderTokenInfo intoTokenInfo(final Provider entity) {
+        return new ProviderTokenInfo(
+                entity.getId(),
+                entity.getToken()
         );
     }
 }
