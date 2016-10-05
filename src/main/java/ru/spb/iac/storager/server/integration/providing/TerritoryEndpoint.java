@@ -6,7 +6,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import ru.spb.iac.storager.server.domain.territories.TerritoryInfo;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
 import ru.spb.iac.storager.server.domain.territories.TerritoryService;
 
 @Endpoint
@@ -21,12 +21,12 @@ public class TerritoryEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "getTerritoryRequest")
     public GetTerritoryResponse getTerritory(@RequestPayload GetTerritoryRequest request) {
         final GetTerritoryResponse response = new GetTerritoryResponse();
-        final TerritoryInfo data = territoryService.getByCode(request.getCode());
+        final HierarchicItemInfo properties = territoryService.getByCode(request.getCode());
         final TerritoryType territory = new TerritoryType();
-        territory.setCode(data.getCode());
-        territory.setTitle(data.getTitle());
-        territory.setAscendantCode(data.getAscendantCode());
-        territory.setTerminal(data.getTerminal());
+        territory.setCode(properties.getCode());
+        territory.setTitle(properties.getTitle());
+        territory.setAscendantCode(properties.getAscendantCode());
+        territory.setTerminal(properties.getTerminal());
         response.setTerritory(territory);
         return response;
     }

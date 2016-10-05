@@ -14,10 +14,11 @@ import javax.validation.constraints.NotNull;
 
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItem;
 
 @Entity
 @Table(name = "territories")
-public class Territory {
+public class Territory implements HierarchicItem<Territory> {
 
     @Id
     @GeneratedValue
@@ -48,42 +49,52 @@ public class Territory {
         this.descendants = new ArrayList<>();
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(final String code) {
         this.code = code;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public void setTitle(final String title) {
         this.title = title;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(final String description) {
         this.description = description;
     }
 
+    @Override
     public Territory getAscendant() {
         return ascendant;
     }
 
+    @Override
     public void setAscendant(final Territory ascendant) {
         this.ascendant = ascendant;
     }
 
+    @Override
     public List<Territory> getDescendants() {
         return descendants;
     }

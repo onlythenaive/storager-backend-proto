@@ -59,7 +59,7 @@ public class IndicatorController extends HierarchicItemController<Indicator> {
     }
 
     @Override
-    protected HierarchicItemService getService() {
+    protected HierarchicItemService<Indicator> getService() {
         return service;
     }
 }
