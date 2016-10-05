@@ -16,11 +16,11 @@ public class UserController {
     private SecurityContext securityContext;
 
     @Autowired
-    private UserService userService;
+    private UserService service;
 
     @RequestMapping(path = "/current", method = RequestMethod.GET)
     public UserInfo getCurrent() {
         final UserAuthentication authentication = securityContext.userAuthenticated();
-        return userService.getByLogin(authentication.getLogin());
+        return service.getByLogin(authentication.getLogin());
     }
 }

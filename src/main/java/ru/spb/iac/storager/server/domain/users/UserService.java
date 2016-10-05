@@ -3,27 +3,27 @@ package ru.spb.iac.storager.server.domain.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.spb.iac.storager.server.errors.domain.InvalidPropertyException;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper mapper;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     UserInfo getByLogin(final String login) {
         if (login == null) {
-            // TODO: throw reasonable exception for missing login
-            throw new RuntimeException();
+            InvalidPropertyException.missingProperty("login");
         }
-        final User user = userRepository.findByLogin(login);
+        final User user = repository.findByLogin(login);
         if (user == null) {
             // TODO: throw reasonable exception for missing user
             throw new RuntimeException();
         }
-        return userMapper.intoInfo(user);
+        return mapper.intoInfo(user);
     }
 }
