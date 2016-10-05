@@ -6,20 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemMapper;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemRepository;
-import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemServiceGeneric;
+import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemService;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemValidator;
-import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
-import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
 
 @Service
 @Transactional
-public class IndicatorService extends HierarchicItemServiceGeneric<Indicator> {
-
-    @Autowired
-    private InputValidationHelper inputValidationMapper;
-
-    @Autowired
-    private ItemValidationHelper itemValidationHelper;
+public class IndicatorService extends HierarchicItemService<Indicator> {
 
     @Autowired
     private IndicatorMapper mapper;
@@ -29,16 +21,6 @@ public class IndicatorService extends HierarchicItemServiceGeneric<Indicator> {
 
     @Autowired
     private IndicatorValidator validator;
-
-    @Override
-    protected InputValidationHelper getInputValidationHelper() {
-        return inputValidationMapper;
-    }
-
-    @Override
-    protected ItemValidationHelper getItemValidationHelper() {
-        return itemValidationHelper;
-    }
 
     @Override
     protected HierarchicItemMapper<Indicator> getMapper() {
