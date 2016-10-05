@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+@Transactional(readOnly = true)
 public interface PeriodRepository extends Repository<Period, Integer> {
 
     List<Period> findAll();

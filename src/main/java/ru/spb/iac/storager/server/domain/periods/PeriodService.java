@@ -8,20 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class PeriodService {
 
     @Autowired
-    private PeriodMapper periodMapper;
+    private PeriodMapper mapper;
 
     @Autowired
-    private PeriodRepository periodRepository;
+    private PeriodRepository repository;
 
     public List<PeriodInfo> getAll() {
-        return periodRepository
+        return repository
                 .findAll()
                 .stream()
-                .map(periodMapper::intoInfo)
+                .map(mapper::intoInfo)
                 .collect(Collectors.toList());
     }
 }
