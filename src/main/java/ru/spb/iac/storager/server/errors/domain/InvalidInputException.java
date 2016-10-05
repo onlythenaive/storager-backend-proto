@@ -3,15 +3,15 @@ package ru.spb.iac.storager.server.errors.domain;
 import ru.spb.iac.storager.server.errors.shared.Reason;
 import ru.spb.iac.storager.server.errors.shared.ReasonableException;
 
-public final class InvalidPropertyException extends ReasonableException {
+public final class InvalidInputException extends ReasonableException {
 
-    public static final class InvalidPropertyReason implements Reason {
+    public static final class InvalidInputReason implements Reason {
 
         private final String constraint;
         private final String name;
         private final Object value;
 
-        public InvalidPropertyReason(final String constraint, final String name, final Object value) {
+        public InvalidInputReason(final String constraint, final String name, final Object value) {
             this.constraint = constraint;
             this.name = name;
             this.value = value;
@@ -19,12 +19,12 @@ public final class InvalidPropertyException extends ReasonableException {
 
         @Override
         public String getCode() {
-            return "INVALID_PROPERTY";
+            return "INVALID_INPUT";
         }
 
         @Override
         public String getDescription() {
-            return "property value does not meet required constraints";
+            return "input value does not meet defined constraints";
         }
 
         public String getConstraint() {
@@ -40,18 +40,18 @@ public final class InvalidPropertyException extends ReasonableException {
         }
     }
 
-    public static InvalidPropertyException missingProperty(final String name) {
-        return new InvalidPropertyException("property is not optional", name, null);
+    public static InvalidInputException missing(final String name) {
+        return new InvalidInputException("not optional", name, null);
     }
 
-    public static InvalidPropertyException duplicateProperty(final String name, final Object value) {
-        return new InvalidPropertyException("property can not be duplicated", name, value);
+    public static InvalidInputException duplicated(final String name, final Object value) {
+        return new InvalidInputException("must be unique", name, value);
     }
 
     private final Reason reason;
 
-    public InvalidPropertyException(final String constraint, final String name, final Object value) {
-        this.reason = new InvalidPropertyReason(constraint, name, value);
+    public InvalidInputException(final String constraint, final String name, final Object value) {
+        this.reason = new InvalidInputReason(constraint, name, value);
     }
 
     @Override

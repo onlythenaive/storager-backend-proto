@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.spb.iac.storager.server.errors.domain.InvalidPropertyException;
+import ru.spb.iac.storager.server.errors.domain.InvalidInputException;
 
 @Service
 @Transactional
@@ -37,15 +37,15 @@ public class IndicatorMapper {
 
     private void validate(final IndicatorData data) {
         if (data.getCode() == null) {
-            throw InvalidPropertyException.missingProperty("code");
+            throw InvalidInputException.missing("code");
         }
         if (data.getTitle() == null) {
-            throw InvalidPropertyException.missingProperty("title");
+            throw InvalidInputException.missing("title");
         }
         final String ascendantCode = data.getAscendantCode();
         final Indicator ascendant = findAscendant(ascendantCode);
         if (ascendantCode != null && ascendant == null) {
-            throw new InvalidPropertyException("ascendant code must exist", "ascendantCode", ascendantCode);
+            throw new InvalidInputException("ascendant code must exist", "ascendantCode", ascendantCode);
         }
     }
 

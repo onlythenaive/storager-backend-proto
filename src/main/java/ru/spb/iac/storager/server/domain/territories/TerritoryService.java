@@ -7,11 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.spb.iac.storager.server.errors.domain.InvalidCodeException;
+import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
+import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
 
 @Service
 @Transactional
 public class TerritoryService {
+
+    @Autowired
+    private InputValidationHelper inputValidation;
+
+    @Autowired
+    private ItemValidationHelper itemValidation;
 
     @Autowired
     private TerritoryMapper mapper;
@@ -52,16 +59,14 @@ public class TerritoryService {
     }
 
     public TerritoryInfo update(final String code, final TerritoryProperties properties) {
+        validator.validateForUpdate(code, properties);
         final Territory entity = get(code);
-        mapper.intoEntity(validator.validateForUpdate(code, properties), entity);
+        mapper.intoEntity(properties, entity);
         return mapper.intoInfo(repository.save(entity));
     }
 
     private Territory get(final String code) {
-        final Territory entity = repository.findByCode(code);
-        if (entity == null) {
-            throw new InvalidCodeException(code);
-        }
-        return entity;
+        inputValidation.required(code, "code");
+        return itemValidation.required(repository.findByCode(code), "code", code);
     }
 }
