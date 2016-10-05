@@ -14,6 +14,8 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemProperties;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemService;
 import ru.spb.iac.storager.server.security.SecurityContext;
+import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
+import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
 
 @RestController
 @RequestMapping("/data/indicators")
@@ -28,35 +30,35 @@ public class IndicatorController extends HierarchicItemController {
     @Override
     @RequestMapping(method = RequestMethod.POST)
     public HierarchicItemInfo create(final @RequestBody HierarchicItemProperties properties) {
-        securityContext.userAuthorizedWithAny("ADMIN");
+        securityContext.userAuthorizedWithAny(ADMIN);
         return super.create(properties);
     }
 
     @Override
     @RequestMapping(path = "/{code}", method = RequestMethod.GET)
     public HierarchicItemInfo getByCode(final @PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWithAny("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny(ADMIN, USER);
         return super.getByCode(code);
     }
 
     @Override
     @RequestMapping(path = "/{code}/descendants", method = RequestMethod.GET)
     public List<HierarchicItemInfo> getDescendants(final @PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWithAny("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny(ADMIN, USER);
         return super.getDescendants(code);
     }
 
     @Override
     @RequestMapping(path = "/roots", method = RequestMethod.GET)
     public List<HierarchicItemInfo> getRoots() {
-        securityContext.userAuthorizedWithAny("USER", "ADMIN");
+        securityContext.userAuthorizedWithAny(ADMIN, USER);
         return super.getRoots();
     }
 
     @Override
     @RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
     public void remove(final @PathVariable(name = "code") String code) {
-        securityContext.userAuthorizedWithAny("ADMIN");
+        securityContext.userAuthorizedWithAny(ADMIN);
         super.remove(code);
     }
 
@@ -64,7 +66,7 @@ public class IndicatorController extends HierarchicItemController {
     @RequestMapping(path = "/{code}", method = RequestMethod.PUT)
     public HierarchicItemInfo update(final @PathVariable(name = "code") String code,
                                      final @RequestBody HierarchicItemProperties properties) {
-        securityContext.userAuthorizedWithAny("ADMIN");
+        securityContext.userAuthorizedWithAny(ADMIN);
         return super.update(code, properties);
     }
 

@@ -7,6 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.ImmutableList;
 
+import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
+import static ru.spb.iac.storager.server.security.SecurityRoles.GUEST;
+import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
+
 @Component
 @Transactional
 @Profile("dev.local")
@@ -17,9 +21,9 @@ public class UserBootstrap {
 
     public void run() {
         userRepository.save(ImmutableList.of(
-                new User("guest", "guest", "guest@storager.iac.spb.ru", "Гостевой доступ", true, true, "GUEST"),
-                new User("user", "user123", "user@storager.iac.spb.ru", "Юзеров Ю.Ю.", true, false, "USER"),
-                new User("admin", "admin123", "admin@storager.iac.spb.ru", "Админов А.А.", true, false, "USER ADMIN")
+                new User("guest", "guest", "guest@storager.iac.spb.ru", "Гостевой доступ", true, true, GUEST),
+                new User("user", "user123", "user@storager.iac.spb.ru", "Юзеров Ю.Ю.", true, false, USER),
+                new User("admin", "admin123", "admin@storager.iac.spb.ru", "Админов А.А.", true, false, ADMIN)
         ));
     }
 }
