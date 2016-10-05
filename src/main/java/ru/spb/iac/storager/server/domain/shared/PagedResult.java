@@ -16,7 +16,7 @@ public final class PagedResult<T> {
     }
 
     public List<T> getItems() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     public Integer getPage() {
