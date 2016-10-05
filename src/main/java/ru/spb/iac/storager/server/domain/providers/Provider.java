@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.domain.grants.Grant;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
 @Table(name = "providers")
@@ -36,18 +38,12 @@ public class Provider {
     @Column(name = "token", nullable = false, unique = true)
     private String token;
 
-    @OneToMany(mappedBy = "provider")
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
     private List<Grant> grants;
 
     @JpaConstructor
+    @MapperConstructor
     protected Provider() {
-
-    }
-
-    public Provider(final String title, final String description, final String token) {
-        this.title = title;
-        this.description = description;
-        this.token = token;
         this.grants = new ArrayList<>();
     }
 

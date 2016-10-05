@@ -1,74 +1,52 @@
 package ru.spb.iac.storager.server.domain.providers;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ProviderInfo implements Serializable {
+public final class ProviderInfo {
 
-    public static ProviderInfo fromProvider(Provider provider) {
-        ProviderInfo info = new ProviderInfo();
-        info.setId(provider.getId());
-        info.setTitle(provider.getTitle());
-        info.setDescription(provider.getDescription());
-        info.setToken(provider.getToken());
-        info.setRegisteredAt(provider.getRegisteredAt().toString());
-        info.setGrants(provider.getGrants().stream().map(g -> g.getIndicator().getCode()).collect(Collectors.toList()));
-        return info;
+    public ProviderInfo(final Integer id,
+                        final String title,
+                        final String description,
+                        final String token,
+                        final String registeredAt,
+                        final Set<String> grants) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.token = token;
+        this.registeredAt = registeredAt;
+        this.grants = new HashSet<>(grants);
     }
 
-    private Integer id;
-    private String title;
-    private String description;
-    private String token;
-    private String registeredAt;
-    private List<String> grants;
+    private final Integer id;
+    private final String title;
+    private final String description;
+    private final String token;
+    private final String registeredAt;
+    private final Set<String> grants;
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getToken() {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
     public String getRegisteredAt() {
         return registeredAt;
     }
 
-    public void setRegisteredAt(String registeredAt) {
-        this.registeredAt = registeredAt;
-    }
-
-    public List<String> getGrants() {
-        return grants;
-    }
-
-    public void setGrants(List<String> grants) {
-        this.grants = grants;
+    public Set<String> getGrants() {
+        return new HashSet<>(grants);
     }
 }

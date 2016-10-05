@@ -48,6 +48,10 @@ public final class InvalidInputException extends ReasonableException {
         return new InvalidInputException("must be unique", name, value);
     }
 
+    public static InvalidInputException notPositive(final String name, final int value) {
+        return new InvalidInputException("must be positive", name, value);
+    }
+
     private final Reason reason;
 
     public InvalidInputException(final String constraint, final String name, final Object value) {

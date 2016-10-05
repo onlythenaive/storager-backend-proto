@@ -1,6 +1,6 @@
 package ru.spb.iac.storager.server.domain.providers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ru.spb.iac.storager.server.security.SecurityContext;
 import ru.spb.iac.storager.server.domain.shared.PagedResult;
+import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
+import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
 
 @RestController
 @RequestMapping("/data/providers")
@@ -21,48 +23,50 @@ public class ProviderController {
     private SecurityContext securityContext;
 
     @Autowired
-    private ProviderService providerService;
+    private ProviderService service;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ProviderInfo create(@RequestBody ProviderInfo info) {
-        securityContext.userAuthorizedWithAny("ADMIN");
-        return providerService.create(info);
+    public ProviderInfo create(final @RequestBody ProviderProperties properties) {
+        securityContext.userAuthorizedWithAny(ADMIN);
+        return service.create(properties);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ProviderInfo getById(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return providerService.getById(id);
+    public ProviderInfo getById(final @PathVariable(name = "id") Integer id) {
+        securityContext.userAuthorizedWithAny(ADMIN, USER);
+        return service.getById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public PagedResult<ProviderInfo> getPage(@RequestParam(name = "page", defaultValue = "1") Integer page,
-                                             @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        securityContext.userAuthorizedWithAny("USER", "ADMIN");
-        return providerService.getPage(page, size);
+    public PagedResult<ProviderInfo> getPage(final @RequestParam(name = "page", defaultValue = "1") Integer page,
+                                             final @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        securityContext.userAuthorizedWithAny(ADMIN, USER);
+        return service.getPage(page, size);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-    public void remove(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny("ADMIN");
-        providerService.remove(id);
+    public void remove(final @PathVariable(name = "id") Integer id) {
+        securityContext.userAuthorizedWithAny(ADMIN);
+        service.remove(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public ProviderInfo update(@PathVariable(name = "id") Integer id, @RequestBody ProviderInfo info) {
-        securityContext.userAuthorizedWithAny("ADMIN");
-        return providerService.update(id, info);
+    public ProviderInfo update(final @PathVariable(name = "id") Integer id,
+                               final @RequestBody ProviderProperties properties) {
+        securityContext.userAuthorizedWithAny(ADMIN);
+        return service.update(id, properties);
     }
 
     @RequestMapping(path = "/{id}/grants", method = RequestMethod.PUT)
-    public ProviderInfo updateGrants(@PathVariable(name = "id") Integer id, @RequestBody List<String> grants) {
-        securityContext.userAuthorizedWithAny("ADMIN");
-        return providerService.updateGrants(id, grants);
+    public ProviderInfo updateGrants(final @PathVariable(name = "id") Integer id,
+                                     final @RequestBody Set<String> indicatorCodes) {
+        securityContext.userAuthorizedWithAny(ADMIN);
+        return service.updateGrants(id, indicatorCodes);
     }
 
     @RequestMapping(path = "/{id}/token", method = RequestMethod.PUT)
-    public ProviderInfo updateToken(@PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny("ADMIN");
-        return providerService.updateToken(id);
+    public ProviderInfo updateToken(final @PathVariable(name = "id") Integer id) {
+        securityContext.userAuthorizedWithAny(ADMIN);
+        return service.updateToken(id);
     }
 }

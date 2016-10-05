@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ItemValidationHelper {
 
-    public <T> T required(final T item, final String identifier, final String value) {
+    public <T> T required(final T item, final String identifier, final Object value) {
         if (item == null) {
             throw new MissingItemException(identifier, value);
         }
