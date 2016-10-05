@@ -1,13 +1,11 @@
 package ru.spb.iac.storager.server.domain.indicators;
 
-import java.io.Serializable;
-
-public final class IndicatorData implements Serializable {
+public final class IndicatorProperties {
 
     private String code;
     private String ascendantCode;
     private String title;
-    private Boolean terminal;
+    private String description;
 
     public String getCode() {
         return code;
@@ -33,11 +31,11 @@ public final class IndicatorData implements Serializable {
         this.title = title;
     }
 
-    public Boolean getTerminal() {
-        return terminal;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTerminal(final Boolean terminal) {
-        this.terminal = terminal;
+    public void setDescription(final String description) {
+        this.description = description;
     }
 }

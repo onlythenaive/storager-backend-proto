@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import ru.spb.iac.storager.server.errors.domain.HierarchicLoopException;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
 @Table(name = "indicators")
@@ -31,6 +29,9 @@ public class Indicator {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "ascendant_id")
     private Indicator ascendant;
@@ -39,14 +40,8 @@ public class Indicator {
     private List<Indicator> descendants;
 
     @JpaConstructor
+    @MapperConstructor
     protected Indicator() {
-
-    }
-
-    public Indicator (final String code, final String title, final Indicator ascendant) {
-        this.code = code;
-        this.title = title;
-        this.ascendant = ascendant;
         this.descendants = new ArrayList<>();
     }
 
@@ -70,6 +65,14 @@ public class Indicator {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
     public Indicator getAscendant() {
         return ascendant;
     }
@@ -80,13 +83,5 @@ public class Indicator {
 
     public List<Indicator> getDescendants() {
         return descendants;
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void onPersistAndUpdate() {
-        if (ascendant != null && ascendant.getCode().equals(code)) {
-            throw new HierarchicLoopException(code);
-        }
     }
 }

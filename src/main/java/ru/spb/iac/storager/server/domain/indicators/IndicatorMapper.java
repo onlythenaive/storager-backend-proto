@@ -1,63 +1,62 @@
 package ru.spb.iac.storager.server.domain.indicators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.spb.iac.storager.server.errors.domain.InvalidInputException;
-
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class IndicatorMapper {
 
     @Autowired
-    private IndicatorRepository indicatorRepository;
+    private IndicatorRepository repository;
 
-    public IndicatorData createData(final Indicator indicator) {
-        final IndicatorData data = new IndicatorData();
-        data.setCode(indicator.getCode());
-        data.setAscendantCode(getAscendantCode(indicator));
-        data.setTitle(indicator.getTitle());
-        data.setTerminal(isTerminal(indicator));
-        return data;
+    public Indicator intoEntity(final IndicatorProperties properties) {
+        return intoEntity(properties, new Indicator());
     }
 
-    public Indicator createEntity(final IndicatorData data) {
-        validate(data);
-        return new Indicator(data.getCode(), data.getTitle(), findAscendant(data.getAscendantCode()));
+    public Indicator intoEntity(final IndicatorProperties properties, final Indicator entity) {
+        entity.setCode(properties.getCode());
+        entity.setAscendant(getAscendant(properties.getAscendantCode()));
+        entity.setTitle(properties.getTitle());
+        entity.setDescription(properties.getDescription());
+        return entity;
     }
 
-    public Indicator updateEntity(final Indicator indicator, final IndicatorData data) {
-        validate(data);
-        indicator.setCode(data.getCode());
-        indicator.setTitle(data.getTitle());
-        indicator.setAscendant(findAscendant(data.getAscendantCode()));
-        return indicator;
+    public IndicatorInfo intoInfo(final Indicator entity) {
+        final String code = entity.getCode();
+        final String ascendantCode = getAscendantCode(entity);
+        final String title = entity.getTitle();
+        final String description = entity.getDescription();
+        final List<String> path = getPath(entity);
+        final Boolean terminal = isTerminal(entity);
+        return new IndicatorInfo(code, ascendantCode, title, description, path, terminal);
     }
 
-    private void validate(final IndicatorData data) {
-        if (data.getCode() == null) {
-            throw InvalidInputException.missing("code");
+    private Indicator getAscendant(final String ascendantCode) {
+        return ascendantCode != null ? repository.findByCode(ascendantCode) : null;
+    }
+
+    private String getAscendantCode(final Indicator entity) {
+        return entity.getAscendant() != null ? entity.getAscendant().getCode() : null;
+    }
+
+    private List<String> getPath(final Indicator entity) {
+        return addToPath(entity.getAscendant(), new ArrayList<>());
+    }
+
+    private List<String> addToPath(final Indicator entity, final List<String> path) {
+        if (entity != null) {
+            addToPath(entity.getAscendant(), path);
+            path.add(entity.getCode());
         }
-        if (data.getTitle() == null) {
-            throw InvalidInputException.missing("title");
-        }
-        final String ascendantCode = data.getAscendantCode();
-        final Indicator ascendant = findAscendant(ascendantCode);
-        if (ascendantCode != null && ascendant == null) {
-            throw new InvalidInputException("ascendant code must exist", "ascendantCode", ascendantCode);
-        }
+        return path;
     }
 
-    private Indicator findAscendant(final String ascendantCode) {
-        return ascendantCode != null ? indicatorRepository.findByCode(ascendantCode) : null;
-    }
-
-    private String getAscendantCode(final Indicator indicator) {
-        return indicator.getAscendant() != null ? indicator.getAscendant().getCode() : null;
-    }
-
-    private boolean isTerminal(final Indicator indicator) {
-        return indicator.getDescendants().isEmpty();
+    private boolean isTerminal(final Indicator entity) {
+        return entity.getDescendants().size() == 0;
     }
 }

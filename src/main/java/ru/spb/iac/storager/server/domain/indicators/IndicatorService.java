@@ -7,64 +7,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.spb.iac.storager.server.errors.domain.InvalidCodeException;
+import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
+import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
 
 @Service
 @Transactional
 public class IndicatorService {
 
     @Autowired
-    private IndicatorMapper indicatorMapper;
+    private InputValidationHelper inputValidation;
 
     @Autowired
-    private IndicatorRepository indicatorRepository;
+    private ItemValidationHelper itemValidation;
 
-    public IndicatorData create(final IndicatorData data) {
-        final Indicator indicator = indicatorMapper.createEntity(data);
-        return saveAndCreateData(indicator);
+    @Autowired
+    private IndicatorMapper mapper;
+
+    @Autowired
+    private IndicatorRepository repository;
+
+    @Autowired
+    private IndicatorValidator validator;
+
+    public IndicatorInfo create(final IndicatorProperties properties) {
+        final Indicator entity = mapper.intoEntity(validator.validateForCreate(properties));
+        return mapper.intoInfo(repository.save(entity));
     }
 
-    public IndicatorData getByCode(final String code) {
-        final Indicator indicator = get(code);
-        return indicatorMapper.createData(indicator);
+    public IndicatorInfo getByCode(final String code) {
+        return mapper.intoInfo(get(code));
     }
 
-    public List<IndicatorData> getDescendants(final String code) {
-        final Indicator indicator = get(code);
-        return indicator
+    public List<IndicatorInfo> getDescendants(final String code) {
+        return get(code)
                 .getDescendants()
                 .stream()
-                .map(indicatorMapper::createData)
+                .map(mapper::intoInfo)
                 .collect(Collectors.toList());
     }
 
-    public List<IndicatorData> getRoots() {
-        return indicatorRepository
+    public List<IndicatorInfo> getRoots() {
+        return repository
                 .findRoots()
                 .stream()
-                .map(indicatorMapper::createData)
+                .map(mapper::intoInfo)
                 .collect(Collectors.toList());
     }
 
     public void remove(final String code) {
-        final Indicator indicator = get(code);
-        indicatorRepository.delete(indicator);
+        repository.delete(get(code));
     }
 
-    public IndicatorData update(final String code, final IndicatorData data) {
-        final Indicator indicator = get(code);
-        return saveAndCreateData(indicatorMapper.updateEntity(indicator, data));
+    public IndicatorInfo update(final String code, final IndicatorProperties properties) {
+        validator.validateForUpdate(code, properties);
+        final Indicator entity = get(code);
+        mapper.intoEntity(properties, entity);
+        return mapper.intoInfo(repository.save(entity));
     }
 
     private Indicator get(final String code) {
-        final Indicator indicator = indicatorRepository.findByCode(code);
-        if (indicator == null) {
-            throw new InvalidCodeException(code);
-        }
-        return indicator;
-    }
-
-    private IndicatorData saveAndCreateData(final Indicator indicator) {
-        return indicatorMapper.createData(indicatorRepository.save(indicator));
+        inputValidation.required(code, "code");
+        return itemValidation.required(repository.findByCode(code), "code", code);
     }
 }
