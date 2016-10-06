@@ -11,9 +11,7 @@ All the integration requests made by providing systems must be valid SOAP messag
 
 ## Operations
 
-### Indicators
-
-#### getIndicatorPage
+### getIndicatorPage
 Gets a page of implicitly granted indicators with filtering by code, implicit ascendant code and title.
 
 Request:
@@ -41,7 +39,8 @@ Response:
 }
 ```
 
-#### getIndicator
+
+### getIndicator
 Gets a specific implicitly granted indicator by its code.
 
 Request:
@@ -63,18 +62,13 @@ Response:
 }
 ```
 
-
-### Patches
-
 * Get a page of previously created patches by the current provider with filtering by status and creation timestamp;
 * Get a specific patch by its id.
 * Create a new patch;
 * Create a new patch in a sandbox mode.
 
 
-### Periods
-
-#### getPeriods
+### getPeriods
 Gets all periods.
 
 Request:
@@ -93,9 +87,7 @@ Response:
 ```
 
 
-### Providers
-
-#### getProvider
+### getProvider
 Gets the current authenticated provider.
 
 Request:
@@ -117,9 +109,7 @@ Response:
 ```
 
 
-### Territories
-
-#### getTerritoryPage
+### getTerritoryPage
 Gets a page of territories with filtering by code, implicit ascendant code and title;
 
 Request:
@@ -147,7 +137,8 @@ Response:
 }
 ```
 
-#### getTerritory
+
+### getTerritory
 Gets a specific territory by its code.
 
 Request:
