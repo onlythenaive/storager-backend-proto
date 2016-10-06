@@ -9,9 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import ru.spb.iac.storager.server.domain.periods.PeriodService;
 
 @Endpoint
-public class PeriodEndpoint extends AbstractSecureEndpoint {
-
-    private static final String NAMESPACE = "http://iac.spb.ru/storager/server/integration/providing";
+public class PeriodEndpoint extends BaseProvidingEndpoint {
 
     @Autowired
     private PeriodService periodService;
