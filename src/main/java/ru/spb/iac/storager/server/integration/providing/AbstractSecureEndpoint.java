@@ -1,12 +1,15 @@
 package ru.spb.iac.storager.server.integration.providing;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ru.spb.iac.storager.server.security.ProviderSecurityService;
+
 public abstract class AbstractSecureEndpoint {
 
+    @Autowired
+    private ProviderSecurityService securityService;
+
     protected Object providerAuthenticated(final SecureRequestType request) {
-        final String token = request.getProviderSecurityToken();
-        if (token == null || token.isEmpty()) {
-            throw new RuntimeException("security token is missing");
-        }
-        return new Object();
+        return securityService.authenticateByToken(request.getProviderSecurityToken());
     }
 }
