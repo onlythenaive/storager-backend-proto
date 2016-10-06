@@ -3,40 +3,11 @@
            targetNamespace="http://iac.spb.ru/storager/server/integration/providing"
            elementFormDefault="qualified">
 
-    <!-- Indicators -->
-
-    <xs:element name="getIndicatorDescendantsRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="ascendantCode" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getIndicatorDescendantsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="descendants" maxOccurs="unbounded" type="tns:indicatorType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getIndicatorRootsRequest">
-        <xs:complexType/>
-    </xs:element>
-
-    <xs:element name="getIndicatorRootsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="indicators" maxOccurs="unbounded" type="tns:indicatorType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
     <xs:element name="getIndicatorRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="code" type="xs:string"/>
+                <xs:element name="code" type="xs:string" nillable="false"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -44,108 +15,39 @@
     <xs:element name="getIndicatorResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="indicator" type="tns:indicatorType"/>
+                <xs:element name="indicator" type="tns:hierarchicInfoType" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="indicatorType">
-        <xs:sequence>
-            <xs:element name="code" type="xs:string"/>
-            <xs:element name="title" type="xs:string"/>
-            <xs:element name="ascendantCode" type="xs:string"/>
-            <xs:element name="terminal" type="xs:boolean"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <!-- Periods -->
-
-    <xs:element name="getPeriodsRequest">
-        <xs:complexType/>
-    </xs:element>
-
-    <xs:element name="getPeriodsResponse">
+    <xs:element name="getIndicatorPageRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="periods" maxOccurs="unbounded" type="tns:periodType"/>
+                <xs:element name="codePattern" type="xs:string" nillable="true"/>
+                <xs:element name="implicitAscendantCode" type="xs:string" nillable="true"/>
+                <xs:element name="title" type="xs:string" nillable="true"/>
+                <xs:element name="page" type="xs:integer" nillable="true"/>
+                <xs:element name="size" type="xs:integer" nillable="true"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="periodType">
-        <xs:sequence>
-            <xs:element name="code" type="xs:string"/>
-            <xs:element name="title" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <!-- Territories -->
-
-    <xs:element name="getTerritoryDescendantsRequest">
+    <xs:element name="getIndicatorPageResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="ascendantCode" type="xs:string"/>
+                <xs:element name="items" type="tns:hierarchicInfoType" maxOccurs="unbounded" nillable="false"/>
+                <xs:element name="page" type="xs:integer" nillable="false"/>
+                <xs:element name="total" type="xs:integer" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:element name="getTerritoryDescendantsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="descendants" maxOccurs="unbounded" type="tns:territoryType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getTerritoryRootsRequest">
-        <xs:complexType/>
-    </xs:element>
-
-    <xs:element name="getTerritoryRootsResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="territories" maxOccurs="unbounded" type="tns:territoryType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getTerritoryRequest">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="code" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="getTerritoryResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="territory" type="tns:territoryType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:complexType name="territoryType">
-        <xs:sequence>
-            <xs:element name="code" type="xs:string"/>
-            <xs:element name="title" type="xs:string"/>
-            <xs:element name="ascendantCode" type="xs:string"/>
-            <xs:element name="terminal" type="xs:boolean"/>
-        </xs:sequence>
-    </xs:complexType>
-
-
-
-    <!-- Patches -->
-
-
 
     <xs:element name="createPatchRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="description" type="xs:string" nillable="false"/>
-                <xs:element name="points" type="tns:pointInvoiceStruct" nillable="false" minOccurs="1" maxOccurs="unbounded"/>
-                <xs:element name="token" type="xs:string" nillable="false"/>
+                <xs:element name="patch" type="tns:patchPropertiesType" nillable="false"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -153,7 +55,24 @@
     <xs:element name="createPatchResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="patch" type="tns:patchInfoStruct" nillable="false"/>
+                <xs:element name="patch" type="tns:patchInfoType" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchInSandboxRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" type="tns:patchPropertiesType" nillable="false"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchInSandboxResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" type="tns:patchInfoType" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -162,6 +81,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:string" nillable="false"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -169,27 +89,154 @@
     <xs:element name="getPatchResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="patch" type="tns:patchInfoStruct" nillable="false"/>
+                <xs:element name="patch" type="tns:patchInfoType" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="patchInfoStruct">
+    <xs:element name="getPatchPageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="createdSince" type="xs:string" nillable="true"/>
+                <xs:element name="createdUntil" type="xs:string" nillable="true"/>
+                <xs:element name="status" type="xs:string" nillable="true"/>
+                <xs:element name="page" type="xs:integer" nillable="true"/>
+                <xs:element name="size" type="xs:integer" nillable="true"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchPageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patches" type="tns:patchInfoType" maxOccurs="unbounded" nillable="false"/>
+                <xs:element name="page" type="xs:integer" nillable="false"/>
+                <xs:element name="total" type="xs:integer" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="patchInfoType">
         <xs:sequence>
-            <xs:element name="id" type="xs:string" nillable="false"/>
+            <xs:element name="id" type="xs:integer" nillable="false"/>
+            <xs:element name="comment" type="xs:string" nillable="false"/>
+            <xs:element name="providerId" type="xs:integer" nillable="false"/>
             <xs:element name="createdAt" type="xs:string" nillable="false"/>
             <xs:element name="status" type="xs:string" nillable="false"/>
+            <xs:element name="indicatorInfos" type="tns:patchIndicatorInfoType" maxOccurs="unbounded" nillable="false"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="pointInvoiceStruct">
+    <xs:complexType name="patchIndicatorInfoType">
         <xs:sequence>
+            <xs:element name="indicatorCode" type="xs:string" nillable="false"/>
+            <xs:element name="totalPoints" type="xs:integer" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="patchPropertiesType">
+        <xs:sequence>
+            <xs:element name="comment" type="xs:string" nillable="false"/>
+            <xs:element name="points" type="tns:pointPropertiesType" maxOccurs="unbounded" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pointPropertiesType">
+        <xs:sequence>
+            <xs:element name="indicatorCode" type="xs:string" nillable="false"/>
+            <xs:element name="periodCode" type="xs:string" nillable="false"/>
+            <xs:element name="territoryCode" type="xs:string" nillable="false"/>
+            <xs:element name="date" type="xs:string" nillable="false"/>
             <xs:element name="real" type="xs:double" nillable="false"/>
             <xs:element name="plan" type="xs:double" nillable="true"/>
-            <xs:element name="date" type="xs:string" nillable="false"/>
-            <xs:element name="indicator" type="xs:string" nillable="false"/>
-            <xs:element name="period" type="xs:string" nillable="false"/>
-            <xs:element name="territory" type="xs:string" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="getPeriodsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPeriodsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="xs:string" nillable="false"/>
+                <xs:element name="title" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProviderRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProviderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:integer" nillable="false"/>
+                <xs:element name="title" type="xs:string" nillable="false"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="registeredAt" type="xs:string" nillable="false"/>
+                <xs:element name="grants" type="xs:string" maxOccurs="unbounded" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="xs:string" nillable="false"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="territory" type="tns:hierarchicInfoType" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryPageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="codePattern" type="xs:string" nillable="true"/>
+                <xs:element name="implicitAscendantCode" type="xs:string" nillable="true"/>
+                <xs:element name="title" type="xs:string" nillable="true"/>
+                <xs:element name="page" type="xs:integer" nillable="true"/>
+                <xs:element name="size" type="xs:integer" nillable="true"/>
+                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryPageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="items" type="tns:hierarchicInfoType" maxOccurs="unbounded" nillable="false"/>
+                <xs:element name="page" type="xs:integer" nillable="false"/>
+                <xs:element name="total" type="xs:integer" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="hierarchicInfoType">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" nillable="false"/>
+            <xs:element name="ascendantCode" type="xs:string" nillable="true"/>
+            <xs:element name="title" type="xs:string" nillable="false"/>
+            <xs:element name="description" type="xs:string" nillable="true"/>
+            <xs:element name="terminal" type="xs:boolean" nillable="true"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

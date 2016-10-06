@@ -12,7 +12,7 @@ import ru.spb.iac.storager.server.domain.periods.PeriodService;
 public class PeriodEndpoint {
 
     private static final String NAMESPACE = "http://iac.spb.ru/storager/server/integration/providing";
-
+/*
     @Autowired
     private PeriodService periodService;
 
@@ -30,4 +30,5 @@ public class PeriodEndpoint {
                 });
         return response;
     }
+*/
 }

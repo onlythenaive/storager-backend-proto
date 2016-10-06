@@ -9,7 +9,7 @@ import ru.spb.iac.storager.server.domain.patches.PatchService;
 public class PatchEndpoint {
 
     private static final String NAMESPACE = "http://iac.spb.ru/storager/server/integration/providing";
-
+/*
     @Autowired
     private PatchService patchService;
 
@@ -20,4 +20,5 @@ public class PatchEndpoint {
     public GetPatchResponse get(GetPatchRequest request) {
         throw new UnsupportedOperationException();
     }
+*/
 }

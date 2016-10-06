@@ -13,7 +13,7 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
 public class IndicatorEndpoint {
 
     private static final String NAMESPACE = "http://iac.spb.ru/storager/server/integration/providing";
-
+/*
     @Autowired
     private IndicatorService indicatorService;
 
@@ -64,4 +64,5 @@ public class IndicatorEndpoint {
                 });
         return response;
     }
+*/
 }

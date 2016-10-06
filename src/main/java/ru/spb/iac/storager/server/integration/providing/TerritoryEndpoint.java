@@ -13,7 +13,7 @@ import ru.spb.iac.storager.server.domain.territories.TerritoryService;
 public class TerritoryEndpoint {
 
     private static final String NAMESPACE = "http://iac.spb.ru/storager/server/integration/providing";
-
+/*
     @Autowired
     private TerritoryService territoryService;
 
@@ -64,4 +64,5 @@ public class TerritoryEndpoint {
                 });
         return response;
     }
+*/
 }

@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://iac.spb.ru/storager/server/integration/providing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://iac.spb.ru/storager/server/integration/providing" targetNamespace="http://iac.spb.ru/storager/server/integration/providing">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://iac.spb.ru/storager/server/integration/providing">
+
+    <xs:element name="getIndicatorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" nillable="false" type="xs:string"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getIndicatorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="indicator" nillable="false" type="tns:hierarchicInfoType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getIndicatorPageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="codePattern" nillable="true" type="xs:string"/>
+                <xs:element name="implicitAscendantCode" nillable="true" type="xs:string"/>
+                <xs:element name="title" nillable="true" type="xs:string"/>
+                <xs:element name="page" nillable="true" type="xs:integer"/>
+                <xs:element name="size" nillable="true" type="xs:integer"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getIndicatorPageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="items" nillable="false" type="tns:hierarchicInfoType"/>
+                <xs:element name="page" nillable="false" type="xs:integer"/>
+                <xs:element name="total" nillable="false" type="xs:integer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" nillable="false" type="tns:patchPropertiesType"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" nillable="false" type="tns:patchInfoType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchInSandboxRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" nillable="false" type="tns:patchPropertiesType"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createPatchInSandboxResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" nillable="false" type="tns:patchInfoType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" nillable="false" type="xs:string"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patch" nillable="false" type="tns:patchInfoType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchPageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="createdSince" nillable="true" type="xs:string"/>
+                <xs:element name="createdUntil" nillable="true" type="xs:string"/>
+                <xs:element name="status" nillable="true" type="xs:string"/>
+                <xs:element name="page" nillable="true" type="xs:integer"/>
+                <xs:element name="size" nillable="true" type="xs:integer"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPatchPageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="patches" nillable="false" type="tns:patchInfoType"/>
+                <xs:element name="page" nillable="false" type="xs:integer"/>
+                <xs:element name="total" nillable="false" type="xs:integer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="patchInfoType">
+        <xs:sequence>
+            <xs:element name="id" nillable="false" type="xs:integer"/>
+            <xs:element name="comment" nillable="false" type="xs:string"/>
+            <xs:element name="providerId" nillable="false" type="xs:integer"/>
+            <xs:element name="createdAt" nillable="false" type="xs:string"/>
+            <xs:element name="status" nillable="false" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="indicatorInfos" nillable="false" type="tns:patchIndicatorInfoType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="patchIndicatorInfoType">
+        <xs:sequence>
+            <xs:element name="indicatorCode" nillable="false" type="xs:string"/>
+            <xs:element name="totalPoints" nillable="false" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="patchPropertiesType">
+        <xs:sequence>
+            <xs:element name="comment" nillable="false" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="points" nillable="false" type="tns:pointPropertiesType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pointPropertiesType">
+        <xs:sequence>
+            <xs:element name="indicatorCode" nillable="false" type="xs:string"/>
+            <xs:element name="periodCode" nillable="false" type="xs:string"/>
+            <xs:element name="territoryCode" nillable="false" type="xs:string"/>
+            <xs:element name="date" nillable="false" type="xs:string"/>
+            <xs:element name="real" nillable="false" type="xs:double"/>
+            <xs:element name="plan" nillable="true" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="getPeriodsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPeriodsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" nillable="false" type="xs:string"/>
+                <xs:element name="title" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProviderRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProviderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" nillable="false" type="xs:integer"/>
+                <xs:element name="title" nillable="false" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="registeredAt" nillable="false" type="xs:string"/>
+                <xs:element maxOccurs="unbounded" name="grants" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" nillable="false" type="xs:string"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="territory" nillable="false" type="tns:hierarchicInfoType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryPageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="codePattern" nillable="true" type="xs:string"/>
+                <xs:element name="implicitAscendantCode" nillable="true" type="xs:string"/>
+                <xs:element name="title" nillable="true" type="xs:string"/>
+                <xs:element name="page" nillable="true" type="xs:integer"/>
+                <xs:element name="size" nillable="true" type="xs:integer"/>
+                <xs:element name="providerSecurityToken" nillable="false" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTerritoryPageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="items" nillable="false" type="tns:hierarchicInfoType"/>
+                <xs:element name="page" nillable="false" type="xs:integer"/>
+                <xs:element name="total" nillable="false" type="xs:integer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="hierarchicInfoType">
+        <xs:sequence>
+            <xs:element name="code" nillable="false" type="xs:string"/>
+            <xs:element name="ascendantCode" nillable="true" type="xs:string"/>
+            <xs:element name="title" nillable="false" type="xs:string"/>
+            <xs:element name="description" nillable="true" type="xs:string"/>
+            <xs:element name="terminal" nillable="true" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getIndicatorPageRequest">
+    <wsdl:part element="tns:getIndicatorPageRequest" name="getIndicatorPageRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTerritoryResponse">
+    <wsdl:part element="tns:getTerritoryResponse" name="getTerritoryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createPatchResponse">
+    <wsdl:part element="tns:createPatchResponse" name="createPatchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createPatchInSandboxResponse">
+    <wsdl:part element="tns:createPatchInSandboxResponse" name="createPatchInSandboxResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTerritoryPageResponse">
+    <wsdl:part element="tns:getTerritoryPageResponse" name="getTerritoryPageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createPatchRequest">
+    <wsdl:part element="tns:createPatchRequest" name="createPatchRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPatchResponse">
+    <wsdl:part element="tns:getPatchResponse" name="getPatchResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPatchPageRequest">
+    <wsdl:part element="tns:getPatchPageRequest" name="getPatchPageRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPatchPageResponse">
+    <wsdl:part element="tns:getPatchPageResponse" name="getPatchPageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTerritoryPageRequest">
+    <wsdl:part element="tns:getTerritoryPageRequest" name="getTerritoryPageRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createPatchInSandboxRequest">
+    <wsdl:part element="tns:createPatchInSandboxRequest" name="createPatchInSandboxRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIndicatorResponse">
+    <wsdl:part element="tns:getIndicatorResponse" name="getIndicatorResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPeriodsResponse">
+    <wsdl:part element="tns:getPeriodsResponse" name="getPeriodsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIndicatorRequest">
+    <wsdl:part element="tns:getIndicatorRequest" name="getIndicatorRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProviderRequest">
+    <wsdl:part element="tns:getProviderRequest" name="getProviderRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTerritoryRequest">
+    <wsdl:part element="tns:getTerritoryRequest" name="getTerritoryRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getProviderResponse">
+    <wsdl:part element="tns:getProviderResponse" name="getProviderResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getIndicatorPageResponse">
+    <wsdl:part element="tns:getIndicatorPageResponse" name="getIndicatorPageResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPatchRequest">
+    <wsdl:part element="tns:getPatchRequest" name="getPatchRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPeriodsRequest">
+    <wsdl:part element="tns:getPeriodsRequest" name="getPeriodsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="providingPort">
+    <wsdl:operation name="getIndicatorPage">
+      <wsdl:input message="tns:getIndicatorPageRequest" name="getIndicatorPageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getIndicatorPageResponse" name="getIndicatorPageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTerritory">
+      <wsdl:input message="tns:getTerritoryRequest" name="getTerritoryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getTerritoryResponse" name="getTerritoryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPatch">
+      <wsdl:input message="tns:createPatchRequest" name="createPatchRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:createPatchResponse" name="createPatchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPatchInSandbox">
+      <wsdl:input message="tns:createPatchInSandboxRequest" name="createPatchInSandboxRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:createPatchInSandboxResponse" name="createPatchInSandboxResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTerritoryPage">
+      <wsdl:input message="tns:getTerritoryPageRequest" name="getTerritoryPageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getTerritoryPageResponse" name="getTerritoryPageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPatch">
+      <wsdl:input message="tns:getPatchRequest" name="getPatchRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getPatchResponse" name="getPatchResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPatchPage">
+      <wsdl:input message="tns:getPatchPageRequest" name="getPatchPageRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getPatchPageResponse" name="getPatchPageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIndicator">
+      <wsdl:input message="tns:getIndicatorRequest" name="getIndicatorRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getIndicatorResponse" name="getIndicatorResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPeriods">
+      <wsdl:input message="tns:getPeriodsRequest" name="getPeriodsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getPeriodsResponse" name="getPeriodsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProvider">
+      <wsdl:input message="tns:getProviderRequest" name="getProviderRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getProviderResponse" name="getProviderResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="providingPortSoap11" type="tns:providingPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getIndicatorPage">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getIndicatorPageRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIndicatorPageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTerritory">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTerritoryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTerritoryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPatch">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createPatchRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createPatchResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPatchInSandbox">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createPatchInSandboxRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createPatchInSandboxResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTerritoryPage">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTerritoryPageRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTerritoryPageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPatch">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getPatchRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPatchResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPatchPage">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getPatchPageRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPatchPageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getIndicator">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getIndicatorRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getIndicatorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPeriods">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getPeriodsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPeriodsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProvider">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getProviderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getProviderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="providingPortService">
+    <wsdl:port binding="tns:providingPortSoap11" name="providingPortSoap11">
+      <soap:address location="http://localhost:8080/integration"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
