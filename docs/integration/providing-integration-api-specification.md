@@ -13,22 +13,68 @@ Creates a new patch.
 
 Request:
 ```
+{
+  "comment": string,
+  "points": {
+    "indicatorId": integer,
+    "periodCode": string,
+    "territoryCode": string,
+    "date": ISO date string,
+    "real": double,
+    "plan": double (optional),
+  }[],
+  "providerSecurityToken": string
+}
 ```
 
 Response:
 ```
+{
+  "id": integer,
+  "comment": string,
+  "providerId": integer,
+  "createdAt": ISO timestamp string,
+  "status": string,
+  "indicatorInfos": {
+    "indicatorCode": string,
+    "totalPoints": integer
+  }[]
+}
 ```
 
 
 ### "createPatchInSandbox"
-Create a new patch in a sandbox mode.
+Create a new patch in a sandbox mode (patch is not persisted in the data storage).
 
 Request:
 ```
+{
+  "comment": string,
+  "points": {
+    "indicatorId": integer,
+    "periodCode": string,
+    "territoryCode": string,
+    "date": ISO date string,
+    "real": double,
+    "plan": double (optional),
+  }[],
+  "providerSecurityToken": string
+}
 ```
 
 Response:
 ```
+{
+  "id": integer,
+  "comment": string,
+  "providerId": integer,
+  "createdAt": ISO timestamp string,
+  "status": string,
+  "indicatorInfos": {
+    "indicatorCode": string,
+    "totalPoints": integer
+  }[]
+}
 ```
 
 
@@ -38,19 +84,19 @@ Gets a specific implicitly granted indicator by its code.
 Request:
 ```
 {
-  "code": String,
-  "providerSecurityToken": String
+  "code": string,
+  "providerSecurityToken": string
 }
 ```
 
 Response:
 ```
 {
-  "code": String,
-  "ascendantCode": String (optional),
-  "title": String,
-  "description": String (optional),
-  "terminal": Boolean (optional)
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "terminal": boolean (optional)
 }
 ```
 
@@ -61,12 +107,12 @@ Gets a page of implicitly granted indicators with filtering by code, implicit as
 Request:
 ```
 {
-  "codePattern": String (a pattern of indicator code, optional),
-  "implicitAscendantCode": String (exact code of an implicit ascendant, optional),
-  "titlePattern": String (a pattern of indicator title, optional),
-  "providerSecurityToken": String,
-  "page": Integer (optional),
-  "size": Integer (optional)
+  "codePattern": string (a pattern of indicator code, optional),
+  "implicitAscendantCode": string (exact code of an implicit ascendant, optional),
+  "titlePattern": string (a pattern of indicator title, optional),
+  "providerSecurityToken": string,
+  "page": integer (optional),
+  "size": integer (optional)
 }
 ```
 
@@ -74,14 +120,14 @@ Response:
 ```
 {
   "items": {
-    "code": String,
-    "ascendantCode": String (optional),
-    "title": String,
-    "description": String (optional),
-    "terminal": Boolean (optional)
+    "code": string,
+    "ascendantCode": string (optional),
+    "title": string,
+    "description": string (optional),
+    "terminal": boolean (optional)
   }[],
-  "page": Integer,
-  "total": Integer
+  "page": integer,
+  "total": integer
 }
 ```
 
@@ -92,22 +138,22 @@ Gets a specific patch by its id.
 Request:
 ```
 {
-  "id": Integer,
-  "providerSecurityToken": String
+  "id": integer,
+  "providerSecurityToken": string
 }
 ```
 
 Response:
 ```
 {
-  "id": Integer,
-  "comment": String,
-  "providerId": Integer,
-  "createdAt": Timestamp,
-  "status": String,
+  "id": integer,
+  "comment": string,
+  "providerId": integer,
+  "createdAt": ISO timestamp string,
+  "status": string,
   "indicatorInfos": {
-    "indicatorCode": String,
-    "totalPoints": Integer
+    "indicatorCode": string,
+    "totalPoints": integer
   }[]
 }
 ```
@@ -119,12 +165,12 @@ Gets a page of previously created patches by the current provider with filtering
 Request:
 ```
 {
-  "createdSince": Timestamp (optional),
-  "createdUntil": Timestamp (optional),
-  "status": String (optional),
-  "providerSecurityToken": String,
-  "page": Integer (optional),
-  "size": Integer (optional)
+  "createdSince": ISO timestamp string (optional),
+  "createdUntil": ISO timestamp string (optional),
+  "status": string (optional),
+  "providerSecurityToken": string,
+  "page": integer (optional),
+  "size": integer (optional)
 }
 ```
 
@@ -132,18 +178,18 @@ Response:
 ```
 {
   "items": {
-    "id": Integer,
-    "comment": String,
-    "providerId": Integer,
-    "createdAt": Timestamp,
-    "status": String,
+    "id": integer,
+    "comment": string,
+    "providerId": integer,
+    "createdAt": ISO timestamp string,
+    "status": string,
     "indicatorInfos": {
-      "indicatorCode": String,
-      "totalPoints": Integer
+      "indicatorCode": string,
+      "totalPoints": integer
     }[]
   }[],
-  "page": Integer,
-  "total": Integer
+  "page": integer,
+  "total": integer
 }
 ```
 
@@ -154,15 +200,15 @@ Gets all periods.
 Request:
 ```
 {
-  "providerSecurityToken": String
+  "providerSecurityToken": string
 }
 ```
 
 Response:
 ```
 {
-  "code": String,
-  "title": String
+  "code": string,
+  "title": string
 }[]
 ```
 
@@ -173,18 +219,18 @@ Gets the current authenticated provider.
 Request:
 ```
 {
-  "providerSecurityToken": String
+  "providerSecurityToken": string
 }
 ```
 
 Response:
 ```
 {
-  "id": Integer,
-  "title": String,
-  "description": String (optional),
-  "registeredAt": Timestamp,
-  "grants": String[]
+  "id": integer,
+  "title": string,
+  "description": string (optional),
+  "registeredAt": ISO timestamp string,
+  "grants": string[]
 }
 ```
 
@@ -195,19 +241,19 @@ Gets a specific territory by its code.
 Request:
 ```
 {
-  "code": String,
-  "providerSecurityToken": String
+  "code": string,
+  "providerSecurityToken": string
 }
 ```
 
 Response:
 ```
 {
-  "code": String,
-  "ascendantCode": String (optional),
-  "title": String,
-  "description": String (optional),
-  "terminal": Boolean (optional)
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "terminal": boolean (optional)
 }
 ```
 
@@ -218,12 +264,12 @@ Gets a page of territories with filtering by code, implicit ascendant code and t
 Request:
 ```
 {
-  "codePattern": String (a pattern of territory code, optional),
-  "implicitAscendantCode": String (exact code of an implicit ascendant, optional),
-  "titlePattern": String (a pattern of territory title, optional),
-  "providerSecurityToken": String,
-  "page": Integer (optional),
-  "size": Integer (optional)
+  "codePattern": string (a pattern of territory code, optional),
+  "implicitAscendantCode": string (exact code of an implicit ascendant, optional),
+  "titlePattern": string (a pattern of territory title, optional),
+  "providerSecurityToken": string,
+  "page": integer (optional),
+  "size": integer (optional)
 }
 ```
 
@@ -231,13 +277,13 @@ Response:
 ```
 {
   "items": {
-    "code": String,
-    "ascendantCode": String (optional),
-    "title": String,
-    "description": String (optional),
-    "terminal": Boolean (optional)
+    "code": string,
+    "ascendantCode": string (optional),
+    "title": string,
+    "description": string (optional),
+    "terminal": boolean (optional)
   }[],
-  "page": Integer,
-  "total": Integer
+  "page": integer,
+  "total": integer
 }
 ```
