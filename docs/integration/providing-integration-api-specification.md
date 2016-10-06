@@ -1,13 +1,10 @@
 # Integration API: Providing
 
+## Request Format
+All the integration requests made by providing systems must be valid SOAP messages. 
+
 ## Security
-
-### Authentication
-All the integration requests made by providing systems must be valid SOAP messages and contain a security token among other input parameters required by a specific operation.
-
-### Authorization
-*TODO: add this section*
-
+All the integration requests made by providing systems must contain a security token among other input parameters required by a specific operation.
 
 ## Operations
 
@@ -67,7 +64,9 @@ Request:
   "codePattern": String (a pattern of indicator code, optional),
   "implicitAscendantCode": String (exact code of an implicit ascendant, optional),
   "titlePattern": String (a pattern of indicator title, optional),
-  "providerSecurityToken": String
+  "providerSecurityToken": String,
+  "page": Integer (optional),
+  "size": Integer (optional)
 }
 ```
 
@@ -92,10 +91,25 @@ Gets a specific patch by its id.
 
 Request:
 ```
+{
+  "id": Integer,
+  "providerSecurityToken": String
+}
 ```
 
 Response:
 ```
+{
+  "id": Integer,
+  "comment": String,
+  "providerId": Integer,
+  "createdAt": Timestamp,
+  "status": String,
+  "indicatorInfos": {
+    "indicatorCode": String,
+    "totalPoints": Integer
+  }[]
+}
 ```
 
 
@@ -104,10 +118,33 @@ Gets a page of previously created patches by the current provider with filtering
 
 Request:
 ```
+{
+  "createdSince": Timestamp (optional),
+  "createdUntil": Timestamp (optional),
+  "status": String (optional),
+  "providerSecurityToken": String,
+  "page": Integer (optional),
+  "size": Integer (optional)
+}
 ```
 
 Response:
 ```
+{
+  "items": {
+    "id": Integer,
+    "comment": String,
+    "providerId": Integer,
+    "createdAt": Timestamp,
+    "status": String,
+    "indicatorInfos": {
+      "indicatorCode": String,
+      "totalPoints": Integer
+    }[]
+  }[],
+  "page": Integer,
+  "total": Integer
+}
 ```
 
 
@@ -184,7 +221,9 @@ Request:
   "codePattern": String (a pattern of territory code, optional),
   "implicitAscendantCode": String (exact code of an implicit ascendant, optional),
   "titlePattern": String (a pattern of territory title, optional),
-  "providerSecurityToken": String
+  "providerSecurityToken": String,
+  "page": Integer (optional),
+  "size": Integer (optional)
 }
 ```
 
