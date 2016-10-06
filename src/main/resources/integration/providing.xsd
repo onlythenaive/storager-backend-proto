@@ -155,20 +155,26 @@
 
     <xs:element name="getPeriodsRequest">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
-            </xs:sequence>
+            <xs:complexContent>
+                <xs:extension base="tns:secureRequestType"/>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
     <xs:element name="getPeriodsResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="code" type="xs:string" nillable="false"/>
-                <xs:element name="title" type="xs:string" nillable="false"/>
+                <xs:element name="periods" type="tns:periodInfoType" maxOccurs="unbounded" nillable="false"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:complexType name="periodInfoType">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" nillable="false"/>
+            <xs:element name="title" type="xs:string" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:element name="getProviderRequest">
         <xs:complexType>
@@ -229,6 +235,12 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:complexType name="secureRequestType" abstract="true">
+        <xs:sequence>
+            <xs:element name="providerSecurityToken" type="xs:string" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="hierarchicInfoType">
         <xs:sequence>

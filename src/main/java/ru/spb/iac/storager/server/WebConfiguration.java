@@ -46,10 +46,10 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public RequestForwardFilter indexPageForwardFilter() {
         final Set<String> exclusionPrefixes = new HashSet<>();
-        exclusionPrefixes.add("/data/");
-        exclusionPrefixes.add("/integration/");
-        exclusionPrefixes.add("/security/");
-        exclusionPrefixes.add("/static/");
+        exclusionPrefixes.add("/data");
+        exclusionPrefixes.add("/integration");
+        exclusionPrefixes.add("/security");
+        exclusionPrefixes.add("/static");
         return new RequestForwardFilter("/", exclusionPrefixes);
     }
 
