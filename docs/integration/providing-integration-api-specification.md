@@ -29,15 +29,13 @@ Request:
 Response:
 ```
 {
-  "items": [
-    {
-      "code": String,
-      "ascendantCode": String (optional),
-      "title": String,
-      "description": String (optional),
-      "terminal": Boolean (optional)
-    }
-  ],
+  "items": {
+    "code": String,
+    "ascendantCode": String (optional),
+    "title": String,
+    "description": String (optional),
+    "terminal": Boolean (optional)
+  }[],
   "page": Integer,
   "total": Integer
 }
@@ -88,12 +86,10 @@ Request:
 
 Response:
 ```
-[
-  {
-    "code": String,
-    "title": String
-  }
-]
+{
+  "code": String,
+  "title": String
+}[]
 ```
 
 
@@ -111,15 +107,13 @@ Request:
 
 Response:
 ```
-[
-  {
-    "id": Integer,
-    "title": String,
-    "description": String (optional),
-    "registeredAt": Timestamp,
-    "grants": String[]
-  }
-]
+{
+  "id": Integer,
+  "title": String,
+  "description": String (optional),
+  "registeredAt": Timestamp,
+  "grants": String[]
+}
 ```
 
 
@@ -141,15 +135,13 @@ Request:
 Response:
 ```
 {
-  "items": [
-    {
-      "code": String,
-      "ascendantCode": String (optional),
-      "title": String,
-      "description": String (optional),
-      "terminal": Boolean (optional)
-    }
-  ],
+  "items": {
+    "code": String,
+    "ascendantCode": String (optional),
+    "title": String,
+    "description": String (optional),
+    "terminal": Boolean (optional)
+  }[],
   "page": Integer,
   "total": Integer
 }
