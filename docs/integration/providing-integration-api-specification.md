@@ -11,7 +11,54 @@ All the integration requests made by providing systems must be valid SOAP messag
 
 ## Operations
 
-### getIndicatorPage
+### "createPatch"
+Creates a new patch.
+
+Request:
+```
+```
+
+Response:
+```
+```
+
+
+### "createPatchInSandbox"
+Create a new patch in a sandbox mode.
+
+Request:
+```
+```
+
+Response:
+```
+```
+
+
+### "getIndicator"
+Gets a specific implicitly granted indicator by its code.
+
+Request:
+```
+{
+  "code": String,
+  "providerSecurityToken": String
+}
+```
+
+Response:
+```
+{
+  "code": String,
+  "ascendantCode": String (optional),
+  "title": String,
+  "description": String (optional),
+  "terminal": Boolean (optional)
+}
+```
+
+
+### "getIndicatorPage"
 Gets a page of implicitly granted indicators with filtering by code, implicit ascendant code and title.
 
 Request:
@@ -40,35 +87,31 @@ Response:
 ```
 
 
-### getIndicator
-Gets a specific implicitly granted indicator by its code.
+### "getPatch"
+Gets a specific patch by its id.
 
 Request:
 ```
-{
-  "code": String,
-  "providerSecurityToken": String
-}
 ```
 
 Response:
 ```
-{
-  "code": String,
-  "ascendantCode": String (optional),
-  "title": String,
-  "description": String (optional),
-  "terminal": Boolean (optional)
-}
 ```
 
-* Get a page of previously created patches by the current provider with filtering by status and creation timestamp;
-* Get a specific patch by its id.
-* Create a new patch;
-* Create a new patch in a sandbox mode.
+
+### "getPatchPage"
+Gets a page of previously created patches by the current provider with filtering by status and creation timestamp;
+
+Request:
+```
+```
+
+Response:
+```
+```
 
 
-### getPeriods
+### "getPeriods"
 Gets all periods.
 
 Request:
@@ -87,7 +130,7 @@ Response:
 ```
 
 
-### getProvider
+### "getProvider"
 Gets the current authenticated provider.
 
 Request:
@@ -109,7 +152,30 @@ Response:
 ```
 
 
-### getTerritoryPage
+### "getTerritory"
+Gets a specific territory by its code.
+
+Request:
+```
+{
+  "code": String,
+  "providerSecurityToken": String
+}
+```
+
+Response:
+```
+{
+  "code": String,
+  "ascendantCode": String (optional),
+  "title": String,
+  "description": String (optional),
+  "terminal": Boolean (optional)
+}
+```
+
+
+### "getTerritoryPage"
 Gets a page of territories with filtering by code, implicit ascendant code and title;
 
 Request:
@@ -134,28 +200,5 @@ Response:
   }[],
   "page": Integer,
   "total": Integer
-}
-```
-
-
-### getTerritory
-Gets a specific territory by its code.
-
-Request:
-```
-{
-  "code": String,
-  "providerSecurityToken": String
-}
-```
-
-Response:
-```
-{
-  "code": String,
-  "ascendantCode": String (optional),
-  "title": String,
-  "description": String (optional),
-  "terminal": Boolean (optional)
 }
 ```
