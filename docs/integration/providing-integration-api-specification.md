@@ -16,7 +16,7 @@ Request:
 {
   "comment": string,
   "points": {
-    "indicatorId": integer,
+    "indicatorCode": string,
     "periodCode": string,
     "territoryCode": string,
     "date": ISO date string,
@@ -51,7 +51,7 @@ Request:
 {
   "comment": string,
   "points": {
-    "indicatorId": integer,
+    "indicatorCode": string,
     "periodCode": string,
     "territoryCode": string,
     "date": ISO date string,
@@ -110,9 +110,9 @@ Request:
   "codePattern": string (a pattern of indicator code, optional),
   "implicitAscendantCode": string (exact code of an implicit ascendant, optional),
   "titlePattern": string (a pattern of indicator title, optional),
-  "providerSecurityToken": string,
   "page": integer (optional),
-  "size": integer (optional)
+  "size": integer (optional),
+  "providerSecurityToken": string
 }
 ```
 
@@ -168,9 +168,9 @@ Request:
   "createdSince": ISO timestamp string (optional),
   "createdUntil": ISO timestamp string (optional),
   "status": string (optional),
-  "providerSecurityToken": string,
   "page": integer (optional),
-  "size": integer (optional)
+  "size": integer (optional),
+  "providerSecurityToken": string
 }
 ```
 
@@ -267,9 +267,9 @@ Request:
   "codePattern": string (a pattern of territory code, optional),
   "implicitAscendantCode": string (exact code of an implicit ascendant, optional),
   "titlePattern": string (a pattern of territory title, optional),
-  "providerSecurityToken": string,
   "page": integer (optional),
-  "size": integer (optional)
+  "size": integer (optional),
+  "providerSecurityToken": string
 }
 ```
 
