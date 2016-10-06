@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
 import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
 
+@Transactional
 public abstract class HierarchicItemService<T extends HierarchicItem<T>> {
 
     @Autowired

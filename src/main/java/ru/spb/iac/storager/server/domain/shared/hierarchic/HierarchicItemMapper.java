@@ -3,6 +3,9 @@ package ru.spb.iac.storager.server.domain.shared.hierarchic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public abstract class HierarchicItemMapper<T extends HierarchicItem<T>> {
 
     public T intoEntity(final HierarchicItemProperties properties) {

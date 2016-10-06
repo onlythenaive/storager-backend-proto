@@ -2,9 +2,11 @@ package ru.spb.iac.storager.server.domain.shared.hierarchic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
 import ru.spb.iac.storager.server.errors.domain.InvalidInputException;
 
+@Transactional
 public abstract class HierarchicItemValidator<T extends HierarchicItem<T>> {
 
     @Autowired

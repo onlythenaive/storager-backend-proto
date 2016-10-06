@@ -29,10 +29,10 @@
                 <xs:extension base="tns:secureRequestType">
                     <xs:sequence>
                         <xs:element name="codePattern" type="xs:string" nillable="true"/>
-                        <xs:element name="implicitAscendantCode" type="xs:string" nillable="true"/>
-                        <xs:element name="title" type="xs:string" nillable="true"/>
-                        <xs:element name="page" type="xs:integer" nillable="true"/>
-                        <xs:element name="size" type="xs:integer" nillable="true"/>
+                        <xs:element name="ascendantCode" type="xs:string" nillable="true"/>
+                        <xs:element name="titlePattern" type="xs:string" nillable="true"/>
+                        <xs:element name="page" type="xs:integer" nillable="true" default="1"/>
+                        <xs:element name="size" type="xs:integer" nillable="true" default="10"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
@@ -240,10 +240,10 @@
                 <xs:extension base="tns:secureRequestType">
                     <xs:sequence>
                         <xs:element name="codePattern" type="xs:string" nillable="true"/>
-                        <xs:element name="implicitAscendantCode" type="xs:string" nillable="true"/>
-                        <xs:element name="title" type="xs:string" nillable="true"/>
-                        <xs:element name="page" type="xs:integer" nillable="true"/>
-                        <xs:element name="size" type="xs:integer" nillable="true"/>
+                        <xs:element name="ascendantCode" type="xs:string" nillable="true"/>
+                        <xs:element name="titlePattern" type="xs:string" nillable="true"/>
+                        <xs:element name="page" type="xs:integer" nillable="true" default="1"/>
+                        <xs:element name="size" type="xs:integer" nillable="true" default="10"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
