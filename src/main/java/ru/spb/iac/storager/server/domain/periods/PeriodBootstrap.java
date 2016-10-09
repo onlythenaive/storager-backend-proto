@@ -5,24 +5,27 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.collect.ImmutableList;
-
 @Component
-@Transactional
 @Profile("dev.local")
 public class PeriodBootstrap {
 
     @Autowired
-    private PeriodBootstrapRepository periodRepository;
+    private PeriodService service;
 
+    @Transactional
     public void run() {
-        periodRepository.save(ImmutableList.of(
-                new Period("DAY", "День"),
-                new Period("WEEK", "Неделя"),
-                new Period("MONTH", "Месяц"),
-                new Period("QUARTER", "Квартал"),
-                new Period("HALF_YEAR", "Полугодие"),
-                new Period("YEAR", "Год")
-        ));
+        service.bootstrap(properties("DAY", "День"));
+        service.bootstrap(properties("WEEK", "Неделя"));
+        service.bootstrap(properties("MONTH", "Месяц"));
+        service.bootstrap(properties("QUARTER", "Квартал"));
+        service.bootstrap(properties("HALF_YEAR", "Полугодие"));
+        service.bootstrap(properties("YEAR", "Год"));
+    }
+
+    private PeriodProperties properties(final String code, final String title) {
+        final PeriodProperties properties = new PeriodProperties();
+        properties.setCode(code);
+        properties.setTitle(title);
+        return properties;
     }
 }

@@ -7,9 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.spb.iac.storager.server.security.SecurityContext;
+import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
+import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
+
 @Service
-@Transactional(readOnly = true)
 public class PeriodService {
+
+    @Autowired
+    private SecurityContext securityContext;
 
     @Autowired
     private PeriodMapper mapper;
@@ -17,7 +23,24 @@ public class PeriodService {
     @Autowired
     private PeriodRepository repository;
 
-    public List<PeriodInfo> getAll() {
+    @Transactional
+    public PeriodInfo bootstrap(final PeriodProperties properties) {
+        return mapper.intoInfo(repository.save(mapper.intoEntity(properties)));
+    }
+
+    @Transactional(readOnly = true)
+    public List<PeriodInfo> getAllForProvider() {
+        securityContext.providerAuthenticated();
+        return getAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PeriodInfo> getAllForUser() {
+        securityContext.userAuthorizedWithAny(ADMIN, USER);
+        return getAll();
+    }
+
+    private List<PeriodInfo> getAll() {
         return repository
                 .findAll()
                 .stream()

@@ -14,7 +14,18 @@ import ru.spb.iac.storager.server.errors.security.NotAuthorizedException;
 @Scope(scopeName = "request", proxyMode = ScopedProxyMode.INTERFACES)
 public class SecurityContextDefault implements SecurityContextConfigurer {
 
+    private ProviderAuthentication providerAuthentication;
     private UserAuthentication userAuthentication;
+
+    @Override
+    public ProviderAuthentication getProviderAuthentication() {
+        return providerAuthentication;
+    }
+
+    @Override
+    public void setProviderAuthentication(final ProviderAuthentication providerAuthentication) {
+        this.providerAuthentication = providerAuthentication;
+    }
 
     public UserAuthentication getUserAuthentication() {
         return userAuthentication;
@@ -22,6 +33,14 @@ public class SecurityContextDefault implements SecurityContextConfigurer {
 
     public void setUserAuthentication(final UserAuthentication userAuthentication) {
         this.userAuthentication = userAuthentication;
+    }
+
+    @Override
+    public ProviderAuthentication providerAuthenticated() {
+        if (providerAuthentication == null) {
+            throw new NotAuthenticatedException();
+        }
+        return providerAuthentication;
     }
 
     @Override

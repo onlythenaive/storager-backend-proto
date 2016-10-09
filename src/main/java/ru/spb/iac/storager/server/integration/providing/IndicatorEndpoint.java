@@ -21,7 +21,7 @@ public class IndicatorEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorRequest")
     public GetIndicatorResponse getIndicator(@RequestPayload GetIndicatorRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final GetIndicatorResponse response = new GetIndicatorResponse();
         final HierarchicItemInfo info = service.getByCode(request.getCode());
         response.setCode(info.getCode());
@@ -34,7 +34,7 @@ public class IndicatorEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorPageRequest")
     public GetIndicatorPageResponse getIndicatorPage(@RequestPayload GetIndicatorPageRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final GetIndicatorPageResponse response = new GetIndicatorPageResponse();
         final PagedResult<HierarchicItemInfo> paged = service.getPage(
                 request.getCodePattern(),

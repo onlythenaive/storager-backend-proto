@@ -25,7 +25,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "createPatchRequest")
     public CreatePatchResponse createPatch(@RequestPayload CreatePatchRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final PatchProperties properties = new PatchProperties();
         final List<PointProperties> points = request.getPoints()
                 .stream()
@@ -49,7 +49,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "createPatchInSandboxRequest")
     public CreatePatchInSandboxResponse createPatch(@RequestPayload CreatePatchInSandboxRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final PatchProperties properties = new PatchProperties();
         final List<PointProperties> points = request.getPoints()
                 .stream()
@@ -73,7 +73,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getPatchRequest")
     public GetPatchResponse getPatch(@RequestPayload GetPatchRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final GetPatchResponse response = new GetPatchResponse();
         final PatchInfo info = service.getById(request.getId().intValue());
         return intoStruct(info, response);
@@ -82,7 +82,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getPatchPageRequest")
     public GetPatchPageResponse getPatchPage(@RequestPayload GetPatchPageRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final GetPatchPageResponse response = new GetPatchPageResponse();
         final PagedResult<PatchInfo> paged = service.getPage(
                 request.getProviderTitlePattern(),

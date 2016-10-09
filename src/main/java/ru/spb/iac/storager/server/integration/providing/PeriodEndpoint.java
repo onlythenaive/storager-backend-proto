@@ -17,10 +17,10 @@ public class PeriodEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getPeriodsRequest")
     public GetPeriodsResponse getPeriods(@RequestPayload GetPeriodsRequest request) {
-        providerAuthenticated(request);
+        authenticate(request);
         final GetPeriodsResponse response = new GetPeriodsResponse();
         periodService
-                .getAll()
+                .getAllForProvider()
                 .forEach(info -> {
                     PeriodInfoStruct period = new PeriodInfoStruct();
                     period.setCode(info.getCode());

@@ -21,7 +21,7 @@ public class ProviderEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getProviderRequest")
     public GetProviderResponse getProvider(@RequestPayload GetProviderRequest request) {
-        final ProviderAuthentication authentication = providerAuthenticated(request);
+        final ProviderAuthentication authentication = authenticate(request);
         final ProviderInfo info = service.getById(authentication.getId());
         final GetProviderResponse response = new GetProviderResponse();
         response.setId(BigInteger.valueOf(info.getId()));
