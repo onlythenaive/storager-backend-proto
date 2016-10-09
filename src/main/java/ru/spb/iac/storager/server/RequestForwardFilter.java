@@ -14,11 +14,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public final class RequestForwardFilter extends OncePerRequestFilter {
 
     private final String targetUri;
+    private final Set<String> exclusions;
     private final Set<String> exclusionPrefixes;
 
-    public RequestForwardFilter(final String targetUri, final Set<String> exclusionPrefixes) {
+    public RequestForwardFilter(final String targetUri,
+                                final Set<String> exclusions,
+                                final Set<String> exclusionPrefixes) {
         this.targetUri = targetUri;
-        this.exclusionPrefixes = new HashSet<>(exclusionPrefixes);
+        this.exclusions = exclusions != null ? new HashSet<>(exclusions) : null;
+        this.exclusionPrefixes = exclusionPrefixes != null ? new HashSet<>(exclusionPrefixes) : null;
     }
 
     @Override
@@ -27,16 +31,26 @@ public final class RequestForwardFilter extends OncePerRequestFilter {
 
         final String requestUri = request.getRequestURI();
 
-        final boolean shouldForward = exclusionPrefixes
+        final boolean notExcludedExplicitly = exclusions == null || exclusions
+                .stream()
+                .map(requestUri::equals)
+                .filter(Boolean::new)
+                .collect(Collectors.toList())
+                .isEmpty();
+
+        final boolean notExcludedByPrefix = exclusionPrefixes == null || exclusionPrefixes
                 .stream()
                 .map(requestUri::startsWith)
                 .filter(Boolean::new)
                 .collect(Collectors.toList())
                 .isEmpty();
 
+        final boolean shouldForward = notExcludedExplicitly && notExcludedByPrefix;
+
         if (shouldForward) {
             request.getRequestDispatcher(targetUri).forward(request, response);
+        } else {
+            filterChain.doFilter(request, response);
         }
-        filterChain.doFilter(request, response);
     }
 }

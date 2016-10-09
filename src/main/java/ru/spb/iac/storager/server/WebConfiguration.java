@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,22 +45,44 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    @Qualifier("faviconForwardFilter")
+    public RequestForwardFilter faviconForwardFilter() {
+        return new RequestForwardFilter("/static/images/favicon.ico", null, null);
+    }
+
+    @Bean
+    @Qualifier("indexPageForwardFilter")
     public RequestForwardFilter indexPageForwardFilter() {
+        final Set<String> exclusions = new HashSet<>();
+        exclusions.add("/");
+        exclusions.add("/favicon.ico");
         final Set<String> exclusionPrefixes = new HashSet<>();
         exclusionPrefixes.add("/data");
         exclusionPrefixes.add("/integration");
         exclusionPrefixes.add("/security");
         exclusionPrefixes.add("/static");
-        return new RequestForwardFilter("/", exclusionPrefixes);
+        return new RequestForwardFilter("/", exclusions, exclusionPrefixes);
     }
 
     @Bean
-    public FilterRegistrationBean indexPageForwardFilterRegistration(final RequestForwardFilter filter) {
+    @Qualifier("faviconForwardFilterRegistration")
+    public FilterRegistrationBean faviconForwardFilterRegistration(final @Qualifier("faviconForwardFilter") RequestForwardFilter filter) {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(filter);
+        registration.addUrlPatterns("/favicon.ico");
+        registration.setName("faviconForwardFilter");
+        registration.setOrder(1);
+        return registration;
+    }
+
+    @Bean
+    @Qualifier("indexPageForwardFilterRegistration")
+    public FilterRegistrationBean indexPageForwardFilterRegistration(final @Qualifier("indexPageForwardFilter") RequestForwardFilter filter) {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(filter);
         registration.addUrlPatterns("/*");
         registration.setName("indexPageForwardFilter");
-        registration.setOrder(1);
+        registration.setOrder(2);
         return registration;
     }
 }
