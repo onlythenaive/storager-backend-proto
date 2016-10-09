@@ -2,36 +2,12 @@ package ru.spb.iac.storager.server.domain.points;
 
 public final class PointProperties {
 
-    private Double real;
-    private Double plan;
-    private String time;
     private String indicatorCode;
     private String periodCode;
     private String territoryCode;
-
-    public Double getReal() {
-        return real;
-    }
-
-    public void setReal(final Double real) {
-        this.real = real;
-    }
-
-    public Double getPlan() {
-        return plan;
-    }
-
-    public void setPlan(final Double plan) {
-        this.plan = plan;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(final String time) {
-        this.time = time;
-    }
+    private String date;
+    private Double real;
+    private Double plan;
 
     public String getIndicatorCode() {
         return indicatorCode;
@@ -55,5 +31,29 @@ public final class PointProperties {
 
     public void setTerritoryCode(final String territoryCode) {
         this.territoryCode = territoryCode;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(final String date) {
+        this.date = date;
+    }
+
+    public Double getReal() {
+        return real;
+    }
+
+    public void setReal(final Double real) {
+        this.real = real;
+    }
+
+    public Double getPlan() {
+        return plan;
+    }
+
+    public void setPlan(final Double plan) {
+        this.plan = plan;
     }
 }

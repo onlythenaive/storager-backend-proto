@@ -12,7 +12,7 @@ public abstract class BaseProvidingEndpoint {
     @Autowired
     private ProviderSecurityService securityService;
 
-    protected ProviderAuthentication providerAuthenticated(final SecureRequestType request) {
+    protected ProviderAuthentication providerAuthenticated(final SecureRequestStruct request) {
         return securityService.authenticateByToken(request.getProviderSecurityToken());
     }
 }

@@ -24,12 +24,10 @@ public class TerritoryEndpoint extends BaseProvidingEndpoint {
         providerAuthenticated(request);
         final GetTerritoryResponse response = new GetTerritoryResponse();
         final HierarchicItemInfo info = service.getByCode(request.getCode());
-        final HierarchicInfoType territory = new HierarchicInfoType();
-        territory.setCode(info.getCode());
-        territory.setTitle(info.getTitle());
-        territory.setAscendantCode(info.getAscendantCode());
-        territory.setTerminal(info.getTerminal());
-        response.setTerritory(territory);
+        response.setCode(info.getCode());
+        response.setTitle(info.getTitle());
+        response.setAscendantCode(info.getAscendantCode());
+        response.setTerminal(info.getTerminal());
         return response;
     }
 
@@ -46,7 +44,7 @@ public class TerritoryEndpoint extends BaseProvidingEndpoint {
                 request.getSize().intValue()
         );
         paged.getItems().forEach(info -> {
-            final HierarchicInfoType territory = new HierarchicInfoType();
+            final HierarchicItemInfoStruct territory = new HierarchicItemInfoStruct();
             territory.setCode(info.getCode());
             territory.setTitle(info.getTitle());
             territory.setAscendantCode(info.getAscendantCode());

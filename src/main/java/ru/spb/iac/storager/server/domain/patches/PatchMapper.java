@@ -51,7 +51,7 @@ public class PatchMapper {
         properties.getPoints().forEach(p -> {
             final Double real = p.getReal();
             final Double plan = p.getPlan();
-            final String time = p.getTime();
+            final String time = p.getDate();
             final Indicator indicator = getIndicator(p.getIndicatorCode());
             final Period period = getPeriod(p.getPeriodCode());
             final Territory territory = getTerritory(p.getTerritoryCode());

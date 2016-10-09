@@ -207,9 +207,11 @@ Request:
 Response:
 ```
 {
-  "code": string,
-  "title": string
-}[]
+  "items": {
+    "code": string,
+    "title": string
+  }[]
+}
 ```
 
 

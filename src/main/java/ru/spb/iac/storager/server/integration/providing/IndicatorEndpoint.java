@@ -1,5 +1,7 @@
 package ru.spb.iac.storager.server.integration.providing;
 
+import java.math.BigInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -7,62 +9,50 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ru.spb.iac.storager.server.domain.indicators.IndicatorService;
+import ru.spb.iac.storager.server.domain.shared.PagedResult;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
 
 @Endpoint
-public class IndicatorEndpoint {
+public class IndicatorEndpoint extends BaseProvidingEndpoint {
 
-    private static final String NAMESPACE = "http://iac.spb.ru/storager/server/integration/providing";
-/*
     @Autowired
-    private IndicatorService indicatorService;
+    private IndicatorService service;
 
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorRequest")
     public GetIndicatorResponse getIndicator(@RequestPayload GetIndicatorRequest request) {
+        providerAuthenticated(request);
         final GetIndicatorResponse response = new GetIndicatorResponse();
-        final HierarchicItemInfo info = indicatorService.getByCode(request.getCode());
-        final IndicatorType indicator = new IndicatorType();
-        indicator.setCode(info.getCode());
-        indicator.setTitle(info.getTitle());
-        indicator.setAscendantCode(info.getAscendantCode());
-        indicator.setTerminal(info.getTerminal());
-        response.setIndicator(indicator);
+        final HierarchicItemInfo info = service.getByCode(request.getCode());
+        response.setCode(info.getCode());
+        response.setTitle(info.getTitle());
+        response.setAscendantCode(info.getAscendantCode());
+        response.setTerminal(info.getTerminal());
         return response;
     }
 
     @ResponsePayload
-    @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorDescendantsRequest")
-    public GetIndicatorDescendantsResponse getIndicatorDescendants(@RequestPayload GetIndicatorDescendantsRequest request) {
-        final GetIndicatorDescendantsResponse response = new GetIndicatorDescendantsResponse();
-        indicatorService
-                .getDescendants(request.getAscendantCode())
-                .forEach(data -> {
-                    final IndicatorType indicator = new IndicatorType();
-                    indicator.setCode(data.getCode());
-                    indicator.setTitle(data.getTitle());
-                    indicator.setAscendantCode(data.getAscendantCode());
-                    indicator.setTerminal(data.getTerminal());
-                    response.getDescendants().add(indicator);
-                });
+    @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorPageRequest")
+    public GetIndicatorPageResponse getIndicatorPage(@RequestPayload GetIndicatorPageRequest request) {
+        providerAuthenticated(request);
+        final GetIndicatorPageResponse response = new GetIndicatorPageResponse();
+        final PagedResult<HierarchicItemInfo> paged = service.getPage(
+                request.getCodePattern(),
+                request.getAscendantCode(),
+                request.getTitlePattern(),
+                request.getPage().intValue(),
+                request.getSize().intValue()
+        );
+        paged.getItems().forEach(info -> {
+            final HierarchicItemInfoStruct indicator = new HierarchicItemInfoStruct();
+            indicator.setCode(info.getCode());
+            indicator.setTitle(info.getTitle());
+            indicator.setAscendantCode(info.getAscendantCode());
+            indicator.setTerminal(info.getTerminal());
+            response.getItems().add(indicator);
+        });
+        response.setPage(BigInteger.valueOf(paged.getPage()));
+        response.setTotal(BigInteger.valueOf(paged.getTotal()));
         return response;
     }
-
-    @ResponsePayload
-    @PayloadRoot(namespace = NAMESPACE, localPart = "getIndicatorRootsRequest")
-    public GetIndicatorRootsResponse getIndicatorRoots(@RequestPayload GetIndicatorRootsRequest request) {
-        final GetIndicatorRootsResponse response = new GetIndicatorRootsResponse();
-        indicatorService
-                .getRoots()
-                .forEach(data -> {
-                    final IndicatorType indicator = new IndicatorType();
-                    indicator.setCode(data.getCode());
-                    indicator.setTitle(data.getTitle());
-                    indicator.setAscendantCode(data.getAscendantCode());
-                    indicator.setTerminal(data.getTerminal());
-                    response.getIndicators().add(indicator);
-                });
-        return response;
-    }
-*/
 }

@@ -41,7 +41,7 @@ public class PatchService {
         }
     }
 
-    public void createAndRollback(final PatchProperties properties) throws PatchRollbackException {
+    public void createInSandbox(final PatchProperties properties) throws PatchRollbackException {
         try {
             patchCreationService.createAndRollbackWithSuccess(properties);
         } catch (final PatchRollbackException exception) {

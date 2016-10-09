@@ -50,7 +50,7 @@ public class PatchBootstrap {
         invoice.setPlan(9000.0);
         invoice.setReal(42.0);
         invoice.setTerritoryCode("1");
-        invoice.setTime("2015-06-30");
+        invoice.setDate("2015-06-30");
         return invoice;
     }
 }
