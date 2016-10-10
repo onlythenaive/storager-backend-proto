@@ -1,5 +1,6 @@
 package ru.spb.iac.storager.server.domain.indicators;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.spb.iac.storager.server.domain.grants.Grant;
 import ru.spb.iac.storager.server.domain.providers.ProviderRepository;
 import ru.spb.iac.storager.server.domain.shared.PagedResult;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
@@ -96,20 +98,27 @@ public class IndicatorService extends HierarchicItemService<Indicator> {
     }
 
     private Set<String> getImplicitGrants(final Integer providerId) {
-        return providerRepository
+        final Set<String> implicitGrants = new HashSet<>();
+        providerRepository
                 .findOne(providerId)
                 .getGrants()
                 .stream()
-                .map(g -> g.getIndicator().getCode())
-                .collect(Collectors.toSet());
+                .map(Grant::getIndicator)
+                .forEach(entity -> addToImplicitGrants(entity, implicitGrants));
+        return implicitGrants;
+    }
+
+    private void addToImplicitGrants(final Indicator entity, final Set<String> implicitGrants) {
+        implicitGrants.add(entity.getCode());
+        entity.getDescendants().forEach(d -> addToImplicitGrants(d, implicitGrants));
     }
 
     private String defaultedCodePattern(final String codePattern) {
-        return codePattern != null ? codePattern : "%";
+        return codePattern == null || codePattern.isEmpty() ? "%" : codePattern + "%";
     }
 
     private String defaultedAscendantCode(final String ascendantCode) {
-        return ascendantCode != null ? ascendantCode : "%";
+        return ascendantCode == null || ascendantCode.isEmpty() ? "%" : ascendantCode;
     }
 
     private int defaultedRoot(final String ascendantCode) {
@@ -117,6 +126,6 @@ public class IndicatorService extends HierarchicItemService<Indicator> {
     }
 
     private String defaultedTitlePattern(final String titlePattern) {
-        return titlePattern != null ? titlePattern : "%";
+        return titlePattern == null || titlePattern.isEmpty() ? "%" :  "%" + titlePattern + "%";
     }
 }

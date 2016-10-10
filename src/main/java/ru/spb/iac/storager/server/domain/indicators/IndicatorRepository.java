@@ -26,9 +26,10 @@ public interface IndicatorRepository extends JpaRepository<Indicator, Integer>, 
     @Transactional(readOnly = true)
     @Query("SELECT i FROM Indicator AS i " +
             "WHERE i.code LIKE :codePattern " +
-            "AND i.code NOT IN :grants " +
+            "AND i.code IN :grants " +
             "AND i.title LIKE :titlePattern " +
-            "AND (((i.ascendant.code LIKE :ascendantCode AND :root = 0) OR i.ascendant IS NULL) OR (i.ascendant IS NULL AND :root = 1))")
+            "AND ((:root = 0 AND ((i.ascendant.code LIKE :ascendantCode AND i.ascendant.code IN :grants) OR i.ascendant IS NULL)) " +
+            "   OR ( :root = 1 AND i.ascendant IS NULL))")
     Page<Indicator> findPageWithFilter(@Param("codePattern") String codePattern,
                                        @Param("ascendantCode") String ascendantCode,
                                        @Param("root") int root,
