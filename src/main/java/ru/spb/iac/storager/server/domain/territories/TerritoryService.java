@@ -83,11 +83,11 @@ public class TerritoryService extends HierarchicItemService<Territory> {
     }
 
     private String defaultedCodePattern(final String codePattern) {
-        return codePattern != null ? codePattern : "%";
+        return codePattern == null || codePattern.isEmpty() ? "%" : codePattern + "%";
     }
 
     private String defaultedAscendantCode(final String ascendantCode) {
-        return ascendantCode != null ? ascendantCode : "%";
+        return ascendantCode == null || ascendantCode.isEmpty() ? "%" : ascendantCode;
     }
 
     private int defaultedRoot(final String ascendantCode) {
@@ -95,6 +95,6 @@ public class TerritoryService extends HierarchicItemService<Territory> {
     }
 
     private String defaultedTitlePattern(final String titlePattern) {
-        return titlePattern != null ? titlePattern : "%";
+        return titlePattern == null || titlePattern.isEmpty() ? "%" :  "%" + titlePattern + "%";
     }
 }

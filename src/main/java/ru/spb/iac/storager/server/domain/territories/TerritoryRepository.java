@@ -26,7 +26,9 @@ public interface TerritoryRepository extends JpaRepository<Territory, Integer>, 
     @Query("SELECT t FROM Territory AS t " +
             "WHERE t.code LIKE :codePattern " +
             "AND t.title LIKE :titlePattern " +
-            "AND (((t.ascendant.code LIKE :ascendantCode AND :root = 0) OR t.ascendant IS NULL) OR (t.ascendant IS NULL AND :root = 1))")
+            "AND ((:root = 0 AND (t.ascendant.code LIKE :ascendantCode OR t.ascendant IS NULL)) " +
+            "   OR ( :root = 1 AND t.ascendant IS NULL))")
+
     Page<Territory> findPageWithFilter(@Param("codePattern") String codePattern,
                                        @Param("ascendantCode") String ascendantCode,
                                        @Param("root") int root,
