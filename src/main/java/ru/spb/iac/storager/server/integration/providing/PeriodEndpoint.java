@@ -20,7 +20,7 @@ public class PeriodEndpoint extends BaseProvidingEndpoint {
         authenticate(request);
         final GetPeriodsResponse response = new GetPeriodsResponse();
         periodService
-                .getAllForProvider()
+                .getAllOnProviderBehalf()
                 .forEach(info -> {
                     PeriodInfoStruct period = new PeriodInfoStruct();
                     period.setCode(info.getCode());

@@ -21,44 +21,44 @@ public class ProviderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ProviderInfo create(final @RequestBody ProviderProperties properties) {
-        return service.createByUser(properties);
+        return service.createOnUserBehalf(properties);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ProviderInfo getById(final @PathVariable(name = "id") Integer id) {
-        return service.getById(id);
+        return service.getByIdOnUserBehalf(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public PagedResult<ProviderInfo> getPage(final @RequestParam(name = "page", defaultValue = "1") Integer page,
                                              final @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        return service.getPage(page, size);
+        return service.getPageOnUserBehalf(page, size);
     }
 
     @RequestMapping(path = "/{id}/token", method = RequestMethod.GET)
     public ProviderTokenInfo getTokenInfoById(final @PathVariable(name = "id") Integer id) {
-        return service.getTokenInfoById(id);
+        return service.getTokenInfoByIdOnUserBehalf(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void remove(final @PathVariable(name = "id") Integer id) {
-        service.remove(id);
+        service.removeOnUserBehalf(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ProviderInfo update(final @PathVariable(name = "id") Integer id,
                                final @RequestBody ProviderProperties properties) {
-        return service.update(id, properties);
+        return service.updateOnUserBehalf(id, properties);
     }
 
     @RequestMapping(path = "/{id}/grants", method = RequestMethod.PUT)
     public ProviderInfo updateGrants(final @PathVariable(name = "id") Integer id,
                                      final @RequestBody Set<String> indicatorCodes) {
-        return service.updateGrantsByUser(id, indicatorCodes);
+        return service.updateGrantsOnUserBehalf(id, indicatorCodes);
     }
 
     @RequestMapping(path = "/{id}/token", method = RequestMethod.PUT)
     public ProviderInfo updateToken(final @PathVariable(name = "id") Integer id) {
-        return service.updateToken(id);
+        return service.updateTokenOnUserBehalf(id);
     }
 }

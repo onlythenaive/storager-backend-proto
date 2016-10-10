@@ -19,7 +19,6 @@ import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
 import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
 import ru.spb.iac.storager.server.security.ProviderAuthentication;
 import ru.spb.iac.storager.server.security.SecurityContext;
-
 import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
 import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
 
@@ -58,7 +57,7 @@ public class ProviderService {
     }
 
     @Transactional
-    public ProviderInfo createByUser(final ProviderProperties properties) {
+    public ProviderInfo createOnUserBehalf(final ProviderProperties properties) {
         securityContext.userAuthorizedWithAny(ADMIN);
         return create(properties);
     }
@@ -70,13 +69,13 @@ public class ProviderService {
     }
 
     @Transactional(readOnly = true)
-    public ProviderInfo getById(final Integer id) {
+    public ProviderInfo getByIdOnUserBehalf(final Integer id) {
         securityContext.userAuthorizedWithAny(ADMIN, USER);
         return mapper.intoInfo(get(id));
     }
 
     @Transactional(readOnly = true)
-    public PagedResult<ProviderInfo> getPage(final int page, final int size) {
+    public PagedResult<ProviderInfo> getPageOnUserBehalf(final int page, final int size) {
         securityContext.userAuthorizedWithAny(ADMIN, USER);
         inputValidationHelper.positive(page, "page");
         inputValidationHelper.positive(size, "size");
@@ -89,19 +88,20 @@ public class ProviderService {
         return new PagedResult<>(infos, page, providerPage.getTotalPages());
     }
 
-    public ProviderTokenInfo getTokenInfoById(final Integer id) {
+    @Transactional(readOnly = true)
+    public ProviderTokenInfo getTokenInfoByIdOnUserBehalf(final Integer id) {
         securityContext.userAuthorizedWithAny(ADMIN);
         return mapper.intoTokenInfo(get(id));
     }
 
     @Transactional
-    public void remove(final Integer id) {
+    public void removeOnUserBehalf(final Integer id) {
         securityContext.userAuthorizedWithAny(ADMIN);
         providerRepository.delete(get(id));
     }
 
     @Transactional
-    public ProviderInfo update(final Integer id, final ProviderProperties properties) {
+    public ProviderInfo updateOnUserBehalf(final Integer id, final ProviderProperties properties) {
         securityContext.userAuthorizedWithAny(ADMIN);
         final Provider entity = get(id);
         mapper.intoEntity(validator.validateForUpdate(id, properties), entity);
@@ -109,13 +109,13 @@ public class ProviderService {
     }
 
     @Transactional
-    public ProviderInfo updateGrantsByUser(final Integer id, final Set<String> indicatorCodes) {
+    public ProviderInfo updateGrantsOnUserBehalf(final Integer id, final Set<String> indicatorCodes) {
         securityContext.userAuthorizedWithAny(ADMIN);
         return updateGrants(id, indicatorCodes);
     }
 
     @Transactional
-    public ProviderInfo updateToken(final Integer id) {
+    public ProviderInfo updateTokenOnUserBehalf(final Integer id) {
         securityContext.userAuthorizedWithAny(ADMIN);
         final Provider provider = get(id);
         provider.setToken(generateToken());

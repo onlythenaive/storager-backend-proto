@@ -16,6 +16,6 @@ public class PeriodController {
 
     @RequestMapping(method = RequestMethod.GET)
     List<PeriodInfo> getAll() {
-        return service.getAllForUser();
+        return service.getAllOnUserBehalf();
     }
 }

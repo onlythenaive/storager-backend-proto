@@ -29,13 +29,13 @@ public class PeriodService {
     }
 
     @Transactional(readOnly = true)
-    public List<PeriodInfo> getAllForProvider() {
+    public List<PeriodInfo> getAllOnProviderBehalf() {
         securityContext.providerAuthenticated();
         return getAll();
     }
 
     @Transactional(readOnly = true)
-    public List<PeriodInfo> getAllForUser() {
+    public List<PeriodInfo> getAllOnUserBehalf() {
         securityContext.userAuthorizedWithAny(ADMIN, USER);
         return getAll();
     }
