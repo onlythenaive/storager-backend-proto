@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemRepository;
 
-@Transactional
 public interface TerritoryRepository extends JpaRepository<Territory, Integer>, HierarchicItemRepository<Territory> {
 
     @Override

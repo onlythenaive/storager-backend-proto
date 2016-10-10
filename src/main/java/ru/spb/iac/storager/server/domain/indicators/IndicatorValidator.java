@@ -8,7 +8,6 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemReposit
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemValidator;
 
 @Service
-@Transactional(readOnly = true)
 public class IndicatorValidator extends HierarchicItemValidator<Indicator> {
 
     @Autowired

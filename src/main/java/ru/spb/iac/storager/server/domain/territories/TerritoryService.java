@@ -16,10 +16,14 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemReposit
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemService;
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemValidator;
 import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
+import ru.spb.iac.storager.server.security.SecurityContext;
 
 @Service
 @Transactional
 public class TerritoryService extends HierarchicItemService<Territory> {
+
+    @Autowired
+    private SecurityContext securityContext;
 
     @Autowired
     private InputValidationHelper inputValidationHelper;
@@ -33,11 +37,19 @@ public class TerritoryService extends HierarchicItemService<Territory> {
     @Autowired
     private TerritoryValidator validator;
 
-    public PagedResult<HierarchicItemInfo> getPage(final String codePattern,
-                                                   final String ascendantCode,
-                                                   final String titlePattern,
-                                                   final int page,
-                                                   final int size) {
+    @Transactional(readOnly = true)
+    public HierarchicItemInfo getByCodeOnProviderBehalf(final String code) {
+        securityContext.providerAuthenticated();
+        return getMapper().intoInfo(get(code));
+    }
+
+    @Transactional(readOnly = true)
+    public PagedResult<HierarchicItemInfo> getPageOnProviderBehalf(final String codePattern,
+                                                                   final String ascendantCode,
+                                                                   final String titlePattern,
+                                                                   final int page,
+                                                                   final int size) {
+        securityContext.providerAuthenticated();
         inputValidationHelper.positive(page, "page");
         inputValidationHelper.positive(size, "size");
         Page<Territory> territoryPage = repository.findPageWithFilter(

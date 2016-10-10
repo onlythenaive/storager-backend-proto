@@ -23,7 +23,7 @@ public class IndicatorEndpoint extends BaseProvidingEndpoint {
     public GetIndicatorResponse getIndicator(@RequestPayload GetIndicatorRequest request) {
         authenticate(request);
         final GetIndicatorResponse response = new GetIndicatorResponse();
-        final HierarchicItemInfo info = service.getByCode(request.getCode());
+        final HierarchicItemInfo info = service.getByCodeOnProviderBehalf(request.getCode());
         response.setCode(info.getCode());
         response.setTitle(info.getTitle());
         response.setAscendantCode(info.getAscendantCode());
@@ -36,7 +36,7 @@ public class IndicatorEndpoint extends BaseProvidingEndpoint {
     public GetIndicatorPageResponse getIndicatorPage(@RequestPayload GetIndicatorPageRequest request) {
         authenticate(request);
         final GetIndicatorPageResponse response = new GetIndicatorPageResponse();
-        final PagedResult<HierarchicItemInfo> paged = service.getPage(
+        final PagedResult<HierarchicItemInfo> paged = service.getPageOnProviderBehalf(
                 request.getCodePattern(),
                 request.getAscendantCode(),
                 request.getTitlePattern(),

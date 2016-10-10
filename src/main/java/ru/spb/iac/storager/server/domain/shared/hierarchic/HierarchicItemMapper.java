@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public abstract class HierarchicItemMapper<T extends HierarchicItem<T>> {
 
+    @Transactional(readOnly = true)
     public T intoEntity(final HierarchicItemProperties properties) {
         return intoEntity(properties, createItemInstance());
     }
 
+    @Transactional(readOnly = true)
     public T intoEntity(final HierarchicItemProperties properties, final T entity) {
         entity.setCode(properties.getCode());
         entity.setAscendant(getAscendant(properties.getAscendantCode()));
@@ -20,6 +21,7 @@ public abstract class HierarchicItemMapper<T extends HierarchicItem<T>> {
         return entity;
     }
 
+    @Transactional(readOnly = true)
     public HierarchicItemInfo intoInfo(final T entity) {
         final String code = entity.getCode();
         final String ascendantCode = getAscendantCode(entity);
@@ -33,6 +35,10 @@ public abstract class HierarchicItemMapper<T extends HierarchicItem<T>> {
     protected abstract HierarchicItemRepository<T> getRepository();
 
     protected abstract T createItemInstance();
+
+    protected boolean isTerminal(final T entity) {
+        return entity.getDescendants().size() == 0;
+    }
 
     private T getAscendant(final String ascendantCode) {
         return ascendantCode != null ? getRepository().findByCode(ascendantCode) : null;
@@ -52,9 +58,5 @@ public abstract class HierarchicItemMapper<T extends HierarchicItem<T>> {
             path.add(entity.getCode());
         }
         return path;
-    }
-
-    private boolean isTerminal(final T entity) {
-        return entity.getDescendants().size() == 0;
     }
 }
