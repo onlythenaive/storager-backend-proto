@@ -3,21 +3,25 @@ package ru.spb.iac.storager.server.domain.providers;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class ProviderMapper {
 
-    Provider intoEntity(final ProviderProperties properties) {
+    @Transactional(readOnly = true)
+    public Provider intoEntity(final ProviderProperties properties) {
         return intoEntity(properties, new Provider());
     }
 
-    Provider intoEntity(final ProviderProperties properties, final Provider entity) {
+    @Transactional(readOnly = true)
+    public Provider intoEntity(final ProviderProperties properties, final Provider entity) {
         entity.setTitle(properties.getTitle());
         entity.setDescription(properties.getDescription());
         return entity;
     }
 
-    ProviderInfo intoInfo(final Provider entity) {
+    @Transactional(readOnly = true)
+    public ProviderInfo intoInfo(final Provider entity) {
         return new ProviderInfo(
                 entity.getId(),
                 entity.getTitle(),
@@ -30,7 +34,8 @@ public class ProviderMapper {
         );
     }
 
-    ProviderTokenInfo intoTokenInfo(final Provider entity) {
+    @Transactional(readOnly = true)
+    public ProviderTokenInfo intoTokenInfo(final Provider entity) {
         return new ProviderTokenInfo(
                 entity.getId(),
                 entity.getToken()

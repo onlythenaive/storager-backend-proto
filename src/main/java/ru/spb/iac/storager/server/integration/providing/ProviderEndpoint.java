@@ -10,7 +10,6 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import ru.spb.iac.storager.server.domain.providers.ProviderInfo;
 import ru.spb.iac.storager.server.domain.providers.ProviderService;
-import ru.spb.iac.storager.server.security.ProviderAuthentication;
 
 @Endpoint
 public class ProviderEndpoint extends BaseProvidingEndpoint {
@@ -21,8 +20,8 @@ public class ProviderEndpoint extends BaseProvidingEndpoint {
     @ResponsePayload
     @PayloadRoot(namespace = NAMESPACE, localPart = "getProviderRequest")
     public GetProviderResponse getProvider(@RequestPayload GetProviderRequest request) {
-        final ProviderAuthentication authentication = authenticate(request);
-        final ProviderInfo info = service.getById(authentication.getId());
+        authenticate(request);
+        final ProviderInfo info = service.getAuthenticated();
         final GetProviderResponse response = new GetProviderResponse();
         response.setId(BigInteger.valueOf(info.getId()));
         response.setTitle(info.getTitle());

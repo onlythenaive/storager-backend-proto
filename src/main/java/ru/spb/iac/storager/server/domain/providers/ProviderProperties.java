@@ -1,7 +1,5 @@
 package ru.spb.iac.storager.server.domain.providers;
 
-import java.util.List;
-
 public final class ProviderProperties {
 
     private String title;
@@ -11,7 +9,7 @@ public final class ProviderProperties {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -19,7 +17,7 @@ public final class ProviderProperties {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }

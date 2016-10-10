@@ -10,69 +10,55 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.spb.iac.storager.server.security.SecurityContext;
 import ru.spb.iac.storager.server.domain.shared.PagedResult;
-import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
-import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
 
 @RestController
 @RequestMapping("/data/providers")
 public class ProviderController {
 
     @Autowired
-    private SecurityContext securityContext;
-
-    @Autowired
     private ProviderService service;
 
     @RequestMapping(method = RequestMethod.POST)
     public ProviderInfo create(final @RequestBody ProviderProperties properties) {
-        securityContext.userAuthorizedWithAny(ADMIN);
-        return service.create(properties);
+        return service.createByUser(properties);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ProviderInfo getById(final @PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny(ADMIN, USER);
         return service.getById(id);
-    }
-
-    @RequestMapping(path = "/{id}/token", method = RequestMethod.GET)
-    public ProviderTokenInfo getTokenInfoById(final @PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny(ADMIN);
-        return service.getTokenInfoById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public PagedResult<ProviderInfo> getPage(final @RequestParam(name = "page", defaultValue = "1") Integer page,
                                              final @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        securityContext.userAuthorizedWithAny(ADMIN, USER);
         return service.getPage(page, size);
+    }
+
+    @RequestMapping(path = "/{id}/token", method = RequestMethod.GET)
+    public ProviderTokenInfo getTokenInfoById(final @PathVariable(name = "id") Integer id) {
+        return service.getTokenInfoById(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void remove(final @PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny(ADMIN);
         service.remove(id);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ProviderInfo update(final @PathVariable(name = "id") Integer id,
                                final @RequestBody ProviderProperties properties) {
-        securityContext.userAuthorizedWithAny(ADMIN);
         return service.update(id, properties);
     }
 
     @RequestMapping(path = "/{id}/grants", method = RequestMethod.PUT)
     public ProviderInfo updateGrants(final @PathVariable(name = "id") Integer id,
                                      final @RequestBody Set<String> indicatorCodes) {
-        securityContext.userAuthorizedWithAny(ADMIN);
-        return service.updateGrants(id, indicatorCodes);
+        return service.updateGrantsByUser(id, indicatorCodes);
     }
 
     @RequestMapping(path = "/{id}/token", method = RequestMethod.PUT)
     public ProviderInfo updateToken(final @PathVariable(name = "id") Integer id) {
-        securityContext.userAuthorizedWithAny(ADMIN);
         return service.updateToken(id);
     }
 }
