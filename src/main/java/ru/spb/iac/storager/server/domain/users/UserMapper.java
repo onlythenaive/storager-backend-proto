@@ -4,9 +4,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 public class UserMapper {
 
+    @Transactional(readOnly = true)
+    public User intoEntity(final UserProperties properties) {
+        final StringBuilder roles = new StringBuilder();
+        if (properties.getRoles() != null) {
+            properties.getRoles().forEach(roles::append);
+        }
+        return new User(
+                properties.getLogin(),
+                properties.getSecret(),
+                properties.getEmail(),
+                properties.getFullname(),
+                properties.getEnabled() != null ? properties.getEnabled() : true,
+                properties.getRoot() != null ? properties.getRoot() : false,
+                roles.toString()
+        );
+    }
+
+    @Transactional(readOnly = true)
     public UserInfo intoInfo(final User entity) {
         return new UserInfo(
                 entity.getLogin(),

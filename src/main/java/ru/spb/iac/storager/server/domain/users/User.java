@@ -8,13 +8,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import ru.spb.iac.storager.server.domain.shared.BootstrapConstructor;
 import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
+import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
 @Table(name = "users")
@@ -46,18 +44,15 @@ public class User {
     @Column(name = "root", nullable = false, updatable = false)
     private Boolean root;
 
-    @Column(name = "roles", nullable = false, updatable = false)
+    @Column(name = "roles", updatable = false)
     private String roles;
-
-    @Transient
-    private Set<String> rolesParsed;
 
     @JpaConstructor
     protected User() {
 
     }
 
-    @BootstrapConstructor
+    @MapperConstructor
     protected User(final String login,
                    final String secret,
                    final String email,
@@ -111,12 +106,7 @@ public class User {
     }
 
     public Set<String> getRolesParsed() {
-        return new HashSet<>(rolesParsed);
-    }
-
-    @PostLoad
-    private void onLoad() {
-        rolesParsed = new HashSet<>(Arrays.asList(roles.split(" ")));
+        return roles != null ? new HashSet<>(Arrays.asList(roles.split(" "))) : new HashSet<>();
     }
 
     @PrePersist
