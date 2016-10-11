@@ -11,9 +11,9 @@ $ gradle clean build
 ## Deployment
 To start the application on 8080 port in "dev.local" profile:
 ```
-$ java -jar build/libs/storager-server.jar --port=8080 --profile=dev.local
+$ java -jar build/libs/storager-server.war --port=8080 --profile=dev.local
 ```
-You can also run the application without creating a JAR:
+You can also run the application without creating a WAR file:
 ```
 $ gradle bootRun -Dport=8080 -Dprofile=dev.local
 ```
