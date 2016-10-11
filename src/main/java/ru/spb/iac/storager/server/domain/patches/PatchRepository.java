@@ -21,4 +21,14 @@ public interface PatchRepository extends PagingAndSortingRepository<Patch, Integ
                                    @Param("createdSince") Instant createdSince,
                                    @Param("createdUntil") Instant createdUntil,
                                    Pageable pageable);
+
+    @Transactional(readOnly = true)
+    @Query("SELECT p FROM Patch AS p " +
+            "WHERE p.provider.id = :providerId AND p.status LIKE :status " +
+            "AND p.createdAt >= :createdSince AND p.createdAt <= :createdUntil")
+    Page<Patch> findPageWithFilter(@Param("providerId") Integer providerId,
+                                   @Param("status") String status,
+                                   @Param("createdSince") Instant createdSince,
+                                   @Param("createdUntil") Instant createdUntil,
+                                   Pageable pageable);
 }

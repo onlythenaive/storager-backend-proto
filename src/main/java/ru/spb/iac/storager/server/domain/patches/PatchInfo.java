@@ -10,6 +10,7 @@ public final class PatchInfo {
     private final Integer providerId;
     private final String createdAt;
     private final String status;
+    private final String reason;
     private final List<PatchIndicatorInfo> indicatorInfos;
 
     public PatchInfo(final Integer id,
@@ -17,12 +18,14 @@ public final class PatchInfo {
                      final Integer providerId,
                      final String createdAt,
                      final String status,
+                     final String reason,
                      final List<PatchIndicatorInfo> indicatorInfos) {
         this.id = id;
         this.comment = comment;
         this.providerId = providerId;
         this.createdAt = createdAt;
         this.status = status;
+        this.reason = reason;
         this.indicatorInfos = new ArrayList<>(indicatorInfos);
     }
 
@@ -44,6 +47,10 @@ public final class PatchInfo {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getReason() {
+        return reason;
     }
 
     public List<PatchIndicatorInfo> getIndicatorInfos() {

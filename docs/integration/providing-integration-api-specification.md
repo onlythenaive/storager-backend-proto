@@ -35,6 +35,7 @@ Response:
   "providerId": integer,
   "createdAt": ISO timestamp string,
   "status": string,
+  "reason": string (optional),
   "indicatorInfos": {
     "indicatorCode": string,
     "totalPoints": integer
@@ -70,6 +71,7 @@ Response:
   "providerId": integer,
   "createdAt": ISO timestamp string,
   "status": string,
+  "reason": string (optional),
   "indicatorInfos": {
     "indicatorCode": string,
     "totalPoints": integer
@@ -150,9 +152,9 @@ Response:
 {
   "id": integer,
   "comment": string,
-  "providerId": integer,
   "createdAt": ISO timestamp string,
   "status": string,
+  "reason": string (optional),
   "indicatorInfos": {
     "indicatorCode": string,
     "totalPoints": integer
@@ -182,9 +184,9 @@ Response:
   "items": {
     "id": integer,
     "comment": string,
-    "providerId": integer,
     "createdAt": ISO timestamp string,
     "status": string,
+    "reason": string (optional),
     "indicatorInfos": {
       "indicatorCode": string,
       "totalPoints": integer

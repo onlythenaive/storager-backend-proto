@@ -35,18 +35,20 @@ public class PatchMapper {
 
     Patch intoEntityWithFailure(final Integer providerId, final PatchProperties properties) {
         final Patch patch = new Patch(
+                getProvider(providerId),
                 properties.getComment(),
                 FAILURE,
-                getProvider(providerId)
+                "unknown failure"
         );
         return patch;
     }
 
     Patch intoEntityWithSuccess(final Integer providerId, final PatchProperties properties) {
         final Patch patch = new Patch(
+                getProvider(providerId),
                 properties.getComment(),
                 SUCCESS,
-                getProvider(providerId)
+                ""
         );
         properties.getPoints().forEach(p -> {
             final Double real = p.getReal();
@@ -67,6 +69,7 @@ public class PatchMapper {
                 entity.getProvider().getId(),
                 entity.getCreatedAt().toString(),
                 entity.getStatus(),
+                entity.getReason(),
                 getIndicatorInfos(entity)
         );
     }

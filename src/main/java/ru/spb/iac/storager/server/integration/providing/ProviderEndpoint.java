@@ -1,7 +1,5 @@
 package ru.spb.iac.storager.server.integration.providing;
 
-import java.math.BigInteger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -23,7 +21,6 @@ public class ProviderEndpoint extends BaseProvidingEndpoint {
         authenticate(request);
         final ProviderInfo info = service.getAuthenticated();
         final GetProviderResponse response = new GetProviderResponse();
-        response.setId(BigInteger.valueOf(info.getId()));
         response.setTitle(info.getTitle());
         response.setDescription(info.getDescription());
         response.setRegisteredAt(info.getRegisteredAt());

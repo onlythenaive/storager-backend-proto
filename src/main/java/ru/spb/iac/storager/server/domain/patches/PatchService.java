@@ -15,13 +15,13 @@ import ru.spb.iac.storager.server.domain.providers.ProviderRepository;
 import ru.spb.iac.storager.server.domain.shared.PagedResult;
 import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
 import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
+import ru.spb.iac.storager.server.errors.domain.MissingItemException;
 import ru.spb.iac.storager.server.security.ProviderAuthentication;
 import ru.spb.iac.storager.server.security.SecurityContext;
 import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
 import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
 
 @Service
-@Transactional
 public class PatchService {
 
     @Autowired
@@ -45,11 +45,13 @@ public class PatchService {
     @Autowired
     private ProviderRepository providerRepository;
 
+    @Transactional
     public PatchInfo bootstrap(final String providerTitle, final PatchProperties properties) {
         final Provider provider = providerRepository.findByTitle(providerTitle);
         return patchCreationService.createWithSuccess(provider.getId(), properties);
     }
 
+    @Transactional
     public PatchInfo createOnProviderBehalf(final PatchProperties properties) {
         final ProviderAuthentication authentication = securityContext.providerAuthenticated();
         try {
@@ -59,6 +61,7 @@ public class PatchService {
         }
     }
 
+    @Transactional
     public void createInSandboxOnProviderBehalf(final PatchProperties properties) throws PatchRollbackException {
         final ProviderAuthentication authentication = securityContext.providerAuthenticated();
         try {
@@ -74,28 +77,47 @@ public class PatchService {
         }
     }
 
+    @Transactional(readOnly = true)
     public PatchInfo getByIdOnProviderBehalf(final Integer id) {
         final ProviderAuthentication authentication = securityContext.providerAuthenticated();
-        // TODO: implement this method
-        throw new UnsupportedOperationException();
+        final Patch patch = get(id);
+        if (!patch.getProvider().getId().equals(authentication.getId())) {
+            throw new MissingItemException("id", id);
+        }
+        return mapper.intoInfo(patch);
     }
 
+    @Transactional(readOnly = true)
     public PatchInfo getByIdOnUserBehalf(final Integer id) {
         securityContext.userAuthorizedWithAny(USER);
         return mapper.intoInfo(get(id));
     }
 
-    public PagedResult<PatchInfo> getPageOnProviderBehalf(final String providerTitlePattern,
-                                                          final String status,
+    @Transactional(readOnly = true)
+    public PagedResult<PatchInfo> getPageOnProviderBehalf(final String status,
                                                           final String createdSince,
                                                           final String createdUntil,
                                                           final int page,
                                                           final int size) {
         final ProviderAuthentication authentication = securityContext.providerAuthenticated();
-        // TODO: implement this method
-        throw new UnsupportedOperationException();
+        inputValidationHelper.positive(page, "page");
+        inputValidationHelper.positive(size, "size");
+        Page<Patch> patchPage = repository.findPageWithFilter(
+                authentication.getId(),
+                defaultedStatus(status),
+                defaultedCreatedSince(createdSince),
+                defaultedCreatedUntil(createdUntil),
+                new PageRequest(page - 1, size)
+        );
+        List<PatchInfo> infos = patchPage
+                .getContent()
+                .stream()
+                .map(mapper::intoInfo)
+                .collect(Collectors.toList());
+        return new PagedResult<>(infos, page, patchPage.getTotalPages());
     }
 
+    @Transactional(readOnly = true)
     public PagedResult<PatchInfo> getPageOnUserBehalf(final String providerTitlePattern,
                                                       final String status,
                                                       final String createdSince,
@@ -121,23 +143,31 @@ public class PatchService {
     }
 
     private Instant defaultedCreatedSince(final String createdSince) {
-        return createdSince != null ? Instant.parse(createdSince) : Instant.ofEpochMilli(0);
+        return isNotEmpty(createdSince) ?  Instant.parse(createdSince) : Instant.ofEpochMilli(0);
     }
 
     private Instant defaultedCreatedUntil(final String createdUntil) {
-        return createdUntil != null ? Instant.parse(createdUntil) : Instant.now();
+        return isNotEmpty(createdUntil) ? Instant.parse(createdUntil) : Instant.now();
     }
 
     private String defaultedProviderTitlePattern(final String providerTitle) {
-        return providerTitle != null ? providerTitle : "%";
+        return isNotEmpty(providerTitle) ? "%" + providerTitle + "%" : "%";
     }
 
     private String defaultedStatus(final String status) {
-        return status != null ? status : "%";
+        return isNotEmpty(status) ? status : "%";
     }
 
     private Patch get(final Integer id) {
         inputValidationHelper.required(id, "id");
         return itemValidationHelper.required(repository.findOne(id), "id", id);
+    }
+
+    private boolean isNotEmpty(final String string) {
+        return !isNullOrEmpty(string);
+    }
+
+    private boolean isNullOrEmpty(final String string) {
+        return string == null || string.isEmpty();
     }
 }

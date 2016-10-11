@@ -75,7 +75,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     public GetPatchResponse getPatch(@RequestPayload GetPatchRequest request) {
         authenticate(request);
         final GetPatchResponse response = new GetPatchResponse();
-        final PatchInfo info = service.getByIdOnUserBehalf(request.getId().intValue());
+        final PatchInfo info = service.getByIdOnProviderBehalf(request.getId().intValue());
         return intoStruct(info, response);
     }
 
@@ -84,8 +84,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     public GetPatchPageResponse getPatchPage(@RequestPayload GetPatchPageRequest request) {
         authenticate(request);
         final GetPatchPageResponse response = new GetPatchPageResponse();
-        final PagedResult<PatchInfo> paged = service.getPageOnUserBehalf(
-                request.getProviderTitlePattern(),
+        final PagedResult<PatchInfo> paged = service.getPageOnProviderBehalf(
                 request.getStatus(),
                 request.getCreatedSince(),
                 request.getCreatedUntil(),
@@ -103,9 +102,9 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
 
     private <T extends PatchInfoStruct> T intoStruct(final PatchInfo info, final T struct) {
         struct.setId(BigInteger.valueOf(info.getId()));
-        struct.setProviderId(BigInteger.valueOf(info.getProviderId()));
         struct.setComment(info.getComment());
         struct.setStatus(info.getStatus());
+        struct.setReason(info.getReason());
         struct.setCreatedAt(info.getCreatedAt());
         info.getIndicatorInfos().forEach(patchIndicatorInfo -> {
             final PatchIndicatorInfoStruct indicatorInfoStruct = new PatchIndicatorInfoStruct();

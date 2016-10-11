@@ -104,7 +104,6 @@
             <xs:complexContent>
                 <xs:extension base="tns:itemPageRequestStruct">
                     <xs:sequence>
-                        <xs:element name="providerTitlePattern" nillable="true" type="xs:string"/>
                         <xs:element name="createdSince" nillable="true" type="xs:string"/>
                         <xs:element name="createdUntil" nillable="true" type="xs:string"/>
                         <xs:element name="status" nillable="true" type="xs:string"/>
@@ -130,9 +129,9 @@
         <xs:sequence>
             <xs:element name="id" nillable="false" type="xs:integer"/>
             <xs:element name="comment" nillable="false" type="xs:string"/>
-            <xs:element name="providerId" nillable="false" type="xs:integer"/>
             <xs:element name="createdAt" nillable="false" type="xs:string"/>
             <xs:element name="status" nillable="false" type="xs:string"/>
+            <xs:element name="reason" nillable="true" type="xs:string"/>
             <xs:element maxOccurs="unbounded" name="indicatorInfos" nillable="false" type="tns:patchIndicatorInfoStruct"/>
         </xs:sequence>
     </xs:complexType>
@@ -193,7 +192,6 @@
     <xs:element name="getProviderResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" nillable="false" type="xs:integer"/>
                 <xs:element name="title" nillable="false" type="xs:string"/>
                 <xs:element name="description" type="xs:string"/>
                 <xs:element name="registeredAt" nillable="false" type="xs:string"/>

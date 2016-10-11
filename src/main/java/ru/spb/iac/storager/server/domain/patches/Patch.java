@@ -38,6 +38,9 @@ public class Patch {
     @Column(name = "status", nullable = false, updatable = false)
     private String status;
 
+    @Column(name = "reason", updatable = false)
+    private String reason;
+
     @OneToMany(mappedBy = "patch", cascade = CascadeType.ALL)
     private List<Point> points;
 
@@ -52,11 +55,15 @@ public class Patch {
     }
 
     @MapperConstructor
-    public Patch(final String comment, final String status, final Provider provider) {
+    public Patch(final Provider provider,
+                 final String comment,
+                 final String status,
+                 final String reason) {
         this();
+        this.provider = provider;
         this.comment = comment;
         this.status = status;
-        this.provider = provider;
+        this.reason = reason;
     }
 
     public Integer getId () {
@@ -73,6 +80,10 @@ public class Patch {
 
     public String getStatus () {
         return status;
+    }
+
+    public String getReason() {
+        return reason;
     }
 
     public List<Point> getPoints () {
