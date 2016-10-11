@@ -96,6 +96,7 @@ Response:
   "ascendantCode": string (optional),
   "title": string,
   "description": string (optional),
+  "path": string[] (optional),
   "terminal": boolean (optional)
 }
 ```
@@ -124,6 +125,7 @@ Response:
     "ascendantCode": string (optional),
     "title": string,
     "description": string (optional),
+    "path": string[] (optional),
     "terminal": boolean (optional)
   }[],
   "page": integer,
@@ -255,6 +257,7 @@ Response:
   "ascendantCode": string (optional),
   "title": string,
   "description": string (optional),
+  "path": string[] (optional),
   "terminal": boolean (optional)
 }
 ```
@@ -283,6 +286,7 @@ Response:
     "ascendantCode": string (optional),
     "title": string,
     "description": string (optional),
+    "path": string[] (optional),
     "terminal": boolean (optional)
   }[],
   "page": integer,

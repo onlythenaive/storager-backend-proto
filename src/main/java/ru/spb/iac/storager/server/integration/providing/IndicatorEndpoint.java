@@ -48,6 +48,7 @@ public class IndicatorEndpoint extends BaseProvidingEndpoint {
             indicator.setCode(info.getCode());
             indicator.setTitle(info.getTitle());
             indicator.setAscendantCode(info.getAscendantCode());
+            indicator.getPath().addAll(info.getPath());
             indicator.setTerminal(info.getTerminal());
             response.getItems().add(indicator);
         });

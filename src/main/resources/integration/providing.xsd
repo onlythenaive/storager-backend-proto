@@ -274,6 +274,7 @@
             <xs:element name="ascendantCode" type="xs:string" nillable="true"/>
             <xs:element name="title" type="xs:string" nillable="false"/>
             <xs:element name="description" type="xs:string" nillable="true"/>
+            <xs:element name="path" type="xs:string" maxOccurs="unbounded" nillable="false"/>
             <xs:element name="terminal" type="xs:boolean" nillable="true"/>
         </xs:sequence>
     </xs:complexType>

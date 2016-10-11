@@ -48,6 +48,7 @@ public class TerritoryEndpoint extends BaseProvidingEndpoint {
             territory.setCode(info.getCode());
             territory.setTitle(info.getTitle());
             territory.setAscendantCode(info.getAscendantCode());
+            territory.getPath().addAll(info.getPath());
             territory.setTerminal(info.getTerminal());
             response.getItems().add(territory);
         });
