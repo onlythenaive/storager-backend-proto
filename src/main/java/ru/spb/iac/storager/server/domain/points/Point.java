@@ -30,8 +30,8 @@ public class Point {
     @Column(name = "plan", updatable = false)
     private Double plan;
 
-    @Column(name = "time", updatable = false)
-    private String time;
+    @Column(name = "date", updatable = false)
+    private String date;
 
     @ManyToOne
     @JoinColumn(name = "indicator_id", nullable = false, updatable = false)
@@ -55,11 +55,11 @@ public class Point {
     }
 
     @MapperConstructor
-    public Point (final Double real, final Double plan, final String time, final Indicator indicator,
+    public Point (final Double real, final Double plan, final String date, final Indicator indicator,
                   final Patch patch, final Period period, final Territory territory) {
         this.real = real;
         this.plan = plan;
-        this.time = time;
+        this.date = date;
         this.indicator = indicator;
         this.patch = patch;
         this.period = period;
@@ -78,8 +78,8 @@ public class Point {
         return plan;
     }
 
-    public String getTime() {
-        return time;
+    public String getDate() {
+        return date;
     }
 
     public Indicator getIndicator () {
