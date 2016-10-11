@@ -69,7 +69,7 @@ public class IndicatorService extends HierarchicItemService<Indicator> {
         Page<Indicator> indicatorPage = repository.findPageWithFilter(
                 defaultedCodePattern(codePattern),
                 defaultedAscendantCode(ascendantCode),
-                defaultedRoot(ascendantCode),
+                defaultedHierarchicType(ascendantCode),
                 defaultedTitlePattern(titlePattern),
                 implicitGrants,
                 new PageRequest(page - 1, size)
@@ -121,8 +121,14 @@ public class IndicatorService extends HierarchicItemService<Indicator> {
         return ascendantCode == null || ascendantCode.isEmpty() ? "%" : ascendantCode;
     }
 
-    private int defaultedRoot(final String ascendantCode) {
-        return "NIL".equals(ascendantCode) ? 1 : 0;
+    private String defaultedHierarchicType(final String ascendantCode) {
+        if (ascendantCode == null || ascendantCode.isEmpty()) {
+            return "ANY";
+        }
+        if (ascendantCode.equals("NIL")) {
+            return "ROOT";
+        }
+        return "DESCENDANT";
     }
 
     private String defaultedTitlePattern(final String titlePattern) {

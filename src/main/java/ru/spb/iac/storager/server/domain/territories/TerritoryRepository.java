@@ -21,21 +21,18 @@ public interface TerritoryRepository extends JpaRepository<Territory, Integer>, 
     @Transactional(readOnly = true)
     @Query("SELECT t FROM Territory AS t WHERE t.ascendant IS NULL")
     List<Territory> findRoots();
-/*
+
     @Transactional(readOnly = true)
     @Query("SELECT t FROM Territory AS t " +
+            "LEFT OUTER JOIN t.ascendant AS a " +
             "WHERE t.code LIKE :codePattern " +
             "AND t.title LIKE :titlePattern " +
-            "AND (((:root = 0) AND ((t.ascendant IS NULL) OR (t.ascendant.code LIKE :ascendantCode))) OR ((:root = 1) AND (t.ascendant IS NULL)))")
-*/
-    @Transactional(readOnly = true)
-    @Query("SELECT t FROM Territory AS t " +
-            "WHERE t.code LIKE :codePattern " +
-            "AND t.title LIKE :titlePattern " +
-            "AND (((:root = 0) AND (t.ascendant.code LIKE :ascendantCode)) OR (t.ascendant IS NULL))")
+            "AND (:type = 'ANY' AND (a.code LIKE :ascendantCode OR a.code IS NULL) " +
+            "  OR :type = 'ROOT' AND a.code IS NULL " +
+            "  OR :type = 'DESCENDANT' AND a.code LIKE :ascendantCode)")
     Page<Territory> findPageWithFilter(@Param("codePattern") String codePattern,
                                        @Param("ascendantCode") String ascendantCode,
-                                       @Param("root") int root,
+                                       @Param("type") String type,
                                        @Param("titlePattern") String status,
                                        Pageable pageable);
 }
