@@ -17,7 +17,7 @@ In this case the application will be started with the default profile: "oracle.d
 
 However, it is also possible to start the application without a dedicated server:
 ```
-$ java -jar build/libs/storager-server.war
+$ java -jar build/libs/storager-server.war --profile=oracle.standalone --databaseUrl={connection_url}
 ```
 
 To start the application with custom profiles set:
