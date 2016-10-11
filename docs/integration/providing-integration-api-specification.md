@@ -109,7 +109,7 @@ Request:
 ```
 {
   "codePattern": string (a pattern of indicator code, optional),
-  "ascendantCode": string (exact code of the ascendant, optional),
+  "ascendantCode": string (exact code of the ascendant or 'NIL', optional),
   "titlePattern": string (a pattern of indicator title, optional),
   "page": integer (optional),
   "size": integer (optional),
@@ -270,7 +270,7 @@ Request:
 ```
 {
   "codePattern": string (a pattern of territory code, optional),
-  "ascendantCode": string (exact code of the ascendant, optional),
+  "ascendantCode": string (exact code of the ascendant or 'NIL', optional),
   "titlePattern": string (a pattern of territory title, optional),
   "page": integer (optional),
   "size": integer (optional),
