@@ -1,8 +1,11 @@
 package ru.spb.iac.storager.server;
 
+import java.sql.SQLException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import oracle.jdbc.pool.OracleDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -21,6 +24,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 @EnableJpaRepositories
 @EnableTransactionManagement
 public class PersistenceConfiguration {
+
+    @Value("#{'${oracle.standalone.url}'}")
+    private String oracleStandaloneUrl;
 
     @Bean
     @Profile("hsql")
@@ -42,8 +48,12 @@ public class PersistenceConfiguration {
 
     @Bean
     @Profile("oracle.standalone")
-    public DataSource dataSourceOracleStandalone() {
-        throw new UnsupportedOperationException();
+    public DataSource dataSourceOracleStandalone() throws SQLException {
+        final OracleDataSource dataSource = new OracleDataSource();
+        dataSource.setURL(oracleStandaloneUrl);
+        dataSource.setImplicitCachingEnabled(true);
+        dataSource.setFastConnectionFailoverEnabled(true);
+        return dataSource;
     }
 
     @Bean
