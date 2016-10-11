@@ -16,6 +16,7 @@ import ru.spb.iac.storager.server.domain.shared.PagedResult;
 import ru.spb.iac.storager.server.errors.domain.InputValidationHelper;
 import ru.spb.iac.storager.server.errors.domain.ItemValidationHelper;
 import ru.spb.iac.storager.server.errors.domain.MissingItemException;
+import ru.spb.iac.storager.server.errors.shared.ReasonableException;
 import ru.spb.iac.storager.server.security.ProviderAuthentication;
 import ru.spb.iac.storager.server.security.SecurityContext;
 import static ru.spb.iac.storager.server.security.SecurityRoles.ADMIN;
@@ -57,24 +58,30 @@ public class PatchService {
         try {
             return patchCreationService.createWithSuccess(authentication.getId(), properties);
         } catch (final Exception exception) {
-            throw new PatchCreationException(patchCreationService.createWithFailure(authentication.getId(), properties));
+            final String failureReason = getFailureReason(exception);
+            final PatchInfo info = patchCreationService.createWithFailure(authentication.getId(), properties, failureReason);
+            throw new PatchCreationException(info);
         }
     }
 
     @Transactional
-    public void createInSandboxOnProviderBehalf(final PatchProperties properties) throws PatchRollbackException {
+    public PatchInfo createInSandboxOnProviderBehalf(final PatchProperties properties) {
         final ProviderAuthentication authentication = securityContext.providerAuthenticated();
         try {
             patchCreationService.createAndRollbackWithSuccess(authentication.getId(), properties);
-        } catch (final PatchRollbackException exception) {
-            throw exception;
+        } catch (final PatchSandboxCreationException exception) {
+            return exception.getInfo();
         } catch (final Exception exception) {
             try {
-                patchCreationService.createAndRollbackWithFailure(authentication.getId(), properties);
-            } catch (final PatchRollbackException e) {
+                final String failureReason = getFailureReason(exception);
+                patchCreationService.createAndRollbackWithFailure(authentication.getId(), properties, failureReason);
+            } catch (final PatchSandboxCreationException e) {
                 throw new PatchCreationException(e.getInfo());
+            } catch (final Exception e) {
+                throw new RuntimeException("unknown error occurred while creating a new patch");
             }
         }
+        throw new RuntimeException("should never executed");
     }
 
     @Transactional(readOnly = true)
@@ -169,5 +176,12 @@ public class PatchService {
 
     private boolean isNullOrEmpty(final String string) {
         return string == null || string.isEmpty();
+    }
+
+    private String getFailureReason(final Exception exception) {
+        if (exception instanceof ReasonableException) {
+            return ((ReasonableException) exception).getMessage();
+        }
+        return "unknown error";
     }
 }

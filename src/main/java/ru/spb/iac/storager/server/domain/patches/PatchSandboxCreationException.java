@@ -1,10 +1,10 @@
 package ru.spb.iac.storager.server.domain.patches;
 
-public class PatchRollbackException extends Exception {
+public class PatchSandboxCreationException extends Exception {
 
     private final PatchInfo info;
 
-    public PatchRollbackException(final PatchInfo info) {
+    public PatchSandboxCreationException(final PatchInfo info) {
         this.info = info;
     }
 

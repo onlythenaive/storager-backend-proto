@@ -33,12 +33,12 @@ public class PatchMapper {
     @Autowired
     private TerritoryRepository territoryRepository;
 
-    Patch intoEntityWithFailure(final Integer providerId, final PatchProperties properties) {
+    Patch intoEntityWithFailure(final Integer providerId, final PatchProperties properties, final String reason) {
         final Patch patch = new Patch(
                 getProvider(providerId),
                 properties.getComment(),
                 FAILURE,
-                "unknown failure"
+                reason
         );
         return patch;
     }
@@ -48,7 +48,7 @@ public class PatchMapper {
                 getProvider(providerId),
                 properties.getComment(),
                 SUCCESS,
-                ""
+                null
         );
         properties.getPoints().forEach(p -> {
             final Double real = p.getReal();

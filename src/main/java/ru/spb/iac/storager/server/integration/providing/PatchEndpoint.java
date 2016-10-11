@@ -66,7 +66,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
                 .collect(Collectors.toList());
         properties.setComment(request.getComment());
         properties.setPoints(points);
-        final PatchInfo info = service.createOnProviderBehalf(properties);
+        final PatchInfo info = service.createInSandboxOnProviderBehalf(properties);
         return intoStruct(info, new CreatePatchInSandboxResponse());
     }
 
