@@ -17,24 +17,21 @@ import ru.spb.iac.storager.server.domain.providers.ProviderRepository;
 public class PatchBootstrap {
 
     @Autowired
-    private PatchService patchService;
+    private PatchService service;
 
     @Autowired
     private ProviderRepository providerRepository;
 
     public void run() {
-        patchService.create(properties("Организация А", "Тестовая загрузка 1", new String[]{"1", "1.1"}));
-        patchService.create(properties("Организация А", "Тестовая загрузка 2", new String[]{"1", "1.1"}));
-        patchService.create(properties("Организация А", "Тестовая загрузка 3", new String[]{"1", "1.1"}));
-        patchService.create(properties("Организация А", "Тестовая загрузка 4", new String[]{"1", "1.1"}));
+        service.bootstrap("Организация А", properties("Тестовая загрузка 1", new String[]{"1", "1.1"}));
+        service.bootstrap("Организация А", properties("Тестовая загрузка 2", new String[]{"1", "1.1"}));
+        service.bootstrap("Организация А", properties("Тестовая загрузка 3", new String[]{"1", "1.1"}));
+        service.bootstrap("Организация А", properties("Тестовая загрузка 4", new String[]{"1", "1.1"}));
     }
 
-    private PatchProperties properties(final String providerTitle,
-                                       final String comment,
-                                       final String[] indicatorCodes) {
+    private PatchProperties properties(final String comment, final String[] indicatorCodes) {
         final PatchProperties properties = new PatchProperties();
         properties.setComment(comment);
-        properties.setProviderToken(providerRepository.findByTitle(providerTitle).getToken());
         final List<PointProperties> points = new ArrayList<>();
         for (String indicatorCode : indicatorCodes) {
             points.add(pointProperties(indicatorCode));

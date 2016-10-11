@@ -33,20 +33,20 @@ public class PatchMapper {
     @Autowired
     private TerritoryRepository territoryRepository;
 
-    Patch intoEntityWithFailure(final PatchProperties properties) {
+    Patch intoEntityWithFailure(final Integer providerId, final PatchProperties properties) {
         final Patch patch = new Patch(
                 properties.getComment(),
                 FAILURE,
-                getProvider(properties.getProviderToken())
+                getProvider(providerId)
         );
         return patch;
     }
 
-    Patch intoEntityWithSuccess(final PatchProperties properties) {
+    Patch intoEntityWithSuccess(final Integer providerId, final PatchProperties properties) {
         final Patch patch = new Patch(
                 properties.getComment(),
                 SUCCESS,
-                getProvider(properties.getProviderToken())
+                getProvider(providerId)
         );
         properties.getPoints().forEach(p -> {
             final Double real = p.getReal();
@@ -79,8 +79,8 @@ public class PatchMapper {
         return periodRepository.findByCode(code);
     }
 
-    private Provider getProvider(final String token) {
-        return providerRepository.findByToken(token);
+    private Provider getProvider(final Integer id) {
+        return providerRepository.findOne(id);
     }
 
     private Territory getTerritory(final String code) {

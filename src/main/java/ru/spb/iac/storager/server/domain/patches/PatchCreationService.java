@@ -19,27 +19,27 @@ public class PatchCreationService {
     private PatchValidator validator;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public PatchInfo createWithFailure(final PatchProperties properties) {
-        final Patch patch = mapper.intoEntityWithFailure(validator.validateForCreateWithFailure(properties));
+    public PatchInfo createWithFailure(final Integer providerId, final PatchProperties properties) {
+        final Patch patch = mapper.intoEntityWithFailure(providerId, validator.validateForCreateWithFailure(properties));
         return mapper.intoInfo(repository.save(patch));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public PatchInfo createWithSuccess(final PatchProperties properties) {
-        final Patch patch = mapper.intoEntityWithSuccess(validator.validateForCreateWithSuccess(properties));
+    public PatchInfo createWithSuccess(final Integer providerId, final PatchProperties properties) {
+        final Patch patch = mapper.intoEntityWithSuccess(providerId, validator.validateForCreateWithSuccess(properties));
         return mapper.intoInfo(repository.save(patch));
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = PatchRollbackException.class)
-    public void createAndRollbackWithFailure(final PatchProperties properties) throws PatchRollbackException {
-        final Patch patch = mapper.intoEntityWithFailure(validator.validateForCreateWithFailure(properties));
+    public void createAndRollbackWithFailure(final Integer providerId, final PatchProperties properties) throws PatchRollbackException {
+        final Patch patch = mapper.intoEntityWithFailure(providerId, validator.validateForCreateWithFailure(properties));
         PatchInfo info =  mapper.intoInfo(repository.save(patch));
         throw new PatchRollbackException(info);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = PatchRollbackException.class)
-    public void createAndRollbackWithSuccess(final PatchProperties properties) throws PatchRollbackException {
-        final Patch patch = mapper.intoEntityWithSuccess(validator.validateForCreateWithSuccess(properties));
+    public void createAndRollbackWithSuccess(final Integer providerId, final PatchProperties properties) throws PatchRollbackException {
+        final Patch patch = mapper.intoEntityWithSuccess(providerId, validator.validateForCreateWithSuccess(properties));
         PatchInfo info =  mapper.intoInfo(repository.save(patch));
         throw new PatchRollbackException(info);
     }

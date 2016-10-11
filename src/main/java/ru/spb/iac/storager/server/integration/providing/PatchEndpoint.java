@@ -42,7 +42,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
                 .collect(Collectors.toList());
         properties.setComment(request.getComment());
         properties.setPoints(points);
-        final PatchInfo info = service.create(properties);
+        final PatchInfo info = service.createOnProviderBehalf(properties);
         return intoStruct(info, new CreatePatchResponse());
     }
 
@@ -66,7 +66,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
                 .collect(Collectors.toList());
         properties.setComment(request.getComment());
         properties.setPoints(points);
-        final PatchInfo info = service.create(properties);
+        final PatchInfo info = service.createOnProviderBehalf(properties);
         return intoStruct(info, new CreatePatchInSandboxResponse());
     }
 
@@ -75,7 +75,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     public GetPatchResponse getPatch(@RequestPayload GetPatchRequest request) {
         authenticate(request);
         final GetPatchResponse response = new GetPatchResponse();
-        final PatchInfo info = service.getById(request.getId().intValue());
+        final PatchInfo info = service.getByIdOnUserBehalf(request.getId().intValue());
         return intoStruct(info, response);
     }
 
@@ -84,7 +84,7 @@ public class PatchEndpoint extends BaseProvidingEndpoint {
     public GetPatchPageResponse getPatchPage(@RequestPayload GetPatchPageRequest request) {
         authenticate(request);
         final GetPatchPageResponse response = new GetPatchPageResponse();
-        final PagedResult<PatchInfo> paged = service.getPage(
+        final PagedResult<PatchInfo> paged = service.getPageOnUserBehalf(
                 request.getProviderTitlePattern(),
                 request.getStatus(),
                 request.getCreatedSince(),
