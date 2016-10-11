@@ -9,10 +9,23 @@ $ gradle clean build
 ```
 
 ## Deployment
-To start the application on 8080 port with "hsql,bootstrap" profile:
+To deploy application at a dedicated server (like Tomcat or Glassfish) use the built artifact:
+```
+$ cp build/libs/storager-server.war {destination_folder}
+```
+In this case the application will be started with the default profile: "oracle.deployed".
+
+However, it is also possible to start the application without a dedicated server:
+```
+$ java -jar build/libs/storager-server.war
+```
+
+To start the application with custom profiles set:
 ```
 $ java -jar build/libs/storager-server.war --port=8080 --profile=hsql,bootstrap
 ```
+In this case application will be started on 8080 port with "hsql" and "bootstrap" profiles.
+
 You can also run the application without creating a WAR file:
 ```
 $ gradle bootRun -Dport=8080 -Dprofile=hsql,bootstrap
