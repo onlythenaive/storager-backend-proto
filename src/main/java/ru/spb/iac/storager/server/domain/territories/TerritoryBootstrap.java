@@ -12,7 +12,7 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemPropert
 import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemService;
 
 @Component
-@Profile("dev.local")
+@Profile("bootstrap")
 public class TerritoryBootstrap extends HierarchicItemBootstrap<Territory> {
 
     @Autowired

@@ -12,7 +12,7 @@ import static ru.spb.iac.storager.server.security.SecurityRoles.GUEST;
 import static ru.spb.iac.storager.server.security.SecurityRoles.USER;
 
 @Component
-@Profile("dev.local")
+@Profile("bootstrap")
 public class UserBootstrap {
 
     @Autowired

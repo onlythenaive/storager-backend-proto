@@ -9,19 +9,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.spb.iac.storager.server.domain.points.PointProperties;
-import ru.spb.iac.storager.server.domain.providers.ProviderRepository;
 
 @Component
-@Transactional
-@Profile("dev.local")
+@Profile("bootstrap")
 public class PatchBootstrap {
 
     @Autowired
     private PatchService service;
 
-    @Autowired
-    private ProviderRepository providerRepository;
-
+    @Transactional
     public void run() {
         service.bootstrap("Организация А", properties("Тестовая загрузка 1", new String[]{"1", "1.1"}));
         service.bootstrap("Организация А", properties("Тестовая загрузка 2", new String[]{"1", "1.1"}));

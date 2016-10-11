@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@Profile("dev.local")
+@Profile("bootstrap")
 public class PeriodBootstrap {
 
     @Autowired

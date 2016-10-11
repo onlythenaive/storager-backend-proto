@@ -1,7 +1,6 @@
 package ru.spb.iac.storager.server.domain;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -17,11 +16,8 @@ import ru.spb.iac.storager.server.domain.users.UserBootstrap;
 
 @Component
 @Lazy(false)
-@Profile("dev.local")
+@Profile("bootstrap")
 public class BootstrapOrchestrator {
-
-    @Autowired
-    private DataSource source;
 
     @Autowired
     private PeriodBootstrap periodBootstrap;

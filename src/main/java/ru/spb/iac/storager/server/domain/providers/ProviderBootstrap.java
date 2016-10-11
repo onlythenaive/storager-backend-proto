@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.ImmutableSet;
 
 @Component
-@Profile("dev.local")
+@Profile("bootstrap")
 public class ProviderBootstrap {
 
     @Autowired
