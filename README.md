@@ -35,3 +35,21 @@ $ gradle bootRun -Dport=8080 -Dprofile=hsql,bootstrap
 Application can be configured with several parameters:
 * "**port**": HTTP port which is used for application deployment, default is "8080"
 * "**profile**": deployment profile ["oracle.deployed", "oracle.standalone", "hsql", "bootstrap"], default is "oracle.deployed"
+
+## Frontend Development
+
+To make frontend development more fluent one can use backend mock instead of the real server. Firstly, it requires to install NodeJS dependencies:
+```
+$ cd frontend
+$ npm install
+```
+
+After it "mocked" application can be started at the default port:
+```
+$ npm start
+```
+
+You can also specify a custom port, for example:
+```
+$ npm start -- --port=5000
+```

@@ -1,0 +1,28 @@
+
+	root
+
+		login
+
+		workspace
+
+			patches
+			
+				list
+
+				detailed
+
+			providers
+
+				list
+				
+				detailed
+
+			indicators
+
+				tree
+
+				???
+
+			axes
+
+				???
