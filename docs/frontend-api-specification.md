@@ -36,9 +36,49 @@ There are 2 normal roles:
 * ADMIN (authorized to add/update/remove data related to providers, indicators and territories).
 
 There are also a special role:
-* GUEST (anonymous access).
+* GUEST (anonymous access, might be used to provide some very general insights of data in future).
 
 Client requests need a special header `X-Auth-Token` to be set and contain a valid security token. These tokens can be obtained through the standard logon feature.
+
+#### Logon
+```
+POST /security/logon
+```
+
+Takes no parameters.
+
+Accepts:
+```
+{
+  "login": string,
+  "secret": string
+}
+```
+
+Produces:
+```
+{
+  "login": string,
+  "logon": timestamp ISO-string,
+  "roles": string[],
+  "token": string
+}
+```
+
+Does not require any roles.
+
+#### Logout
+```
+POST /security/logout
+```
+
+Takes no parameters.
+
+Accepts nothing.
+
+Produces nothing.
+
+Required roles: **USER** | **ADMIN**.
 
 When not containg any valid security token, requests are treated as anonymous by default.
 
