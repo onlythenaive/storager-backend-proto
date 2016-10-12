@@ -10,7 +10,7 @@
   var router;
 
   function apply(server, routePrefix) {
-    server.use(routePrefix + '/security/logout', router);
+    server.use(routePrefix + '/logout', router);
   }
 
   router = imports.express.Router()

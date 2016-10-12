@@ -16,15 +16,14 @@
     var self = this;
 
     $http
-        .get('/data/security/users/current')
+        .get('/data/users/current')
         .then(function (result) {
-          //console.log(result);
           self.user = result.data;
         });
 
     this.logout = function () {
       $http
-          .post('/data/security/logout')
+          .post('/security/logout')
           .then(function () {
             $localStorage.authTokenId = null;
             $state.go('application.logon');

@@ -15,7 +15,9 @@
 
       assets: '/static',
 
-      data: '/data'
+      data: '/data',
+
+      security: '/security'
     }
   };
 
@@ -32,10 +34,10 @@
     imports.providerRouter.apply(server, defaults.routes.data);
     imports.territoryRouter.apply(server, defaults.routes.data);
 
-    imports.credentialRouter.apply(server, defaults.routes.data);
-    imports.logonRouter.apply(server, defaults.routes.data);
-    imports.logoutRouter.apply(server, defaults.routes.data);
-    imports.tokenRouter.apply(server, defaults.routes.data);
+    imports.credentialRouter.apply(server, defaults.routes.security);
+    imports.logonRouter.apply(server, defaults.routes.security);
+    imports.logoutRouter.apply(server, defaults.routes.security);
+    imports.tokenRouter.apply(server, defaults.routes.security);
     imports.userRouter.apply(server, defaults.routes.data);
 
     server

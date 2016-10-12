@@ -10,7 +10,7 @@
   var router;
 
   function apply(server, routePrefix) {
-    server.use(routePrefix + '/security/tokens', router);
+    server.use(routePrefix + '/tokens', router);
   }
 
   router = imports.express.Router()

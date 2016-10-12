@@ -14,7 +14,7 @@
 
     this.logon = function (login, secret) {
       return $http
-                .post('/data/security/logon', {
+                .post('/security/logon', {
                   userLogin: login,
                   userSecret: secret
                 })
