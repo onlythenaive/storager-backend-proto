@@ -44,6 +44,157 @@ When not containg any valid security token, requests are treated as anonymous by
 
 ## Features
 
+### Indicators
+
+#### Retrieve all root-level indicators:
+```
+GET /data/indicators/roots
+```
+
+Takes no parameters.
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "path": string[] (optional),
+  "terminal": boolean (optional)
+}[]
+```
+
+Required roles: **USER** | **ADMIN**.
+
+#### Retrieve a specific indicator by its code:
+```
+GET /data/indicators/:code
+```
+
+Parameters:
+* `code`: indicator code.
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "path": string[] (optional),
+  "terminal": boolean (optional)
+}
+```
+
+Required roles: **USER** | **ADMIN**.
+
+#### Retrieve all descendants of a specific indicator by its code:
+```
+GET /data/indicators/:code/descendants
+```
+
+Parameters:
+* `code`: indicator code.
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "path": string[] (optional),
+  "terminal": boolean (optional)
+}[]
+```
+
+Required roles: **USER** | **ADMIN**.
+
+#### Add a new indicator:
+```
+POST /data/indicators
+```
+
+Takes no parameters.
+
+Accepts:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional)
+}
+```
+
+Produces:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "path": string[] (optional),
+  "terminal": boolean (optional)
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Update an existing indicator by its code:
+```
+PUT /data/indicators/:code
+```
+
+Parameters:
+* `code`: indicator code.
+
+Accepts:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional)
+}
+```
+
+Produces:
+```
+{
+  "code": string,
+  "ascendantCode": string (optional),
+  "title": string,
+  "description": string (optional),
+  "path": string[] (optional),
+  "terminal": boolean (optional)
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Remove an existing indicator by its code:
+```
+DELETE /data/indicators/:code
+```
+
+Parameters:
+* `code`: indicator code.
+
+Accepts nothing.
+
+Produces nothing.
+
+Required roles: **ADMIN**.
+
+
 ### Periods
 
 #### Retrieve all existing time periods:
@@ -70,7 +221,7 @@ Required roles: **USER** | **ADMIN**.
 
 #### Retrieve all root-level territories:
 ```
-GET /data/territories
+GET /data/territories/roots
 ```
 
 Takes no parameters.
