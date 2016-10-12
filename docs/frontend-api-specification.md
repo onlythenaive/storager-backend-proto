@@ -325,6 +325,200 @@ Produces:
 Required roles: **USER** | **ADMIN**.
 
 
+### Providers
+
+#### Retrieve a page of existing providers:
+```
+GET /data/providers?[page]&[size]
+```
+
+Parameters:
+* `page`: a number of a page with results (optional, default is 1);
+* `size`: maximum size of a page with results (optional, default is 10).
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "items": {
+    "id": string,
+    "title": string,
+    "description": string (optional),
+    "registeredAt": timestamp ISO-string,
+    "grants": string[]
+  }[],
+  "page": integer,
+  "total": integer
+}
+```
+
+Required roles: **USER** | **ADMIN**.
+
+#### Retrieve a specific provider by its id:
+```
+GET /data/providers/:id
+```
+
+Parameters:
+* `id`: provider identifier;
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "id": string,
+  "title": string,
+  "description": string (optional),
+  "registeredAt": timestamp ISO-string,
+  "grants": string[]
+}
+```
+
+Required roles: **USER** | **ADMIN**.
+
+#### Retrieve the security token of an existing provider:
+```
+GET /data/providers/:id/token
+```
+
+Parameters:
+* `id`: provider identifier;
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "id": string,
+  "token": string
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Add a new provider:
+```
+POST /data/providers
+```
+
+Takes no parameters.
+
+Accepts:
+```
+{
+  "title": string,
+  "description": string (optional)
+}
+```
+
+Produces:
+```
+{
+  "id": string,
+  "title": string,
+  "description": string (optional),
+  "registeredAt": timestamp ISO-string,
+  "grants": string[]
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Update an existing provider:
+```
+PUT /data/providers/:id
+```
+
+Parameters:
+* `id`: provider identifier;
+
+Accepts:
+```
+{
+  "title": string,
+  "description": string (optional)
+}
+```
+
+Produces:
+```
+{
+  "id": string,
+  "title": string,
+  "description": string (optional),
+  "registeredAt": timestamp ISO-string,
+  "grants": string[]
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Update the grants of an existing provider:
+```
+PUT /data/providers/:id/grants
+```
+
+Parameters:
+* `id`: provider identifier;
+
+Accepts:
+```
+string[]
+```
+
+Produces:
+```
+{
+  "id": string,
+  "title": string,
+  "description": string (optional),
+  "registeredAt": timestamp ISO-string,
+  "grants": string[]
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Update the token of an existing provider by its id:
+```
+PUT /data/providers/:id/token
+```
+
+Parameters:
+* `id`: provider identifier;
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "id": string,
+  "title": string,
+  "description": string (optional),
+  "registeredAt": timestamp ISO-string,
+  "grants": string[]
+}
+```
+
+Required roles: **ADMIN**.
+
+#### Remove an existing provider:
+```
+DELETE /data/providers/:id
+```
+
+Parameters:
+* `id`: provider identifier;
+
+Accepts nothing.
+
+Produces nothing.
+
+Required roles: **ADMIN**.
+
+
 ### Territories
 
 #### Retrieve all root-level territories:
