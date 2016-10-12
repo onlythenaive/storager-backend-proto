@@ -3,17 +3,17 @@
 ## Routes
 
 ### Index Page
-All the requests which do not start with any: `/data/`, `/integration/`, `/security/`, `/static/` return the index HTML page in response. These requests are allowed to be unauthenticated.
+All the requests which do not start with any: `/data/`, `/integration/`, `/security/` or `/static/` return the index HTML page in response. These requests are allowed to be unauthenticated.
 
 ### Data 
-Requests starting with `/data/` are designed to return frontend-required data in JSON format. These requests are **not** allowed to be unauthenticated (except of those for */security/logon* feature).
+Requests starting with `/data/` are designed to return frontend-required data in JSON format. These requests are **not** allowed to be unauthenticated.
 
 ### Integration 
 Requests starting with `/integration/` are designed to be used by external systems, therefore they must be ignored by the frontend application.
 
 ### Security 
 Requests starting with `/security/` are designed to invoke special client actions:
-* Logon: `/security/logon` (anonymous requests are allowed);
+* Logon: `/security/logon` (unauthenticated requests are allowed);
 * Logout: `/security/logout`.
 
 ### Static Assets
@@ -22,6 +22,7 @@ Requests starting with `/static/` are designed to return static assets, f.e:
 * HTML templates;
 * CSS resources;
 * Binary images.
+
 These requests are allowed to be unauthenticated.
 
 ### Other Routes
@@ -59,7 +60,7 @@ Produces:
 {
   "code": string,
   "title": string
-}
+}[]
 ```
 
 Required roles: **USER** | **ADMIN**.
@@ -82,7 +83,7 @@ Produces:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string,
+  "description": string (optional),
   "path": string[] (optional),
   "terminal": boolean (optional)
 }[]
@@ -106,7 +107,7 @@ Produces:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string,
+  "description": string (optional),
   "path": string[] (optional),
   "terminal": boolean (optional)
 }
@@ -130,7 +131,7 @@ Produces:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string,
+  "description": string (optional),
   "path": string[] (optional),
   "terminal": boolean (optional)
 }[]
@@ -151,7 +152,7 @@ Accepts:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string
+  "description": string (optional)
 }
 ```
 
@@ -161,7 +162,7 @@ Produces:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string,
+  "description": string (optional),
   "path": string[] (optional),
   "terminal": boolean (optional)
 }
@@ -183,7 +184,7 @@ Accepts:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string
+  "description": string (optional)
 }
 ```
 
@@ -193,7 +194,7 @@ Produces:
   "code": string,
   "ascendantCode": string (optional),
   "title": string,
-  "description": string,
+  "description": string (optional),
   "path": string[] (optional),
   "terminal": boolean (optional)
 }
