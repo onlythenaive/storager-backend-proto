@@ -1,0 +1,1 @@
+-- Schema rollback script (Oracle)
