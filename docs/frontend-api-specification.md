@@ -368,5 +368,31 @@ Produces nothing.
 Required roles: **ADMIN**.
 
 
+### Users
+
+#### Retrieve an authenticated user:
+```
+GET /security/users/authenticated
+```
+
+Takes no parameters.
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "login": string,
+  "email": string,
+  "fullname": string,
+  "registeredAt": timestamp,
+  "enabled": boolean,
+  "roles": string[]
+}
+```
+
+Required roles: **GUEST** | **USER** | **ADMIN**.
+
+
 ## Special Notes
 * User management is not designed (and is not planned).
