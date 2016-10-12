@@ -28,6 +28,8 @@ These requests are allowed to be unauthenticated.
 ### Other Routes
 * Application icon: `/favicon.ico`.
 
+- - -
+
 ## Security
 Before being performed, client requests on business features routes are validated against existing roles to have sufficient authorization.
 
@@ -81,6 +83,8 @@ Produces nothing.
 Required roles: **USER** | **ADMIN**.
 
 When not containg any valid security token, requests are treated as anonymous by default.
+
+- - -
 
 ## Features
 
@@ -234,6 +238,7 @@ Produces nothing.
 
 Required roles: **ADMIN**.
 
+- - -
 
 ### Patches
 
@@ -302,6 +307,7 @@ Produces:
 
 Required roles: **USER** | **ADMIN**.
 
+- - -
 
 ### Periods
 
@@ -324,6 +330,7 @@ Produces:
 
 Required roles: **USER** | **ADMIN**.
 
+- - -
 
 ### Providers
 
@@ -518,6 +525,7 @@ Produces nothing.
 
 Required roles: **ADMIN**.
 
+- - -
 
 ### Territories
 
@@ -669,6 +677,7 @@ Produces nothing.
 
 Required roles: **ADMIN**.
 
+- - -
 
 ### Users
 
@@ -695,6 +704,7 @@ Produces:
 
 Required roles: **GUEST** | **USER** | **ADMIN**.
 
+- - -
 
 ## Special Notes
 * User management is not designed (and is not planned).
