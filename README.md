@@ -44,7 +44,7 @@ $ cd frontend
 $ npm install
 ```
 
-After it "mocked" application can be started at the default port:
+After it "mocked" application can be started at the default port (8090):
 ```
 $ npm start
 ```
