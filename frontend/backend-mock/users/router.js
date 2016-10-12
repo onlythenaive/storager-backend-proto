@@ -15,12 +15,7 @@
 
   router = imports.express.Router()
 
-      .get('/', function (request, response) {
-        imports.rejectUnauthorized(['ROOT'], request);
-        response.json(imports.repository.findAll());
-      })
-
-      .get('/current', function (request, response) {
+      .get('/authenticated', function (request, response) {
         const user = imports.rejectUnauthorized([], request);
         response.json(imports.repository.findByLogin(user.login));
       });
@@ -29,5 +24,5 @@
   express: require('express'),
 
   repository: require('./repository'),
-  rejectUnauthorized: require('../../utils/reject-unauthorized')
+  rejectUnauthorized: require('../utils/reject-unauthorized')
 });

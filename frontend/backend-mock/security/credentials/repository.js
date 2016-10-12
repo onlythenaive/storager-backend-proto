@@ -15,25 +15,21 @@
     return credentials;
   }
 
-  function findByUserLogin(userLogin) {
+  function findByUserLogin(login) {
     return credentials
                     .find(function (credential) {
-                      return credential.userLogin === userLogin;
+                      return credential.login === login;
                     });
   }
 
   credentials = [
     {
-      userLogin: "user",
-      userSecret: "user123"
+      login: "user",
+      secret: "user123"
     },
     {
-      userLogin: "admin",
-      userSecret: "admin123"
-    },
-    {
-      userLogin: "root",
-      userSecret: "root"
+      login: "admin",
+      secret: "admin123"
     }
   ];
 })({});

@@ -33,12 +33,9 @@
     imports.periodRouter.apply(server, defaults.routes.data);
     imports.providerRouter.apply(server, defaults.routes.data);
     imports.territoryRouter.apply(server, defaults.routes.data);
-
-    imports.credentialRouter.apply(server, defaults.routes.security);
+    imports.userRouter.apply(server, defaults.routes.data);
     imports.logonRouter.apply(server, defaults.routes.security);
     imports.logoutRouter.apply(server, defaults.routes.security);
-    imports.tokenRouter.apply(server, defaults.routes.security);
-    imports.userRouter.apply(server, defaults.routes.data);
 
     server
         .use(defaults.routes.assets, imports.express.static(config.paths.assets))
@@ -68,12 +65,9 @@
   periodRouter: require('./periods/router'),
   providerRouter: require('./providers/router'),
   territoryRouter: require('./territories/router'),
+  userRouter: require('./users/router'),
 
-  credentialRouter: require('./security/credentials/router'),
   logonRouter: require('./security/logon/router'),
   logoutRouter: require('./security/logout/router'),
-  tokenRouter: require('./security/tokens/router'),
-  userRouter: require('./security/users/router'),
-
   tokenInterceptor: require('./security/tokens/interceptor')
 });

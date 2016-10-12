@@ -18,7 +18,7 @@
           .use(imports.bodyParser.json())
 
           // NOTE: gets top-level items
-          .get('/', function (request, response) {
+          .get('/roots', function (request, response) {
             imports.rejectUnauthorized(['USER', 'ADMIN'], request);
             response.json(repository.getRoots());
           })

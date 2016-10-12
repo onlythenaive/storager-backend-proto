@@ -19,13 +19,13 @@
 
       .post('/', function (request, response) {
         const clientCredential = request.body;
-        if (!clientCredential || !clientCredential.userLogin || !clientCredential.userSecret) {
+        if (!clientCredential || !clientCredential.login || !clientCredential.secret) {
           throw "NOT_AUTHORIZED";
         }
-        const login = clientCredential.userLogin;
-        const secret = clientCredential.userSecret;
+        const login = clientCredential.login;
+        const secret = clientCredential.secret;
         const credential = imports.credentialRepository.findByUserLogin(login);
-        if (!credential || credential.userLogin !== login || credential.userSecret !== secret) {
+        if (!credential || credential.login !== login || credential.secret !== secret) {
           throw "NOT_AUTHORIZED";
         }
         const user = imports.userRepository.findByLogin(login);
@@ -41,5 +41,5 @@
 
   credentialRepository: require('../credentials/repository'),
   tokenRepository: require('../tokens/repository'),
-  userRepository: require('../users/repository')
+  userRepository: require('../../users/repository')
 });

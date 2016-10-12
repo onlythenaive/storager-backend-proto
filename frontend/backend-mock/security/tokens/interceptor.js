@@ -9,7 +9,7 @@
 
   const interceptor = function (request, response, next) {
     const token = imports.tokenRepository.findById(imports.parseTokenId(request));
-    request.user = imports.userRepository.findByLogin(token ? token.userLogin : 'guest');
+    request.user = imports.userRepository.findByLogin(token ? token.login : 'guest');
     next();
   };
 
@@ -19,6 +19,6 @@
 })({
 
   tokenRepository: require('./repository'),
-  userRepository: require('../users/repository'),
+  userRepository: require('../../users/repository'),
   parseTokenId: require('../../utils/parse-token-id')
 });

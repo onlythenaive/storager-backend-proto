@@ -15,8 +15,8 @@
     this.logon = function (login, secret) {
       return $http
                 .post('/security/logon', {
-                  userLogin: login,
-                  userSecret: secret
+                  login: login,
+                  secret: secret
                 })
                 .success(function (token) {
                   $localStorage.authTokenId = token.id;

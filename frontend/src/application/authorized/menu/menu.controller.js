@@ -16,7 +16,7 @@
     var self = this;
 
     $http
-        .get('/data/users/current')
+        .get('/data/users/authenticated')
         .then(function (result) {
           self.user = result.data;
         });

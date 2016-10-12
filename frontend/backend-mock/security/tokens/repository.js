@@ -21,11 +21,11 @@
 
   var tokens;
 
-  function create(userLogin) {
+  function create(login) {
     const token = {
       id: imports.uuid.v4(),
       createdAt: imports.timestamp(),
-      userLogin: userLogin
+      login: login
     };
     tokens.push(token);
     return token;
@@ -42,10 +42,10 @@
                 });
   }
 
-  function findByUserLogin(userLogin) {
+  function findByUserLogin(login) {
     return tokens
                 .find(function (token) {
-                  return token.userLogin === userLogin;
+                  return token.login === login;
                 });
   }
 
@@ -60,10 +60,10 @@
                   });
   }
 
-  function removeByUserLogin(userLogin) {
+  function removeByUserLogin(login) {
     tokens = tokens
                   .filter(function (token) {
-                    return token.userLogin !== userLogin;
+                    return token.login !== login;
                   });
   }
 

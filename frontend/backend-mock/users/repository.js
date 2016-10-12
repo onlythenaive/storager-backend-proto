@@ -29,7 +29,6 @@
       fullname: "Гостевой доступ",
       registeredAt: imports.timestamp(),
       enabled: false,
-      root: false,
       roles: ["GUEST"]
     },
     {
@@ -46,19 +45,10 @@
       fullname: "Админов А. А.",
       registeredAt: imports.timestamp(),
       enabled: true,
-      roles: ["ADMIN"]
-    },
-    {
-      login: "root",
-      email: "root@sample.email.com",
-      fullname: "Доступ корневого уровня",
-      registeredAt: imports.timestamp(),
-      enabled: true,
-      root: true,
-      roles: ["ROOT"]
+      roles: ["ADMIN", "USER"]
     }
   ];
 })({
 
-  timestamp: require('../../utils/timestamp')
+  timestamp: require('../utils/timestamp')
 });

@@ -66,7 +66,6 @@
       if (!item) {
         throw "specified code does not exist";
       }
-      item.title = properties.title;
 
       var parentItem = imports.nullOrUndefined (item.parentCode) ? null : get(item.parentCode);
       if (imports.nullOrUndefined(properties.parentCode)) {
@@ -92,6 +91,8 @@
           item.parentCode = newParentItem.code;
         }
       }
+      item.title = properties.title;
+      item.description = properties.description;
       return item;
     }
 
