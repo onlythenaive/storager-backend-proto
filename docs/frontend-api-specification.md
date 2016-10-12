@@ -195,6 +195,74 @@ Produces nothing.
 Required roles: **ADMIN**.
 
 
+### Patches
+
+#### Retrieve a page of existing patches:
+```
+GET /data/patches?[providerTitlePattern]&[status]&[createdSince]&[createdUntil]&[page]&[size]
+```
+
+Parameters:
+* `providerTitlePattern`: a pattern of the title of the provider (optional);
+* `status`: the status of a patch (optional, may be also `SUCCESS` or `FAILURE`);
+* `createdSince`: the earliest timestamp of patch creation (optional, default is `1970-01-01`);
+* `createdUntil`: the latest timestamp of patch creation (optional, default is `now`);
+* `page`: a number of a page with results (optional, default is 1);
+* `size`: maximum size of a page with results (optional, default is 10).
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "items": {
+    "id": integer,
+    "comment": string,
+    "createdAt": timestamp ISO-string,
+    "providerId": string,
+    "status": string,
+    "reason": string (optional)
+    "indicatorInfos": {
+      indicatorId: string,
+      totalPoints: number
+    }[]
+  }[],
+  "page": integer,
+  "total": integer
+}
+```
+
+Required roles: **USER** | **ADMIN**.
+
+#### Retrieve a specific patch by its id:
+```
+GET /data/patches/:id
+```
+
+Parameters:
+* `id`: patch identifier.
+
+Accepts nothing.
+
+Produces:
+```
+{
+  "id": integer,
+  "comment": string,
+  "createdAt": timestamp ISO-string,
+  "providerId": string,
+  "status": string,
+  "reason": string (optional)
+  "indicatorInfos": {
+    indicatorId: string,
+    totalPoints: number
+  }[]
+}
+```
+
+Required roles: **USER** | **ADMIN**.
+
+
 ### Periods
 
 #### Retrieve all existing time periods:
