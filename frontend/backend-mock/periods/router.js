@@ -20,12 +20,12 @@
       // NOTE: returns all available periods
       .get('/', function (request, response) {
         imports.rejectUnauthorized(['USER', 'ADMIN'], request);
-        response.json(imports.repository.getAll());
+        response.json(imports.service.getAll());
       });
 })({
 
   express: require('express'),
 
-  repository: require('./repository'),
+  service: require('./service'),
   rejectUnauthorized: require('../utils/reject-unauthorized')
 });

@@ -60,6 +60,8 @@
   express: require('express'),
   path: require('path'),
 
+  bootstrap: require('./bootstrap'),
+
   indicatorRouter: require ('./indicators/router'),
   patchRouter: require('./patches/router'),
   periodRouter: require('./periods/router'),

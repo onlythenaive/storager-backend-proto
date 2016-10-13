@@ -30,10 +30,6 @@
           });
     };
 
-    this.showAxes = function () {
-      $state.go('application.authorized.axes');
-    }
-
     this.showIndicators = function () {
       $state.go('application.authorized.indicators');
     }
@@ -42,8 +38,16 @@
       $state.go('application.authorized.patches');
     }
 
+    this.showPeriods = function () {
+      $state.go('application.authorized.periods');
+    }
+
     this.showProviders = function () {
       $state.go('application.authorized.providers');
+    }
+
+    this.showTerritories = function () {
+      $state.go('application.authorized.territories');
     }
   }
 })();

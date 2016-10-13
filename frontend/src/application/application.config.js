@@ -63,11 +63,11 @@
                     }
                   })
 
-                  .state('application.authorized.axes', {
-                    url: '/axes',
+                  .state('application.authorized.periods', {
+                    url: '/periods',
                     views: {
                       '@application.authorized': {
-                        component: 'axisWorkspace'
+                        component: 'periodWorkspace'
                       }
                     }
                   })
