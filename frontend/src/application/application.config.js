@@ -72,6 +72,15 @@
                     }
                   })
 
+                  .state('application.authorized.territories', {
+                    url: '/territories',
+                    views: {
+                      '@application.authorized': {
+                        component: 'territoryWorkspace'
+                      }
+                    }
+                  })
+
                   .state('application.authorized.indicators', {
                     url: '/indicators',
                     views: {

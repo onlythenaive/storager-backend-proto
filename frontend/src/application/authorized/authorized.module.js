@@ -9,6 +9,7 @@
           'application.authorized.indicatorWorkspace',
           'application.authorized.patchWorkspace',
           'application.authorized.periodWorkspace',
+          'application.authorized.territoryWorkspace',
           'application.authorized.providerWorkspace'
         ]);
 }) ();
