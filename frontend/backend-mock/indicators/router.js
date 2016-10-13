@@ -2,10 +2,9 @@
 
   'use strict';
 
-  // NOTE: indicator router
-  module.exports = imports.createRouter('/indicators', imports.repository);
+  module.exports = imports.createRouter('/indicators', imports.service);
 })({
 
-  repository: require('./repository'),
+  service: require('./service'),
   createRouter: require ('../utils/create-hierarchic-item-router')
 });

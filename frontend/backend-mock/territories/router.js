@@ -3,9 +3,9 @@
   'use strict';
 
   // NOTE: territory router
-  module.exports = imports.createRouter('/territories', imports.repository);
+  module.exports = imports.createRouter('/territories', imports.service);
 })({
 
-  repository: require('./repository'),
+  service: require('./service'),
   createRouter: require ('../utils/create-hierarchic-item-router')
 });

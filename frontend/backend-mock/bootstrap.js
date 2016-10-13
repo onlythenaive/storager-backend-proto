@@ -8,5 +8,7 @@
 
 })({
 
-  periods: require('./periods/bootstrap')
+  indicators: require('./indicators/bootstrap'),
+  periods: require('./periods/bootstrap'),
+  territories: require('./territories/bootstrap')
 });
