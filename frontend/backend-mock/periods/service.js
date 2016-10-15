@@ -10,11 +10,24 @@
   };
 
   function bootstrap(period) {
-    return imports.repository.insert(period);
+    return create(period);
   }
 
   function getAll() {
-    return imports.repository.find({});
+    return imports.repository
+                            .find({})
+                            .map(intoInfo);
+  }
+
+  function create(period) {
+    return intoInfo(imports.repository.insertOne(period));
+  }
+
+  function intoInfo(entity) {
+    return {
+      code: entity.code,
+      title: entity.title
+    }
   }
 })({
 
