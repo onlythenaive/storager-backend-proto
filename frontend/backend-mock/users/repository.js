@@ -28,7 +28,7 @@
       email: "guest@sample.email.com",
       fullname: "Гостевой доступ",
       registeredAt: imports.timestamp(),
-      enabled: false,
+      enabled: true,
       roles: ["GUEST"]
     },
     {
