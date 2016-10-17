@@ -6,9 +6,11 @@
 
   };
 
+  imports.users.run();
 })({
 
   indicators: require('./indicators/bootstrap'),
   periods: require('./periods/bootstrap'),
-  territories: require('./territories/bootstrap')
+  territories: require('./territories/bootstrap'),
+  users: require('./users/bootstrap')
 });

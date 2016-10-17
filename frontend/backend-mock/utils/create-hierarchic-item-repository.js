@@ -4,7 +4,7 @@
 
   module.exports = function (name) {
 
-    return imports.database.addCollection(name);
+    return imports.database.collection(name);
   };
 })({
 

@@ -2,7 +2,17 @@
 
   'use strict';
 
-  module.exports = new imports.loki();
+  module.exports = {
+
+    collection: collection
+  };
+
+  const loki = new imports.loki();
+
+  function collection(name) {
+    const existing = loki.getCollection(name);
+    return existing ? existing : loki.addCollection(name);
+  }
 })({
 
   loki: require('lokijs'),

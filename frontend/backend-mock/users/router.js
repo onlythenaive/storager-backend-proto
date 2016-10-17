@@ -17,12 +17,12 @@
 
       .get('/authenticated', function (request, response) {
         const user = imports.rejectUnauthorized([], request);
-        response.json(imports.repository.findByLogin(user.login));
+        response.json(imports.service.getByLogin(user.login));
       });
 })({
 
   express: require('express'),
 
-  repository: require('./repository'),
+  service: require('./service'),
   rejectUnauthorized: require('../utils/reject-unauthorized')
 });
