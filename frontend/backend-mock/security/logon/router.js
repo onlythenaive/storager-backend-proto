@@ -22,7 +22,7 @@
         if (!credentials || !credentials.login || !credentials.secret) {
           throw "NOT_AUTHORIZED";
         }
-        const user = imports.userRepository.findOne({login: credentials.login});
+        const user = imports.userRepository.findByLogin(credentials.login);
         if (!user || !user.enabled || user.secret !== credentials.secret) {
           throw "NOT_AUTHORIZED";
         }

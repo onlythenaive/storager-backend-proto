@@ -9,25 +9,29 @@
     getAll: getAll
   };
 
-  function bootstrap(period) {
-    return create(period);
+  function bootstrap(properties) {
+    const entity = intoEntity(properties);
+    return intoInfo(imports.repository.insert(entity));
   }
 
   function getAll() {
     return imports.repository
-                            .find({})
+                            .findAll()
                             .map(intoInfo);
   }
 
-  function create(period) {
-    return intoInfo(imports.repository.insertOne(period));
+  function intoEntity(properties) {
+    return {
+      code: properties.code,
+      title: properties.title
+    };
   }
 
   function intoInfo(entity) {
     return {
       code: entity.code,
       title: entity.title
-    }
+    };
   }
 })({
 

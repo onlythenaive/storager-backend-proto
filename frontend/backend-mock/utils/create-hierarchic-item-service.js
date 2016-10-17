@@ -2,14 +2,13 @@
 
   'use strict';
 
-  // NOTE: generic hierarchic item repository factory
   module.exports = function (repository) {
 
     return {
 
       bootstrap: bootstrap,
 
-      get: get,
+      getByCode: getByCode,
 
       getDescendants: getDescendants,
 
@@ -17,17 +16,17 @@
 
       add: add,
 
-      update: update,
+      remove: remove,
 
-      remove: remove
+      update: update
     };
 
     function bootstrap(properties) {
       repository.insert(properties);
     }
 
-    function get(code) {
-      return repository.find({code: code});
+    function getByCode(code) {
+      return intoInfo(get(code));
     }
 
     function getDescendants(code) {
@@ -103,6 +102,22 @@
         parentItem.terminal = true;
       }
       */
+    }
+
+    function get(code) {
+      const entity = imports.repository.findByCode(code);
+      if (!entity) {
+        throw "item not found";
+      }
+      return entity;
+    }
+
+    function intoEntity(properties, entity) {
+      entity = entity ? entity : {};
+    }
+
+    function intoInfo(entity) {
+      
     }
   };
 })({

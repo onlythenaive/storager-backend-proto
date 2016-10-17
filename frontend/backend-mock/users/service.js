@@ -9,16 +9,17 @@
     getByLogin: getByLogin
   };
 
-  function bootstrap(user) {
-    return create(user);
-  }
-
-  function create(user) {
-    return intoInfo(imports.repository.insertOne(user));
+  function bootstrap(properties) {
+    const entity = intoEntity(properties);
+    return intoInfo(imports.repository.insert(entity));
   }
 
   function getByLogin(login) {
-    return intoInfo(imports.repository.findOne({login: login}));
+    return intoInfo(imports.repository.findByLogin(login));
+  }
+
+  function intoEntity(properties) {
+    return properties;
   }
 
   function intoInfo(entity) {
