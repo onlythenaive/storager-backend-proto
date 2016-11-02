@@ -10,7 +10,7 @@ public class UserMapper {
     public User intoEntity(final UserProperties properties) {
         final StringBuilder roles = new StringBuilder();
         if (properties.getRoles() != null) {
-            properties.getRoles().forEach(roles::append);
+            properties.getRoles().forEach(role -> roles.append(role).append(" "));
         }
         return new User(
                 properties.getLogin(),
