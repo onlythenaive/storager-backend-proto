@@ -14,12 +14,22 @@
 
     var self = this;
 
-    self.baseUrl = dataUrlService.getCompleteUrl('data/patches');
+    var baseUrl = dataUrlService.getCompleteUrl('data/patches');
+    var filter = {};
 
     var toPage = function (page) {
       self.page = page;
       $http
-          .get(self.baseUrl)
+          .get(baseUrl, {
+            params: {
+              providerTitlePattern: filter.providerTitlePattern,
+              status: filter.status,
+              createdSince: filter.since,
+              createdUntil: filter.until,
+              page: self.page,
+              size: 1
+            }
+          })
           .then(function (result) {
             self.patches = result.data.items;
             self.totalPages = result.data.total;
@@ -38,6 +48,24 @@
       }
     };
 
-    toPage(1);
+    self.applyFilter = function () {
+      filter = {
+        providerTitlePattern: self.providerTitlePattern,
+        status: self.status !== 'ALL' ? self.status : null,
+        since: self.since, // ...
+        until: self.until, // ...
+      };
+      toPage(1);
+    };
+
+    self.resetFilter = function () {
+      self.providerTitlePattern = null;
+      self.status = 'ALL';
+      self.since = null;
+      self.until = null;
+      self.applyFilter();
+    };
+
+    self.resetFilter();
   }
 }) ();

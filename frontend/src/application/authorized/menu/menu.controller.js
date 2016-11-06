@@ -8,22 +8,23 @@
           '$http',
           '$localStorage',
           '$state',
+          'dataUrlService',
           MenuController
         ]);
 
-  function MenuController($http, $localStorage, $state) {
+  function MenuController($http, $localStorage, $state, dataUrlService) {
 
     var self = this;
 
     $http
-        .get('/data/users/authenticated')
+        .get(dataUrlService.getCompleteUrl('data/users/authenticated'))
         .then(function (result) {
           self.user = result.data;
         });
 
     this.logout = function () {
       $http
-          .post('/security/logout')
+          .post(dataUrlService.getCompleteUrl('security/logout'))
           .then(function () {
             $localStorage.authTokenId = null;
             $state.go('application.logon');

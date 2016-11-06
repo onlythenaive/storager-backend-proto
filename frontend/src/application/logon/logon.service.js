@@ -19,8 +19,8 @@
                   login: login,
                   secret: secret
                 })
-                .success(function (token) {
-                  $localStorage.authTokenId = token.id;
+                .success(function (authetication) {
+                  $localStorage.authTokenId = authetication.token;
                 });
     };
   }

@@ -66,15 +66,6 @@
                     }
                   })
 
-                  .state('application.authorized.periods', {
-                    url: '/periods',
-                    views: {
-                      '@application.authorized': {
-                        component: 'periodWorkspace'
-                      }
-                    }
-                  })
-
                   .state('application.authorized.territories', {
                     url: '/territories',
                     views: {

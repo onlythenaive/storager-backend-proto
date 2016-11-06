@@ -19,7 +19,12 @@
     var toPage = function (page) {
       self.page = page;
       $http
-          .get(self.baseUrl)
+          .get(self.baseUrl, {
+            params: {
+              page: page,
+              size: 10
+            }
+          })
           .then(function (result) {
             self.providers = result.data.items;
             self.totalPages = result.data.total;
