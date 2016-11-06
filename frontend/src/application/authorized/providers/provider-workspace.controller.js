@@ -6,14 +6,15 @@
         .module('application.authorized.providerWorkspace')
         .controller('providerWorkspaceController', [
           '$http',
+          'dataUrlService',
           ProviderWorkspaceController
         ]);
 
-  function ProviderWorkspaceController($http) {
+  function ProviderWorkspaceController($http, dataUrlService) {
 
     var self = this;
 
-    self.baseUrl = 'data/providers';
+    self.baseUrl = dataUrlService.getCompleteUrl('data/providers');
 
     var toPage = function (page) {
       self.page = page;

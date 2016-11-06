@@ -7,14 +7,15 @@
         .service('logonService', [
           '$http',
           '$localStorage',
+          'dataUrlService',
           LogonService
         ]);
 
-  function LogonService($http, $localStorage) {
+  function LogonService($http, $localStorage, dataUrlService) {
 
     this.logon = function (login, secret) {
       return $http
-                .post('/security/logon', {
+                .post(dataUrlService.getCompleteUrl('security/logon'), {
                   login: login,
                   secret: secret
                 })

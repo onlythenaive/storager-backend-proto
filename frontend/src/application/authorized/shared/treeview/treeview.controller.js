@@ -7,17 +7,18 @@
         .controller('treeviewController', [
           '$http',
           '$state',
+          'dataUrlService',
           TreeviewController
         ]);
 
-  function TreeviewController($http, $state) {
+  function TreeviewController($http, $state, dataUrlService) {
 
     var self = this;
 
-    self.baseUrl = 'data/' + self.resource + '/';
+    self.baseUrl = dataUrlService.getCompleteUrl('data/' + self.resource);
 
     $http
-        .get(self.baseUrl + 'roots')
+        .get(self.baseUrl + '/roots')
         .then(function (result) {
           self.roots = result.data;
         });

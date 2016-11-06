@@ -6,14 +6,15 @@
         .module('application.authorized.patchWorkspace')
         .controller('patchWorkspaceController', [
           '$http',
+          'dataUrlService',
           PatchWorkspaceController
         ]);
 
-  function PatchWorkspaceController($http) {
+  function PatchWorkspaceController($http, dataUrlService) {
 
     var self = this;
 
-    self.baseUrl = 'data/patches';
+    self.baseUrl = dataUrlService.getCompleteUrl('data/patches');
 
     var toPage = function (page) {
       self.page = page;

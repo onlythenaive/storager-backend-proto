@@ -6,6 +6,9 @@
 
   angular
         .module('application')
+        .service('dataUrlService', [
+          DataUrlService
+        ])
         .factory('httpRequestInterceptor', [
           '$localStorage',
           httpRequestInterceptor
@@ -146,8 +149,8 @@
       var $localStorage = $injector.get('$localStorage');
       var $state = $injector.get('$state');
 
-      function handleUnauthorizedError(error) {
-        if (error.message && error.message === 'NOT_AUTHORIZED') {
+      function handleUnauthorizedError(error, status) {
+        if (status === 401) {
           $state.go('application.logon');
         }
       }
@@ -186,5 +189,16 @@
 
       return $delegate;
     });
+  }
+
+  function DataUrlService() {
+
+    var self = this;
+    
+    var explicitDataUrlPrefix = 'http://localhost:8091';
+
+    self.getCompleteUrl = function (url) {
+      return explicitDataUrlPrefix ? explicitDataUrlPrefix + '/' + url : url;
+    }
   }
 })();
