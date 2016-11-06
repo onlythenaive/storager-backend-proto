@@ -1,7 +1,7 @@
 <div class="treeview">
   <ul>
     <ng-repeat ng-repeat="root in it.roots">
-      <li>dsdsd</li>
+      <treeview-item  resource="{{it.resource}}" code="{{root.code}}" title="{{root.title}}" description="{{root.description}}" terminal="{{root.terminal}}"></treeview-item>
     </ng-repeat>
   </ul>
 </div>

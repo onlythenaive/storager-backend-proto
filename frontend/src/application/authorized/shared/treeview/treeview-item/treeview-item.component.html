@@ -1,4 +1,8 @@
-test test test
-<div class="treeview-item">
-  <span>{{it.code}} ({{it.title}})</span>
-</div>
+<li class="treeview-item">
+  <span>{{it.code}} ({{it.title}}, {{it.description}})</span><span ng-hide="it.terminal" ng-click="it.expand()">Раскрыть</span>
+  <ul>
+    <ng-repeat ng-repeat="descendant in it.descendants">
+      <treeview-item  resource="{{it.resource}}" code="{{descendant.code}}" title="{{descendant.title}}" description="{{descendant.description}}" terminal="{{descendant.terminal}}"></treeview-item>
+    </ng-repeat>
+  </ul>
+</li>

@@ -1,1 +1,18 @@
 <h5>Организации</h5>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Название</th>
+    <th>Дата регистрации</th>
+  </tr>
+  <tr ng-repeat="provider in it.providers">
+    <td>{{provider.id}}</td>
+    <td>{{provider.title}}</td>
+    <td>{{provider.registeredAt}}</td>
+  </tr>
+</table>
+
+<input type="button" ng-click="it.toPreviousPage()" value="Предыдущая"/>
+<span>{{it.page}} / {{it.totalPages}}</span>
+<input type="button" ng-click="it.toNextPage()" value="Следующая"/>

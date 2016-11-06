@@ -13,11 +13,5 @@
   function TerritoryWorkspaceController($http, $state) {
 
     var self = this;
-
-    $http
-        .get('/data/territories/roots')
-        .then(function (result) {
-          self.territories = result.data;
-        });
   }
 }) ();

@@ -1,1 +1,18 @@
 <h5>Загрузки</h5>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Описание</th>
+    <th>Дата загрузки</th>
+  </tr>
+  <tr ng-repeat="patch in it.patches">
+    <td>{{patch.id}}</td>
+    <td>{{patch.comment}}</td>
+    <td>{{patch.createdAt}}</td>
+  </tr>
+</table>
+
+<input type="button" ng-click="it.toPreviousPage()" value="Предыдущая"/>
+<span>{{it.page}} / {{it.totalPages}}</span>
+<input type="button" ng-click="it.toNextPage()" value="Следующая"/>

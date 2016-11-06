@@ -14,7 +14,15 @@
 
     var self = this;
 
-    self.code = "0001";
-    self.title = "Sample title";
+    self.baseUrl = 'data/' + self.resource + '/';
+
+    self.expand = function () {
+
+      $http
+          .get(self.baseUrl + self.code + '/descendants')
+          .then(function (result) {
+            self.descendants = result.data;
+          });
+    };
   }
 })();

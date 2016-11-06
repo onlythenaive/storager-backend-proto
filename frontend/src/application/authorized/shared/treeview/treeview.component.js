@@ -7,6 +7,9 @@
         .component('treeview', {
           controller: 'treeviewController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/shared/treeview/treeview.component.html'
+          templateUrl: '/static/application/authorized/shared/treeview/treeview.component.html',
+          bindings: {
+            resource: '@'
+          }
         });
 })();

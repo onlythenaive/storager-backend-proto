@@ -29,12 +29,12 @@
       return intoInfo(get(code));
     }
 
-    function getDescendants(code) {
-      return repository.find({ascendantCode: code});
+    function getDescendants(ascendantCode) {
+      return repository.findDescendants(ascendantCode);
     }
 
     function getRoots() {
-      return repository.find({ascendantCode: null});
+      return repository.findRoots();
     }
 
     function add(item) {

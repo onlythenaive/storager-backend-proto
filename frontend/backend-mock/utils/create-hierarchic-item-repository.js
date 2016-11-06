@@ -10,7 +10,7 @@
 
       findByCode: findByCode,
 
-      findRoots: findDescendants,
+      findDescendants: findDescendants,
 
       findRoots: findRoots,
 
@@ -25,8 +25,8 @@
       return items.findOne({code: code});
     }
 
-    function findDescendants(code) {
-      return items.findOne({code: code});
+    function findDescendants(ascendantCode) {
+      return items.find({ascendantCode: ascendantCode});
     }
 
     function findRoots() {
