@@ -7,12 +7,15 @@
         .controller('patchWorkspaceController', [
           '$http',
           'dataUrlService',
+          'menuService',
           PatchWorkspaceController
         ]);
 
-  function PatchWorkspaceController($http, dataUrlService) {
+  function PatchWorkspaceController($http, dataUrlService, menuService) {
 
     var self = this;
+
+    menuService.update('PATCHES');
 
     var baseUrl = dataUrlService.getCompleteUrl('data/patches');
     var filter = {};

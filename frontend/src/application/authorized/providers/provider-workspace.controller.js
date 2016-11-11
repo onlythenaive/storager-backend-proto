@@ -7,12 +7,15 @@
         .controller('providerWorkspaceController', [
           '$http',
           'dataUrlService',
+          'menuService',
           ProviderWorkspaceController
         ]);
 
-  function ProviderWorkspaceController($http, dataUrlService) {
+  function ProviderWorkspaceController($http, dataUrlService, menuService) {
 
     var self = this;
+
+    menuService.update('PROVIDERS');
 
     self.baseUrl = dataUrlService.getCompleteUrl('data/providers');
 

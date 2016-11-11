@@ -9,10 +9,11 @@
           '$localStorage',
           '$state',
           'dataUrlService',
+          'menuService',
           MenuController
         ]);
 
-  function MenuController($http, $localStorage, $state, dataUrlService) {
+  function MenuController($http, $localStorage, $state, dataUrlService, menuService) {
 
     var self = this;
 
@@ -39,16 +40,16 @@
       $state.go('application.authorized.patches');
     }
 
-    this.showPeriods = function () {
-      $state.go('application.authorized.periods');
-    }
-
     this.showProviders = function () {
       $state.go('application.authorized.providers');
     }
 
     this.showTerritories = function () {
       $state.go('application.authorized.territories');
+    }
+
+    menuService.updateHandler = function (state) {
+      self.currentState = state;
     }
   }
 })();

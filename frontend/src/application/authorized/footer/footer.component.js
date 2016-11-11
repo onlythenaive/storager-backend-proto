@@ -4,7 +4,7 @@
 
   angular
         .module('application.authorized.footer')
-        .component('footer', {
+        .component('customFooter', {
           controller: 'footerController',
           controllerAs: 'it',
           templateUrl: '/static/application/authorized/footer/footer.component.html'

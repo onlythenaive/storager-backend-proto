@@ -1,37 +1,41 @@
-<h5>Загрузки</h5>
+<div class="row workspace">
+  <div class="col-lg-12">
+    <h4>Загрузки</h4>
 
-<label for="providerTitlePattern">Название организации:</label>
-<input name="providerTitlePattern" type="text" placeholder="Название организации" ng-model="it.providerTitlePattern"/><br/>
+    <label for="providerTitlePattern">Название организации:</label>
+    <input name="providerTitlePattern" type="text" placeholder="Название организации" ng-model="it.providerTitlePattern"/><br/>
 
-<label for="status">Статус:</label>
-<select name="status" ng-model="it.status">
-  <option value="ALL" selected>Все</option>
-  <option value="SUCCESS">Успешные</option>
-  <option value="FAILURE">С ошибкой</option>
-</select></br>
+    <label for="status">Статус:</label>
+    <select name="status" ng-model="it.status">
+      <option value="ALL" selected>Все</option>
+      <option value="SUCCESS">Успешные</option>
+      <option value="FAILURE">С ошибкой</option>
+    </select></br>
 
-<label for="since">С:</label>
-<input name="since" type="date" ng-model="it.since"/><br/>
+    <label for="since">С:</label>
+    <input name="since" type="date" ng-model="it.since"/><br/>
 
-<label for="until">До:</label>
-<input name="until" type="date" ng-model="it.until"/><br/>
+    <label for="until">До:</label>
+    <input name="until" type="date" ng-model="it.until"/><br/>
 
-<input type="button" value="Применить фильтр" ng-click="it.applyFilter()"></input><br/>
-<input type="button" value="Сбросить фильтр" ng-click="it.resetFilter()"></input><br/>
+    <input type="button" value="Применить фильтр" ng-click="it.applyFilter()"></input><br/>
+    <input type="button" value="Сбросить фильтр" ng-click="it.resetFilter()"></input><br/>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Описание</th>
-    <th>Дата загрузки</th>
-  </tr>
-  <tr ng-repeat="patch in it.patches">
-    <td>{{patch.id}}</td>
-    <td>{{patch.comment}}</td>
-    <td>{{patch.createdAt}}</td>
-  </tr>
-</table>
+    <table class="table table-hover">
+      <tr>
+        <th>ID</th>
+        <th>Описание</th>
+        <th>Дата загрузки</th>
+      </tr>
+      <tr ng-repeat="patch in it.patches">
+        <td>{{patch.id}}</td>
+        <td>{{patch.comment}}</td>
+        <td>{{patch.createdAt}}</td>
+      </tr>
+    </table>
 
-<input type="button" ng-click="it.toPreviousPage()" value="Предыдущая"/>
-<span>{{it.page}} / {{it.totalPages}}</span>
-<input type="button" ng-click="it.toNextPage()" value="Следующая"/>
+    <input type="button" ng-click="it.toPreviousPage()" value="Предыдущая"/>
+    <span>{{it.page}} / {{it.totalPages}}</span>
+    <input type="button" ng-click="it.toNextPage()" value="Следующая"/>
+  </div>
+</div>

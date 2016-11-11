@@ -7,11 +7,13 @@
         .controller('territoryWorkspaceController', [
           '$http',
           '$state',
+          'menuService',
           TerritoryWorkspaceController
         ]);
 
-  function TerritoryWorkspaceController($http, $state) {
+  function TerritoryWorkspaceController($http, $state, menuService) {
 
     var self = this;
+    menuService.update('TERRITORIES');
   }
 }) ();

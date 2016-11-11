@@ -5,10 +5,12 @@
   angular
         .module('application.authorized.indicatorWorkspace')
         .controller('indicatorWorkspaceController', [
+           'menuService',
           IndicatorWorkspaceController
         ]);
 
-  function IndicatorWorkspaceController() {
+  function IndicatorWorkspaceController(menuService) {
 
+    menuService.update('INDICATORS');
   }
 }) ();

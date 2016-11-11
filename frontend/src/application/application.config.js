@@ -6,6 +6,9 @@
 
   angular
         .module('application')
+        .run(['$rootScope',  '$state', function ($rootScope, $state) {
+          $rootScope.$state = $state;
+        }])
         .service('dataUrlService', [
           DataUrlService
         ])
