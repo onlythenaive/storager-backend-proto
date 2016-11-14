@@ -10,18 +10,18 @@ import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
-@Table(name = "periods")
+@Table(name = "SRV_PERIOD", schema="ANALITICA3")
 public class Period {
 
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
+    @Column(name = "ID_PERIOD", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "code", nullable = false, unique = true)
+    @Column(name = "PERIOD_CODE", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "NAME_FULL", nullable = false)
     private String title;
 
     @JpaConstructor

@@ -8,11 +8,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import ru.spb.iac.storager.server.domain.points.Point;
@@ -21,31 +23,37 @@ import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
-@Table(name = "patches")
+@Table(name = "SRV_AUDIT", schema="ANALITICA3")
 public class Patch {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
+    //todo add sequence
+        @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_patch")
+    @SequenceGenerator(name = "seq_patch", sequenceName = "SQ_SRV_ID_AUDIT", schema="ANALITICA3", allocationSize = 1)
+    @Column(name = "ID_AUDIT", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "ID_AUDIT", nullable = false, unique = true, insertable = false, updatable = false)
+//    private Integer id;
 
-    @Column(name = "comment", nullable = false, updatable = false)
+    @Column(name = "LD_DESC", nullable = false, updatable = false)
     private String comment;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "D_IN", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "status", nullable = false, updatable = false)
+    @Column(name = "LD_STATUS", nullable = false, updatable = false)
     private String status;
 
-    @Column(name = "reason", updatable = false)
+    @Column(name = "LD_REASON", updatable = false)
     private String reason;
 
     @OneToMany(mappedBy = "patch", cascade = CascadeType.ALL)
     private List<Point> points;
 
     @ManyToOne
-    @JoinColumn(name = "provider_id", nullable = false, updatable = false)
+    @JoinColumn(name = "ID_APP", nullable = false, updatable = false)
     private Provider provider;
 
     @JpaConstructor

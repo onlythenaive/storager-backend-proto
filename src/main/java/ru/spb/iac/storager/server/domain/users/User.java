@@ -15,36 +15,36 @@ import ru.spb.iac.storager.server.domain.shared.JpaConstructor;
 import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 
 @Entity
-@Table(name = "users")
+@Table(name = "SRV_USER_INFO", schema="ANALITICA3")
 public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
+    @Column(name = "ID_USI", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
 
-    @Column(name = "login", nullable = false, unique = true, updatable = false)
+    @Column(name = "USER_LOGIN", nullable = false, unique = true, updatable = false)
     private String login;
 
-    @Column(name = "secret", nullable = false, updatable = false)
+    @Column(name = "USER_PASSWORD", nullable = false, updatable = false)
     private String secret;
 
-    @Column(name = "email", nullable = false, unique = true, updatable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true, updatable = false)
     private String email;
 
-    @Column(name = "fullname", nullable = false, updatable = false)
+    @Column(name = "FULL_NAME", nullable = false, updatable = false)
     private String fullname;
 
-    @Column(name = "registered_at", nullable = false, updatable = false)
+    @Column(name = "D_IN", nullable = false, updatable = false)
     private Instant registeredAt;
 
-    @Column(name = "enabled", nullable = false, updatable = false)
-    private Boolean enabled;
+    @Column(name = "IS_ENABLED", nullable = false, updatable = false)
+    private Integer enabled;
 
-    @Column(name = "root", nullable = false, updatable = false)
-    private Boolean root;
+    @Column(name = "IS_ROOT", nullable = false, updatable = false)
+    private Integer root;
 
-    @Column(name = "roles", updatable = false)
+    @Column(name = "USER_ROLE", updatable = false)
     private String roles;
 
     @JpaConstructor
@@ -64,8 +64,8 @@ public class User {
         this.secret = secret;
         this.email = email;
         this.fullname = fullname;
-        this.enabled = enabled;
-        this.root = root;
+        this.enabled = enabled?1:0;
+        this.root = root?1:0;
         this.roles = roles;
     }
 
@@ -94,11 +94,11 @@ public class User {
     }
 
     public Boolean getEnabled() {
-        return enabled;
+        return enabled==1?true:false;
     }
 
     public Boolean getRoot() {
-        return root;
+        return root==1?true:false;
     }
 
     public String getRoles() {

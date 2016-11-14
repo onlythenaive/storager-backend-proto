@@ -1,5 +1,8 @@
 package ru.spb.iac.storager.server.errors;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -14,8 +17,14 @@ import ru.spb.iac.storager.server.errors.shared.Reason;
 import ru.spb.iac.storager.server.errors.shared.ReasonableException;
 import ru.spb.iac.storager.server.errors.security.SecurityException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @ControllerAdvice
 public class ErrorHandler {
+
+//    private final Log log = LogFactory.getLog(ErrorHandler.class);
+    private final Logger logger = Logger.getLogger(ErrorHandler.class.getCanonicalName());
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<?> handleNotFound(final NoHandlerFoundException exception) {
@@ -53,6 +62,7 @@ public class ErrorHandler {
     }
 
     private void logAsError(final Throwable throwable) {
-        throwable.printStackTrace();
+//        System.out.println("Error occurred: " + throwable.getMessage());
+        logger.log(Level.WARNING, "Error occurred:", throwable);
     }
 }
