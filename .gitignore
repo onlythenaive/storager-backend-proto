@@ -13,6 +13,8 @@ frontend/*.log
 # Log files:
 *.log
 
+### Netbeans ###
+.nb-gradle
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
