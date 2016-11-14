@@ -29,10 +29,6 @@ public class Indicator implements HierarchicItem<Indicator>, Serializable {
     @SequenceGenerator(name = "seq_indicator", sequenceName = "SQ_SRV_ID_IND", schema="ANALITICA3", allocationSize = 1)
     @Column(name = "ID_IND", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "ID_IND", nullable = false, unique = true, insertable = false, updatable = false)
-//    private Integer id;
 
     @Column(name = "IND_CODE", nullable = false, unique = true)
     private String code;

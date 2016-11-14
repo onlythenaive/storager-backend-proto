@@ -24,17 +24,11 @@ import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 @Table(name = "SRV_APP" , schema="ANALITICA3")
 public class Provider implements Serializable {
 
-    //todo should add sequence
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_provider")
     @SequenceGenerator(name = "seq_provider", sequenceName = "SQ_SRV_ID_APP", schema="ANALITICA3",  allocationSize = 1)
     @Column(name = "ID_APP", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
-
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "ID_APP", nullable = false, unique = true, insertable = false, updatable = false)
-//    private Integer id;
 
     @Column(name = "D_IN", nullable = false, updatable = false)
     private Instant registeredAt;

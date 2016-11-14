@@ -24,16 +24,11 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItem;
 @Table(name = "SRV_TERR", schema="ANALITICA3")
 public class Territory implements HierarchicItem<Territory> {
 
-    //TODO add sequence
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_territory")
     @SequenceGenerator(name = "seq_territory", sequenceName = "SQ_SRV_ID_TERR", schema="ANALITICA3", allocationSize = 1)
     @Column(name = "ID_TERR", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "ID_TERR", nullable = false, unique = true, insertable = false, updatable = false)
-//    private Integer id;
 
     @NotNull
     @Column(name = "TERR_CODE", nullable = false, unique = true)

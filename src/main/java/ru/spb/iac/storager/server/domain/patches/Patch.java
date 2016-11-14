@@ -26,16 +26,11 @@ import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 @Table(name = "SRV_AUDIT", schema="ANALITICA3")
 public class Patch {
 
-    //todo add sequence
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_patch")
     @SequenceGenerator(name = "seq_patch", sequenceName = "SQ_SRV_ID_AUDIT", schema="ANALITICA3", allocationSize = 1)
     @Column(name = "ID_AUDIT", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "ID_AUDIT", nullable = false, unique = true, insertable = false, updatable = false)
-//    private Integer id;
 
     @Column(name = "LD_DESC", nullable = false, updatable = false)
     private String comment;

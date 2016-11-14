@@ -23,16 +23,12 @@ import ru.spb.iac.storager.server.domain.territories.Territory;
 @Table(name = "SRV_VALUES", schema="ANALITICA3")
 public class Point {
 
-    //TODO add sequence
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_point")
     @SequenceGenerator(name = "seq_point", sequenceName = "SQ_SRV_ID_VAL", schema="ANALITICA3", allocationSize = 1)
     @Column(name = "ID_VAL", nullable = false, unique = true, insertable = false, updatable = false)
     private Integer id;
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "ID_VAL", nullable = false, unique = true, insertable = false, updatable = false)
-//    private Integer id;
 
     @Column(name = "REAL_VAL", nullable = false, updatable = false)
     private Double real;
