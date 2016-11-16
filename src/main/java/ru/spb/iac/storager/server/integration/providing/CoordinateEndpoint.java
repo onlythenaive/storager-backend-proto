@@ -13,43 +13,46 @@ import ru.spb.iac.storager.server.domain.shared.hierarchic.HierarchicItemInfo;
 import ru.spb.iac.storager.server.domain.territories.TerritoryService;
 
 @Endpoint
-public class TerritoryEndpoint extends BaseProvidingEndpoint {
+public class CoordinateEndpoint extends BaseProvidingEndpoint {
 
     @Autowired
     private TerritoryService service;
 
     @ResponsePayload
-    @PayloadRoot(namespace = NAMESPACE, localPart = "getTerritoryRequest")
-    public GetTerritoryResponse getTerritory(@RequestPayload GetTerritoryRequest request) {
+    @PayloadRoot(namespace = NAMESPACE, localPart = "getCoordinateRequest")
+    public GetCoordinateResponse getCoordinate(@RequestPayload GetCoordinateRequest request) {
         authenticate(request);
-        final GetTerritoryResponse response = new GetTerritoryResponse();
+        final GetCoordinateResponse response = new GetCoordinateResponse();
+        if (!request.getAxis().equals("territory")) {
+            throw new IllegalArgumentException(String.format("unknown axis: %s", request.getAxis()));
+        }
         final HierarchicItemInfo info = service.getByCodeOnProviderBehalf(request.getCode());
         response.setCode(info.getCode());
         response.setTitle(info.getTitle());
-        response.setAscendantCode(info.getAscendantCode());
-        response.setTerminal(info.getTerminal());
+        response.setDescription(info.getDescription());
         return response;
     }
 
     @ResponsePayload
-    @PayloadRoot(namespace = NAMESPACE, localPart = "getTerritoryPageRequest")
-    public GetTerritoryPageResponse getTerritoryPage(@RequestPayload GetTerritoryPageRequest request) {
+    @PayloadRoot(namespace = NAMESPACE, localPart = "getCoordinatePageRequest")
+    public GetCoordinatePageResponse getCoordinatePage(@RequestPayload GetCoordinatePageRequest request) {
         authenticate(request);
-        final GetTerritoryPageResponse response = new GetTerritoryPageResponse();
+        final GetCoordinatePageResponse response = new GetCoordinatePageResponse();
+        if (!request.getAxis().equals("territory")) {
+            throw new IllegalArgumentException(String.format("unknown axis: %s", request.getAxis()));
+        }
         final PagedResult<HierarchicItemInfo> paged = service.getPageOnProviderBehalf(
                 request.getCodePattern(),
-                request.getAscendantCode(),
+                null,
                 request.getTitlePattern(),
                 request.getPage().intValue(),
                 request.getSize().intValue()
         );
         paged.getItems().forEach(info -> {
-            final HierarchicItemInfoStruct territory = new HierarchicItemInfoStruct();
+            final PlainItemInfoStruct territory = new PlainItemInfoStruct();
             territory.setCode(info.getCode());
             territory.setTitle(info.getTitle());
-            territory.setAscendantCode(info.getAscendantCode());
-            territory.getPath().addAll(info.getPath());
-            territory.setTerminal(info.getTerminal());
+            territory.setDescription(info.getDescription());
             response.getItems().add(territory);
         });
         response.setPage(BigInteger.valueOf(paged.getPage()));

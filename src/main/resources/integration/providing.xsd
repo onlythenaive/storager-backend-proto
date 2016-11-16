@@ -3,6 +3,24 @@
            targetNamespace="http://iac.spb.ru/storager/server/integration/providing"
            elementFormDefault="qualified">
 
+    <xs:element name="getAxesRequest">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="tns:secureRequestStruct"/>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getAxesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="axes" type="xs:string" maxOccurs="unbounded" nillable="false"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
     <xs:element name="getIndicatorRequest">
         <xs:complexType>
             <xs:complexContent>
@@ -37,39 +55,23 @@
 
 
 
-    <xs:element name="createPatchRequest">
+    <xs:element name="createUploadRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="tns:createPatchRequestStruct"/>
+                <xs:extension base="tns:createUploadRequestStruct"/>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="createPatchResponse">
+    <xs:element name="createUploadResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="tns:patchInfoStruct"/>
+                <xs:extension base="tns:uploadInfoStruct"/>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="createPatchInSandboxRequest">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="tns:createPatchRequestStruct"/>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="createPatchInSandboxResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="tns:patchInfoStruct"/>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:complexType name="createPatchRequestStruct" abstract="true">
+    <xs:complexType name="createUploadRequestStruct" abstract="true">
         <xs:complexContent>
             <xs:extension base="tns:secureRequestStruct">
                 <xs:sequence>
@@ -80,7 +82,7 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:element name="getPatchRequest">
+    <xs:element name="getUploadRequest">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="tns:secureRequestStruct">
@@ -92,15 +94,15 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getPatchResponse">
+    <xs:element name="getUploadResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="tns:patchInfoStruct"/>
+                <xs:extension base="tns:uploadInfoStruct"/>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getPatchPageRequest">
+    <xs:element name="getUploadPageRequest">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="tns:itemPageRequestStruct">
@@ -114,42 +116,55 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getPatchPageResponse">
+    <xs:element name="getUploadPageResponse">
         <xs:complexType>
             <xs:complexContent>
                 <xs:extension base="tns:itemPageResponseStruct">
                     <xs:sequence>
-                        <xs:element name="items" type="tns:patchInfoStruct" maxOccurs="unbounded" nillable="false"/>
+                        <xs:element name="items" type="tns:uploadInfoStruct" maxOccurs="unbounded" nillable="false"/>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="patchInfoStruct">
+    <xs:complexType name="uploadInfoStruct">
         <xs:sequence>
             <xs:element name="id" type="xs:integer" nillable="false"/>
             <xs:element name="comment" type="xs:string" nillable="false"/>
             <xs:element name="createdAt" type="xs:string" nillable="false"/>
             <xs:element name="status" type="xs:string" nillable="false"/>
             <xs:element name="reason" type="xs:string" nillable="true"/>
-            <xs:element name="indicatorInfos" type="tns:patchIndicatorInfoStruct" maxOccurs="unbounded" nillable="false"/>
+            <xs:element name="indicatorStats" type="tns:uploadIndicatorStatStruct" maxOccurs="unbounded" nillable="false"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="patchIndicatorInfoStruct">
+    <xs:complexType name="uploadIndicatorStatStruct">
         <xs:sequence>
-            <xs:element name="indicatorCode" type="xs:string" nillable="false"/>
+            <xs:element name="indicator" type="xs:string" nillable="false"/>
             <xs:element name="totalPoints" type="xs:integer" nillable="false"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="pointPropertiesStruct">
         <xs:sequence>
-            <xs:element name="indicatorCode" type="xs:string" nillable="false"/>
-            <xs:element name="periodCode" type="xs:string" nillable="false"/>
-            <xs:element name="territoryCode" type="xs:string" nillable="false"/>
+            <xs:element name="indicator" type="xs:string" nillable="false"/>
+            <xs:element name="period" type="xs:string" nillable="false"/>
             <xs:element name="date" type="xs:string" nillable="false"/>
+            <xs:element name="dimensions" type="tns:pointDimensionPropertiesStruct" maxOccurs="unbounded" nillable="false"/>
+            <xs:element name="value" type="tns:pointValuePropertiesStruct" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pointDimensionPropertiesStruct">
+        <xs:sequence>
+            <xs:element name="axis" type="xs:string" nillable="false"/>
+            <xs:element name="coordinate" type="xs:string" nillable="false"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="pointValuePropertiesStruct">
+        <xs:sequence>
             <xs:element name="real" type="xs:double" nillable="false"/>
             <xs:element name="plan" type="xs:double" nillable="true"/>
         </xs:sequence>
@@ -203,38 +218,54 @@
 
 
 
-    <xs:element name="getTerritoryRequest">
+    <xs:element name="getCoordinateRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="tns:itemByCodeRequestStruct"/>
+                <xs:extension base="tns:secureRequestStruct">
+                    <xs:sequence>
+                        <xs:element name="axis" type="xs:string" nillable="false"/>
+                        <xs:element name="code" type="xs:string" nillable="false"/>
+                    </xs:sequence>
+                </xs:extension>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getTerritoryResponse">
+    <xs:element name="getCoordinateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="xs:string" nillable="false"/>
+                <xs:element name="title" type="xs:string" nillable="false"/>
+                <xs:element name="description" type="xs:string" nillable="true"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getCoordinatePageRequest">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="tns:hierarchicItemResponseStruct"/>
+                <xs:extension base="tns:itemPageRequestStruct">
+                    <xs:sequence>
+                        <xs:element name="axis" type="xs:string" nillable="false"/>
+                        <xs:element name="codePattern" type="xs:string" nillable="true"/>
+                        <xs:element name="titlePattern" type="xs:string" nillable="true"/>
+                    </xs:sequence>
+                </xs:extension>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getTerritoryPageRequest">
+    <xs:element name="getCoordinatePageResponse">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="tns:hierarchicItemPageRequestStruct"/>
+                <xs:extension base="tns:itemPageResponseStruct">
+                    <xs:sequence>
+                        <xs:element name="items" type="tns:plainItemInfoStruct" maxOccurs="unbounded" nillable="false"/>
+                    </xs:sequence>
+                </xs:extension>
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-
-    <xs:element name="getTerritoryPageResponse">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="tns:hierarchicItemPageResponseStruct"/>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-
 
 
 
@@ -277,6 +308,15 @@
         </xs:sequence>
     </xs:complexType>
 
+
+
+    <xs:complexType name="plainItemInfoStruct">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" nillable="false"/>
+            <xs:element name="title" type="xs:string" nillable="false"/>
+            <xs:element name="description" type="xs:string" nillable="true"/>
+        </xs:sequence>
+    </xs:complexType>
 
 
 
