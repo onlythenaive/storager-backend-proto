@@ -4,11 +4,85 @@
     <head>
         <base href="{{baseUrl}}"></base>
         <meta charset="UTF-8">
-        <link rel="icon" type="image/png" href="static/images/application-icon.png">
-        <link rel="stylesheet" type="text/css" href="static/application.css">
+        <link rel="icon" type="image/png" href="static/images/favicon.ico">
+        <meta charset="utf-8"/>
+        <title>{{title}}</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+        <link rel="stylesheet" href="static/main.css"/>
+        <link rel="stylesheet" href="static/application/application.component.css"/>
+        <link rel="stylesheet" href="static/application/authorized/authorized.component.css"/>
+        <link rel="stylesheet" href="static/application/authorized/indicators/indicator-workspace.component.css"/>
+        <link rel="stylesheet" href="static/application/authorized/patches/patch-workspace.component.css"/>
+        <link rel="stylesheet" href="static/application/authorized/providers/provider-workspace.component.css"/>
+        <link rel="stylesheet" href="static/application/logon/logon.component.css"/>
+        <link rel="stylesheet" href="static/application/lost/lost.component.css"/>
     </head>
     <body>
-        <div id="cssUnavailableMessage">CSS are not available!</div>
-        <script src="static/application.js"></script>
+        <ui-view></ui-view>
+
+        <div id="dataBaseUrl" class="system-property">{{dataBaseUrl}}</div>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.3/angular-ui-router.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+
+        <script src="static/application/authorized/shared/treeview/treeview-item/treeview-item.module.js"></script>
+        <script src="static/application/authorized/shared/treeview/treeview-item/treeview-item.component.js"></script>
+        <script src="static/application/authorized/shared/treeview/treeview-item/treeview-item.controller.js"></script>
+
+        <script src="static/application/authorized/shared/treeview/treeview.module.js"></script>
+        <script src="static/application/authorized/shared/treeview/treeview.component.js"></script>
+        <script src="static/application/authorized/shared/treeview/treeview.controller.js"></script>
+
+        <script src="static/application/authorized/shared/shared.module.js"></script>
+
+        <script src="static/application/authorized/indicators/indicator-workspace.module.js"></script>
+        <script src="static/application/authorized/indicators/indicator-workspace.component.js"></script>
+        <script src="static/application/authorized/indicators/indicator-workspace.controller.js"></script>
+
+        <script src="static/application/authorized/patches/patch-workspace.module.js"></script>
+        <script src="static/application/authorized/patches/patch-workspace.component.js"></script>
+        <script src="static/application/authorized/patches/patch-workspace.controller.js"></script>
+
+        <script src="static/application/authorized/providers/provider-workspace.module.js"></script>
+        <script src="static/application/authorized/providers/provider-workspace.component.js"></script>
+        <script src="static/application/authorized/providers/provider-workspace.controller.js"></script>
+
+        <script src="static/application/authorized/territories/territory-workspace.module.js"></script>
+        <script src="static/application/authorized/territories/territory-workspace.component.js"></script>
+        <script src="static/application/authorized/territories/territory-workspace.controller.js"></script>
+
+        <script src="static/application/authorized/menu/menu.module.js"></script>
+        <script src="static/application/authorized/menu/menu.service.js"></script>
+        <script src="static/application/authorized/menu/menu.component.js"></script>
+        <script src="static/application/authorized/menu/menu.controller.js"></script>
+
+        <script src="static/application/authorized/footer/footer.module.js"></script>
+        <script src="static/application/authorized/footer/footer.component.js"></script>
+        <script src="static/application/authorized/footer/footer.controller.js"></script>
+
+        <script src="static/application/authorized/authorized.module.js"></script>
+        <script src="static/application/authorized/authorized.component.js"></script>
+        <script src="static/application/authorized/authorized.controller.js"></script>
+
+        <script src="static/application/logon/logon.module.js"></script>
+        <script src="static/application/logon/logon.component.js"></script>
+        <script src="static/application/logon/logon.controller.js"></script>
+        <script src="static/application/logon/logon.service.js"></script>
+
+        <script src="static/application/lost/lost.module.js"></script>
+        <script src="static/application/lost/lost.component.js"></script>
+        <script src="static/application/lost/lost.controller.js"></script>
+
+        <script src="static/application/application.module.js"></script>
+        <script src="static/application/application.controller.js"></script>
+        <script src="static/application/application.component.js"></script>
+        <script src="static/application/application.config.js"></script>
+
+        <script src="static/main.js"></script>
     </body>
 </html>

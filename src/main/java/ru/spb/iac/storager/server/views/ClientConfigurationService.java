@@ -10,8 +10,9 @@ public class ClientConfigurationService {
     public Object getConfiguration(final HttpServletRequest request) {
         final String preconfiguredBaseUrl = getPreconfiguredBaseUrl();
         final String baseUrl = preconfiguredBaseUrl != null ? preconfiguredBaseUrl : getRequestBaseUrl(request);
+        final String dataBaseUrl = baseUrl;
         final String kernelVersion = getKernelVersion();
-        return new ClientConfiguration(baseUrl, kernelVersion);
+        return new ClientConfiguration(baseUrl, dataBaseUrl, kernelVersion, "SPB IAC Storager");
     }
 
     private String getKernelVersion() {

@@ -1,0 +1,28 @@
+<!--
+<div>
+  <h4>Menu</h4>
+  <div>
+    <input type="button" value="Загрузки" ng-click="it.showPatches()"></input>
+    <input type="button" value="Организации" ng-click="it.showProviders()"></input>
+    <input type="button" value="Показатели" ng-click="it.showIndicators()"></input>
+    <input type="button" value="Территории" ng-click="it.showTerritories()"></input>
+  </div>
+  <div style="float:right">
+    <span>{{it.user.fullname}}</span>
+    <input type="button" value="Выход" ng-click="it.logout()"></input>
+  </div>
+</div>
+-->
+
+<div class="header clearfix">
+  <nav>
+    <button id="btnLogout" class="btn btn-md btn-info pull-right" ng-click="it.logout()">Выйти</button>
+    <ul class="nav nav-pills pull-right">
+      <li role="presentation" ng-class="{active: it.currentState === 'PATCHES'}"><a ng-click="it.showPatches()">Загрузки</a></li>
+      <li role="presentation" ng-class="{active: it.currentState === 'PROVIDERS'}"><a ng-click="it.showProviders()">Внешние системы</a></li>
+      <li role="presentation" ng-class="{active: it.currentState === 'INDICATORS'}"><a ng-click="it.showIndicators()">Показатели</a></li>
+      <li role="presentation" ng-class="{active: it.currentState === 'TERRITORIES'}"><a ng-click="it.showTerritories()">Территории</a></li>
+    </ul>
+  </nav>
+  <h3 class="text-muted">Сервис Внешней Интеграции</h3>
+</div>
