@@ -5,19 +5,27 @@
   angular
         .module('application.authorized.providerWorkspace')
         .controller('providerWorkspaceController', [
+          '$state',
           '$http',
           'dataUrlService',
+          'logonService',
           'menuService',
           ProviderWorkspaceController
         ]);
 
-  function ProviderWorkspaceController($http, dataUrlService, menuService) {
+  function ProviderWorkspaceController($state, $http, dataUrlService, logonService, menuService) {
 
     var self = this;
 
     menuService.update('PROVIDERS');
 
+    self.admin = logonService.isAdmin();
+
     self.baseUrl = dataUrlService.getCompleteUrl('data/providers');
+
+    self.add = function () {
+      $state.go('application.authorized.providerNew');
+    };
 
     var toPage = function (page) {
       self.page = page;
@@ -32,6 +40,12 @@
             self.providers = result.data.items;
             self.totalPages = result.data.total;
           });
+    };
+
+    self.toDetailed = function (id) {
+      $state.go('application.authorized.providerDetailed', {
+        id: id
+      });
     };
 
     self.toNextPage = function () {

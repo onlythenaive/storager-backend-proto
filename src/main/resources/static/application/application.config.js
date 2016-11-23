@@ -96,11 +96,38 @@
                     }
                   })
 
+                  .state('application.authorized.patchDetailed', {
+                    url: '/patches/:id',
+                    views: {
+                      '@application.authorized': {
+                        component: 'patchDetailed'
+                      }
+                    }
+                  })
+
                   .state('application.authorized.providers', {
                     url: '/providers',
                     views: {
                       '@application.authorized': {
                         component: 'providerWorkspace'
+                      }
+                    }
+                  })
+
+                  .state('application.authorized.providerNew', {
+                    url: '/providers/new',
+                    views: {
+                      '@application.authorized': {
+                        component: 'providerNew'
+                      }
+                    }
+                  })
+
+                  .state('application.authorized.providerDetailed', {
+                    url: '/providers/:id',
+                    views: {
+                      '@application.authorized': {
+                        component: 'providerDetailed'
                       }
                     }
                   })

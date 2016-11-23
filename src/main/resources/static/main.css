@@ -4,10 +4,6 @@ body {
   padding-bottom: 20px;
 }
 
-.system-property {
-  display: none;
-}
-
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .workspace,

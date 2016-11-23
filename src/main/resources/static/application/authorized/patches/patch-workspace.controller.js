@@ -5,13 +5,14 @@
   angular
         .module('application.authorized.patchWorkspace')
         .controller('patchWorkspaceController', [
+          '$state',
           '$http',
           'dataUrlService',
           'menuService',
           PatchWorkspaceController
         ]);
 
-  function PatchWorkspaceController($http, dataUrlService, menuService) {
+  function PatchWorkspaceController($state, $http, dataUrlService, menuService) {
 
     var self = this;
 
@@ -37,6 +38,12 @@
             self.patches = result.data.items;
             self.totalPages = result.data.total;
           });
+    };
+
+    self.toDetailed = function (id) {
+      $state.go('application.authorized.patchDetailed', {
+        id: id
+      });
     };
 
     self.toNextPage = function () {

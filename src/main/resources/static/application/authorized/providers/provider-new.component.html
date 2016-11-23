@@ -1,0 +1,14 @@
+<div class="row workspace">
+  <div class="col-lg-12">
+    <h4>Добавление новой внешней системы</h4>
+
+    <label for="title">Название:</label>
+    <input name="title" type="text" ng-model="it.provider.title"/><br/>
+
+    <label for="description">Описание:</label>
+    <input name="description" type="text" ng-model="it.provider.description"/><br/>
+
+    <input type="button" ng-click="it.save()" value="Сохранить"/>
+    <input type="button" ng-click="it.cancel()" value="Отмена"/>
+  </div>
+</div>
