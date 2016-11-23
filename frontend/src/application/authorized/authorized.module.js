@@ -10,6 +10,8 @@
           'application.authorized.patchDetailed',
           'application.authorized.patchWorkspace',
           'application.authorized.territoryWorkspace',
+          'application.authorized.providerNew',
+          'application.authorized.providerDetailed',
           'application.authorized.providerWorkspace',
           'application.authorized.shared'
         ]);

@@ -114,6 +114,24 @@
                     }
                   })
 
+                  .state('application.authorized.providerNew', {
+                    url: '/providers/new',
+                    views: {
+                      '@application.authorized': {
+                        component: 'providerNew'
+                      }
+                    }
+                  })
+
+                  .state('application.authorized.providerDetailed', {
+                    url: '/providers/:id',
+                    views: {
+                      '@application.authorized': {
+                        component: 'providerDetailed'
+                      }
+                    }
+                  })
+
                   .state('application.lost', {
                     url: '*path',
                     views: {

@@ -13,15 +13,22 @@
 
   function LogonService($http, $localStorage, dataUrlService) {
 
+    var self = this;
+
     this.logon = function (login, secret) {
       return $http
                 .post(dataUrlService.getCompleteUrl('security/logon'), {
                   login: login,
                   secret: secret
                 })
-                .success(function (authetication) {
-                  $localStorage.authTokenId = authetication.token;
+                .success(function (authentication) {
+                  self.authentication = authentication;
+                  $localStorage.authTokenId = authentication.token;
                 });
+    };
+
+    self.isAdmin = function () {
+      return self.authentication ? self.authentication.roles.includes('ADMIN') : false;
     };
   }
 })();
