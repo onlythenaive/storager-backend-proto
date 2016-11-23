@@ -1,0 +1,38 @@
+<div class="row workspace">
+  <div class="col-lg-12">
+
+    <h4>Детальный просмотр загрузки</h4>
+
+    <label for="ident">ID:</label>
+    <input name="ident" type="text" ng-model="it.patch.id" ng-disabled="true"/><br/>
+
+    <label for="provider">Источник:</label>
+    <input name="provider" type="text" ng-model="it.provider.title" ng-disabled="true"/><br/>
+
+    <label for="when">Дата загрузки:</label>
+    <input name="when" type="date" ng-model="it.patch.createdAtParsed" ng-disabled="true"/><br/>
+
+    <label for="comment">Комментарий:</label>
+    <input name="comment" type="text" ng-model="it.patch.comment" ng-disabled="true"/><br/>
+
+    <label for="status">Статус:</label>
+    <select name="status" ng-model="it.patch.status" ng-disabled="true">
+      <option value="ALL" selected>Все</option>
+      <option value="SUCCESS">Успешная</option>
+      <option value="FAILURE">С ошибкой</option>
+    </select></br>
+
+    <h5>Статистика по загруженным значениям</h5>
+
+    <table class="table table-hover">
+      <tr>
+        <th>Код индикатора</th>
+        <th>Загруженных значений</th>
+      </tr>
+      <tr ng-repeat="info in it.patch.indicatorInfos">
+        <td>{{info.indicatorCode}}</td>
+        <td>{{info.totalPoints}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

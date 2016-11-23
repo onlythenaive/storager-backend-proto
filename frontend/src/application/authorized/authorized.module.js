@@ -7,6 +7,7 @@
           'application.authorized.menu',
           'application.authorized.footer',
           'application.authorized.indicatorWorkspace',
+          'application.authorized.patchDetailed',
           'application.authorized.patchWorkspace',
           'application.authorized.territoryWorkspace',
           'application.authorized.providerWorkspace',

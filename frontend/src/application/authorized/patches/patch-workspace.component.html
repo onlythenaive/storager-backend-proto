@@ -1,6 +1,6 @@
 <div class="row workspace">
   <div class="col-lg-12">
-    <h4>Загрузки</h4>
+    <h4>Список загрузок</h4>
 
     <label for="providerTitlePattern">Название организации:</label>
     <input name="providerTitlePattern" type="text" placeholder="Название организации" ng-model="it.providerTitlePattern"/><br/>
@@ -29,8 +29,8 @@
       </tr>
       <tr ng-repeat="patch in it.patches">
         <td>{{patch.id}}</td>
-        <td>{{patch.comment}}</td>
-        <td>{{patch.createdAt}}</td>
+        <td><a ng-click="it.toDetailed(patch.id)">{{patch.comment}}</a></td>
+        <td>{{patch.createdAt | date:'dd.MM.yyyy'}}</td>
       </tr>
     </table>
 

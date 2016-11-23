@@ -96,6 +96,15 @@
                     }
                   })
 
+                  .state('application.authorized.patchDetailed', {
+                    url: '/patches/:id',
+                    views: {
+                      '@application.authorized': {
+                        component: 'patchDetailed'
+                      }
+                    }
+                  })
+
                   .state('application.authorized.providers', {
                     url: '/providers',
                     views: {
