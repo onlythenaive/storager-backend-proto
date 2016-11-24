@@ -1,10 +1,11 @@
 <li class="treeview-item">
-  <span>{{it.code}} ({{it.title}}, {{it.description}})</span>
+  <span><a ng-click="it.toDetailed()">{{it.code}}</a> ({{it.title}}, {{it.description}})</span>
   <input type="button" ng-show="it.terminal !== 'true' && !it.expanded" ng-click="it.expand()" value="Раскрыть"></input>
   <input type="button" ng-show="it.expanded" ng-click="it.fold()" value="Свернуть"></input>
+  <input type="button" ng-click="it.addChild()" value="Добавить" ng-hide="!it.admin"/>
   <ul>
     <ng-repeat ng-repeat="descendant in it.descendants">
-      <treeview-item  resource="{{it.resource}}" code="{{descendant.code}}" title="{{descendant.title}}" description="{{descendant.description}}" terminal="{{descendant.terminal}}"></treeview-item>
+      <treeview-item  resource="{{it.resource}}" creation="{{it.creation}}" detailed="{{it.detailed}}" code="{{descendant.code}}" title="{{descendant.title}}" description="{{descendant.description}}" terminal="{{descendant.terminal}}"></treeview-item>
     </ng-repeat>
   </ul>
 </li>

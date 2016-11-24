@@ -87,6 +87,27 @@
                     }
                   })
 
+                  .state('application.authorized.indicatorDetailed', {
+                    url: '/indicators/:code',
+                    views: {
+                      '@application.authorized': {
+                        component: 'indicatorDetailed'
+                      }
+                    }
+                  })
+
+                  .state('application.authorized.indicatorNew', {
+                    url: '/indicatorsNew',
+                    params: {
+                      ascendantCode: null
+                    },
+                    views: {
+                      '@application.authorized': {
+                        component: 'indicatorNew'
+                      }
+                    }
+                  })
+
                   .state('application.authorized.patches', {
                     url: '/patches',
                     views: {

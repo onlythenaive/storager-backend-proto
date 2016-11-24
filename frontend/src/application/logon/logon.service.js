@@ -22,13 +22,13 @@
                   secret: secret
                 })
                 .success(function (authentication) {
-                  self.authentication = authentication;
+                  $localStorage.admin = authentication.roles.includes('ADMIN');
                   $localStorage.authTokenId = authentication.token;
                 });
     };
 
     self.isAdmin = function () {
-      return self.authentication ? self.authentication.roles.includes('ADMIN') : false;
+      return $localStorage.admin;
     };
   }
 })();

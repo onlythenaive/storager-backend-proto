@@ -9,7 +9,9 @@
           controllerAs: 'it',
           templateUrl: '/static/application/authorized/shared/treeview/treeview.component.html',
           bindings: {
-            resource: '@'
+            resource: '@',
+            detailed: '@',
+            creation: '@'
           }
         });
 })();

@@ -2,6 +2,7 @@
 <div class="row workspace">
   <div class="col-lg-12">
     <h4>Показатели</h4>
-    <treeview resource="indicators"></treeview>
+    <input type="button" ng-click="it.addRootIndicator()" value="Добавить корневой показатель" ng-hide="!it.admin"/>
+    <treeview resource="indicators" creation="application.authorized.indicatorNew" detailed="application.authorized.indicatorDetailed"></treeview>
   </div>
 </div>

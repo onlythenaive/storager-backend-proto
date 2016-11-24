@@ -17,7 +17,7 @@ public class IndexPageController {
     @Autowired
     private TemplateService templateService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, produces = "text/html;charset=utf-8")
     public String get(final HttpServletRequest request) {
         return templateService.render("index", clientConfigurationService.getConfiguration(request));
     }

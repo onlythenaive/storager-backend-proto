@@ -6,6 +6,8 @@
         .module('application.authorized', [
           'application.authorized.menu',
           'application.authorized.footer',
+          'application.authorized.indicatorNew',
+          'application.authorized.indicatorDetailed',
           'application.authorized.indicatorWorkspace',
           'application.authorized.patchDetailed',
           'application.authorized.patchWorkspace',

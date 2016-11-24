@@ -10,6 +10,8 @@
           templateUrl: '/static/application/authorized/shared/treeview/treeview-item/treeview-item.component.html',
           bindings: {
             resource: '@',
+            detailed: '@',
+            creation: '@',
             code: '@',
             title: '@',
             description: '@',
