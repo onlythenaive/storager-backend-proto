@@ -1,6 +1,8 @@
 package ru.spb.iac.storager.server.domain.points;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 import ru.spb.iac.storager.server.domain.indicators.Indicator;
 import ru.spb.iac.storager.server.domain.patches.Patch;
 import ru.spb.iac.storager.server.domain.periods.Period;
@@ -20,7 +21,7 @@ import ru.spb.iac.storager.server.domain.shared.MapperConstructor;
 import ru.spb.iac.storager.server.domain.territories.Territory;
 
 @Entity
-@Table(name = "SRV_VALUES", schema="ANALITICA3")
+@Table(name = "SRV_VALUE", schema="ANALITICA3")
 public class Point {
 
 
@@ -37,7 +38,7 @@ public class Point {
     private Double plan;
 
     @Column(name = "ID_CLNDR", updatable = false)
-    private String date;
+    private LocalDate date;
     
     @Column(name = "D_IN", nullable = false, updatable = false)
     private Instant createdAt;
@@ -68,7 +69,9 @@ public class Point {
                   final Patch patch, final Period period, final Territory territory) {
         this.real = real;
         this.plan = plan;
-        this.date = date;
+        
+       
+        this.date = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);        
         this.indicator = indicator;
         this.patch = patch;
         this.period = period;
@@ -88,7 +91,7 @@ public class Point {
     }
 
     public String getDate() {
-        return date;
+        return date.format(DateTimeFormatter.ISO_DATE);
     }
     
     public Instant getCreatedAt () {
