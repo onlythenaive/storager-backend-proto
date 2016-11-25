@@ -10,10 +10,11 @@
           'dataUrlService',
           'logonService',
           'menuService',
+		  'indicatorService',
           ProviderNewController
         ]);
 
-  function ProviderNewController($state, $http, dataUrlService, logonService, menuService) {
+  function ProviderNewController($state, $http, dataUrlService, logonService, menuService, indicatorService) {
 
     var self = this;
 
@@ -21,6 +22,7 @@
 
     self.admin = logonService.isAdmin();
     self.baseUrl = dataUrlService.getCompleteUrl('data/providers');
+	self.allIndicators = indicatorService.update();
 
     self.provider = {
       title: "Новая система",
