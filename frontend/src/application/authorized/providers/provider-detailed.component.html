@@ -16,6 +16,10 @@
 
     <label for="token" ng-hide="!it.admin">Токен безопасности:</label>
     <input name="token" type="text" ng-model="it.providerToken" ng-disabled="true" ng-hide="!it.admin"/><br/>
+	
+	<ng-repeat ng-repeat="indicator in it.allIndicators">
+		<input type="checkbox" ng-disabled="!it.admin" ng-model="indicator.selected"/> {{indicator.title}} <br>
+	</ng-repeat>
 
     <input type="button" ng-click="it.save()" value="Сохранить" ng-hide="!it.admin"/>
     <input type="button" ng-click="it.cancel()" value="Отмена" ng-hide="!it.admin"/>

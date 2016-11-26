@@ -17,33 +17,43 @@
 	
 	self.baseUrl = dataUrlService.getCompleteUrl('data/indicators');
 	
-	self.update = function(){
-		getIndicatorsRoot();
+	var selectedCodes = [];
+	
+	self.update = function(toSelect){
+		(toSelect)?selectedCodes = toSelect:selectedCodes=[];
+		self.indicators = []
+		getIndicatorsTree();
 		return self.indicators;
 	};
 	
-	var getIndicatorsRoot = function(){
+	var getIndicatorsTree = function(){
 		  $http
           .get(self.baseUrl + '/roots')
           .then(function (result) {
-            addToIndicatorsArray(result.data);
-			
+			  if(Array.isArray(result.data)){
+				  var ind =  result.data.shift();				  
+				  getIndicatorBranch(ind,result.data);
+			  }
           });
 	};
-	var getIndicatorBranch = function(code){
+	
+	var getIndicatorBranch = function(ind, arrayToGo){	
+		selectIndicator(ind);
+		self.indicators.push(ind);	
 		  $http
-          .get(self.baseUrl + '/' + code + '/descendants')
-          .then(function (result) {
-            addToIndicatorsArray(result.data);			
+          .get(self.baseUrl + '/' + ind.code + '/descendants')
+          .then(function (result) {			  
+			if(Array.isArray(result.data)&&result.data.length>0){				
+				var newInd = result.data.shift();
+				getIndicatorBranch(newInd, result.data.concat(arrayToGo));
+			}else if(arrayToGo.length>0){
+				var newInd = arrayToGo.shift();
+				getIndicatorBranch(newInd, arrayToGo);
+			}
           });
 	};
-	var addToIndicatorsArray = function(indicators){
-		if(Array.isArray(indicators)){
-			for(var i = 0;i<indicators.length; i++){
-				self.indicators.push(indicators[i]);
-				getIndicatorBranch(indicators[i].code)
-			}
-		}
-	};
+	var selectIndicator = function(ind){
+		(selectedCodes.indexOf(ind.code)>-1)?ind.selected = true:ind.selected = false;
+	}
   }
 })();
