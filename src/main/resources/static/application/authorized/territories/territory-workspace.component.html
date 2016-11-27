@@ -1,6 +1,7 @@
 <div class="row workspace">
   <div class="col-lg-12">
     <h4>Территории</h4>
-    <treeview resource="territories"></treeview>
+	<input type="button" ng-click="it.addRootTerritory()" value="Добавить территорию" ng-hide="!it.admin"/>
+    <treeview resource="territories" creation="application.authorized.territoryNew" detailed="application.authorized.territoryDetailed"></treeview>
   </div>
 </div>

@@ -11,6 +11,8 @@
           'application.authorized.indicatorWorkspace',
           'application.authorized.patchDetailed',
           'application.authorized.patchWorkspace',
+		  'application.authorized.territoryNew',
+		  'application.authorized.territoryDetailed',
           'application.authorized.territoryWorkspace',
           'application.authorized.providerNew',
           'application.authorized.providerDetailed',

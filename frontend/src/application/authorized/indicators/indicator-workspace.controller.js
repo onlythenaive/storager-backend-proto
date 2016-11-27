@@ -13,11 +13,14 @@
 
   function IndicatorWorkspaceController($state, logonService, menuService) {
 
+  
+	var self = this;
+	
     menuService.update('INDICATORS');
 
-    this.admin = logonService.isAdmin();
+    self.admin = logonService.isAdmin();
 
-    this.addRootIndicator = function () {
+    self.addRootIndicator = function () {
       $state.go('application.authorized.indicatorNew');
     };
   }

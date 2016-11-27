@@ -43,7 +43,7 @@
 
     self.save = function () {
       $http
-          .put(self.baseUrl + '/' + id, self.provider, {headers: {'Content-Type': 'application/json'}})
+          .put(baseUrl + '/' + id, self.provider, {headers: {'Content-Type': 'application/json'}})
           .then(function (result) {
             if (self.admin) {
               // TODO: grants
@@ -54,7 +54,10 @@
 						}
 					});
 			  		$http
-					.put(self.baseUrl+ '/' + id +  '/grants', grants, {headers: {'Content-Type': 'application/json'}});
+					.put(baseUrl+ '/' + id +  '/grants', grants, {headers: {'Content-Type': 'application/json'}})
+					.then(function (result){
+						$state.go('application.authorized.providers');
+					});
             }
           });
     };

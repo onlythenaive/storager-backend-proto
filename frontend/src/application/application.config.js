@@ -77,6 +77,27 @@
                       }
                     }
                   })
+				  
+				  .state('application.authorized.territoryDetailed', {
+                    url: '/territories/:code',
+                    views: {
+                      '@application.authorized': {
+                        component: 'territoryDetailed'
+                      }
+                    }
+                  })
+				  
+                  .state('application.authorized.territoryNew', {
+                    url: '/territoriesNew',
+                    params: {
+                      ascendantCode: null
+                    },
+                    views: {
+                      '@application.authorized': {
+                        component: 'territoryNew'
+                      }
+                    }
+                  })
 
                   .state('application.authorized.indicators', {
                     url: '/indicators',

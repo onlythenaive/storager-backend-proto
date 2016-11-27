@@ -1,0 +1,18 @@
+
+<div class="row workspace">
+  <div class="col-lg-12">
+    <h4>Добавление новой территории</h4>
+
+    <label for="code">Код:</label>
+    <input name="code" type="text" ng-model="it.territory.code"/><br/>
+
+    <label for="title">Название:</label>
+    <input name="title" type="text" ng-model="it.territory.title"/><br/>
+
+    <label for="description">Описание:</label>
+    <input name="description" type="text" ng-model="it.territory.description"/><br/>
+
+    <input type="button" ng-click="it.save()" value="Сохранить"/>
+    <input type="button" ng-click="it.cancel()" value="Отмена"/>
+  </div>
+</div>

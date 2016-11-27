@@ -7,6 +7,12 @@
 
     <label for="description">Описание:</label>
     <input name="description" type="text" ng-model="it.provider.description"/><br/>
+	
+	
+	    <ng-repeat ng-repeat="indicator in it.allIndicators">
+			<input type="checkbox" ng-model="indicator.selected"/> {{indicator.title}} <br>
+		</ng-repeat>
+	
 
     <input type="button" ng-click="it.save()" value="Сохранить"/>
     <input type="button" ng-click="it.cancel()" value="Отмена"/>
