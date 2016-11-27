@@ -1,51 +1,74 @@
+
+
 body {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
 }
 
+
 main {
 	flex: 1 0 auto;
+
 }
 
 footer.page-footer.custom {
 
 	padding-top: 0px;
 }
+.storager .valign {
+	width: 100%;
+}
+
+/*
+#e1f5fe light-blue lighten-5
+#4fc3f7 light-blue lighten-2
+#03a9f4 light-blue
+#039be5 light-blue darken-1
+#0288d1 light-blue darken-2
+#0277bd light-blue darken-3
+#01579b light-blue darken-4
+
+#0091ea light-blue accent-4
+*/
 
 .col.tree{
 
-    background-color: #c5cae9; //  indigo lighten-4 #ef9a9a;
+    background-color: #4fc3f7;/* light-blue lighten-2*/
 margin-bottom: 7px;
 padding: 2px;
 	
 }
 .col.tree.leaf{
-	background-color: #e8eaf6; // indigo lighten-5 //#ffebee;
+	background-color: #e1f5fe;/* light-blue lighten-5*/
 }
 
+
+/*Overloaded css for materialize
+TODO: use sass for a better results, because some times the styles can not be  overloaded in some reason
+*/
 .storager nav {
-	background-color: #7986cb; //indigo lighten-2
+	background-color: #039be5;/* light-blue darken-1*/
 }
 
 .storager .pagination li.active,.storager footer.page-footer{
-	background-color: #9fa8da; //indigo lighten-3
+	background-color: #0091ea;/* light-blue accent-4*/
 }
 
 .storager .picker__date-display{
-	background-color: #9fa8da; //indigo lighten-3
+	background-color: #0091ea;/* light-blue accent-4*/
 }
 
 .storager .picker__weekday-display{
-	background-color: #7986cb; //indigo lighten-3
+	background-color:  #0091ea;/* light-blue accent-4*/
 }
 
 .storager .picker__day--selected, .storager .picker__day--selected:hover, .storager .picker--focused .picker__day--selected{
-	background-color: #7986cb; //indigo lighten-3
+	background-color:  #03a9f4;/* light-blue*/
 }
 
 .storager .picker__day.picker__day--today, .storager .picker__close, .storager .picker__today, .storager .dropdown-content li > a, .storager .dropdown-content li > span {
-	color: #3949ab; // indigo darken-1
+	color: #0288d1; /*light-blue darken-2*/
 }
 
 .storager input:not([type]):focus:not([readonly]) + label,
@@ -61,7 +84,7 @@ padding: 2px;
 .storager input[type=number]:focus:not([readonly]) + label,
 .storager input[type=search]:focus:not([readonly]) + label,
 .storager textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #1a237e;// indigo darken-4
+ color: #0091ea;/* light-blue accent-4*/
 }
 
 .storager input:not([type]):focus:not([readonly]),
@@ -77,6 +100,17 @@ padding: 2px;
 .storager input[type=number]:focus:not([readonly]),
 .storager input[type=search]:focus:not([readonly]),
 .storager textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #1a237e;// indigo darken-4
-  box-shadow: 0 1px 0 0 #1a237e;// indigo darken-4
+  border-bottom: 1px solid #0091ea;
+box-shadow: 0 1px 0 0 #0091ea;/* light-blue accent-4*/
 }
+
+.storager .input-field .prefix.active {
+	color: #0091ea;// light-blue accent-4
+}
+
+.storager [type="checkbox"]:checked + label:before {
+	border-bottom:2px solid #0091ea; /* light-blue accent-4*/
+	border-right:2px solid #0091ea; /* light-blue accent-4*/
+}
+
+

@@ -2,13 +2,65 @@
 
 <html>
 
-    <head>
-		<title>Login</title>
-        <link href="/static/main.css" rel="stylesheet"/>
-        <link href="/static/period-list/period-list.component.css" rel="stylesheet"/>
-    </head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
 
-    <body>
-		<h1>Login</h1>
-    </body>
+	<title>Storager</title>
+
+	<link href="main.css" rel="stylesheet" />
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.css" rel="stylesheet" />
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</head>
+
+<body class="storager">
+
+	<main class="valign-wrapper">
+
+		<!--<div class="valign">-->
+		<div class="row valign">
+			<div class="col s8 m6 l4 offset-s2 offset-m3 offset-l4 ">
+				<div class="card-panel">
+					
+					<div class="row">
+						<div class="col s12"><h5 class="center-align">Авторизуйтесь, пожалуйста!</h5></div>
+						<form class="col s12">
+							<div class="row">
+								<div class="input-field col s12">
+									<input id="login_id" type="text" class="validate">
+									<label for="login_id">Логин</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+									<input id="password_id" type="password" class="validate">
+									<label for="password_id">Пароль</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s12"> <a class="waves-effect waves-light btn light-blue accent-4 " href="patches/list.html">Войти</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--</div>-->
+
+	</main>
+	<footer class="page-footer custom">
+		<div class="footer-copyright">
+			<div class="container">
+				© 2014 Copyright Text
+				<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+			</div>
+		</div>
+	</footer>
+</body>
+
 </html>

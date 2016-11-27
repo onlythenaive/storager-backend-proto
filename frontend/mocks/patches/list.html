@@ -3,26 +3,26 @@
 <html>
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
 		
 		<title>Patches</title>
 
-		<link href="main.css" rel="stylesheet"/>
+		<link href="../main.css" rel="stylesheet"/>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.css" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.css" rel="stylesheet"/>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.js"></script>
-		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.js"></script>
+		<script type="text/javascript" src="../main.js"></script>
     </head>
 
     <body class="storager">
 		<ul id="dropdown1" class="dropdown-content">
-			<li><a href="#!">Выход</a></li>
+			<li><a href="../login.html">Выход</a></li>
 		</ul>
 		<ul id="dropdownAxis" class="dropdown-content">
-			<li><a href="territory-axes.html">Территории</a></li>
-			<li><a href="period-axes.html">Периоды</a></li>
+			<li><a href="../axes/territory.html">Территории</a></li>
+			<li><a href="../axes/period.html">Периоды</a></li>
 		</ul>
 		<nav>
 			<div class="nav-wrapper">
@@ -31,9 +31,9 @@
 					<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Имя пользователя<i class="material-icons right">arrow_drop_down</i></a></li>
 				</ul>
 				<ul class="right hide-on-med-and-down">
-					<li class="active"><a href="patches.html">Загрузки</a></li>
-					<li><a href="providers.html">Организации</a></li>
-					<li><a href="indicators.html">Показатели</a></li>
+					<li class="active"><a href="../patches/list.html">Загрузки</a></li>
+					<li><a href="../providers/list.html">Организации</a></li>
+					<li><a href="../indicators/tree.html">Показатели</a></li>
 					<li><a class="dropdown-button" href="#!"  data-activates="dropdownAxis">Оси&nbsp; <i class="material-icons right">arrow_drop_down</i></a></li>
 				</ul>
 			</div>
@@ -47,7 +47,7 @@
 				    <div class="row">
 						<div class="input-field col s12 l6">
 							<i class="material-icons prefix">search</i>
-							<input type="text" class="autocomplete">
+							<input type="text" id="OrganizationName" class="autocomplete">
 							<label for="OrganizationName">Название организации</label>
 						</div>
 						<div class="input-field col s6 l2">
@@ -58,11 +58,11 @@
 							<label>Статус</label>
 						</div>
 						<div class="input-field col s3 l2">
-							<input type="date" class="datepicker">
+							<input type="date" id="date_since" class="datepicker">
 							<label for="date_since">c</label>
 						</div>
 						<div class="input-field col s3 l2">
-							<input type="date" class="datepicker">
+							<input type="date" id="date_until" class="datepicker">
 							<label for="date_until">по</label>
 						</div>
 					</div>
@@ -85,22 +85,7 @@
 										<td>Успешно</td>
 										<td>217</td>
 										<td>
-										<a href="#patch1" class="modal-trigger waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
-											<div id="patch1" class="modal modal-fixed-footer">
-												<div class="modal-content">
-												  <h4>Загрузка от 27.01.2014 18:57</h4>
-												  <table>
-														<tr><td>Дата добавления</td><td>27.01.2014 18:57</td>
-														<tr><td>Организация</td><td>СПб ГУП "СПб ИАЦ"</td>
-														<tr><td>Статус операции</td><td>Успешно</td>
-														<tr><td>Загружено значений</td><td>Показатель 1: 100<br> 
-																							Показатель 2: 117</td><tr>
-												  </table>
-												</div>
-												<div class="modal-footer">
-												  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Ok</a>
-												</div>
-											</div>
+										<a href="detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
 										</td>
 									</tr>
 									<tr>
@@ -108,7 +93,7 @@
 										<td>СПб ГУП "СПб ИАЦ"</td>
 										<td>Успешно</td>
 										<td>217</td><td>
-										<a href="patch_detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
+										<a href="detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
 										</td>
 									</tr>
 									<tr>
@@ -116,7 +101,7 @@
 										<td>СПб ГУП "СПб ИАЦ"</td>
 										<td>Успешно</td>
 										<td>217</td><td>
-										<a href="patch_detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
+										<a href="detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
 										</td>
 									</tr>
 									<tr>
@@ -124,7 +109,7 @@
 										<td>СПб ГУП "СПб ИАЦ"</td>
 										<td>Успешно</td>
 										<td>217</td><td>
-										<a href="patch_detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
+										<a href="detailed.html" class="waves-effect waves-light btn-flat"><i class="small material-icons">info_outline</i></a>
 										</td>
 									</tr>
 								</tbody>

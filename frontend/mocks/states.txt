@@ -25,4 +25,6 @@
 
 			axes
 
-				???
+				period
+
+				territory

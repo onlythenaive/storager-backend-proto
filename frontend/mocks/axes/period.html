@@ -1,0 +1,95 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+
+	<title>Axis</title>
+
+	<link href="../main.css" rel="stylesheet" />
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.js"></script>
+	<script type="text/javascript" src="../main.js"></script>
+</head>
+
+<body class="storager">
+	<ul id="dropdown1" class="dropdown-content">
+		<li><a href="../login.html">Выход</a></li>
+	</ul>
+	<ul id="dropdownAxis" class="dropdown-content">
+		<li><a href="../axes/territory.html">Территории</a></li>
+		<li><a href="../axes/period.html">Периоды</a></li>
+	</ul>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Сервис Интеграции</a>
+			<ul class="right hide-on-med-and-down" style="padding-left:30px">
+				<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Имя пользователя<i class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="../patches/list.html">Загрузки</a></li>
+				<li><a href="../providers/list.html">Организации</a></li>
+				<li><a href="../indicators/tree.html">Показатели</a></li>
+				<li class="active"><a class="dropdown-button" href="#!" data-activates="dropdownAxis">Оси&nbsp;&nbsp; <i class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<main>
+		<div class="container">
+			<br>
+			<br>
+			<div class="section">
+				<div class="card-panel">
+					<div class="section">
+						<table class="striped">
+							<thead>
+								<tr>
+									<td>Код периода</td>
+									<td>Название периода</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>WEEK</td>
+									<td>Неделя</td>
+								</tr>
+								<tr>
+									<td>MONTH</td>
+									<td>Месяц</td>
+								</tr>
+								<tr>
+									<td>QUARTER</td>
+									<td>Квартал</td>
+								</tr>
+								<tr>
+									<td>HALF_YEAR</td>
+									<td>Полугодие</td>
+								</tr>
+								<tr>
+									<td>YEAR</td>
+									<td>Год</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="page-footer custom">
+		<div class="footer-copyright">
+			<div class="container">
+				© 2014 Copyright Text
+				<a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>
