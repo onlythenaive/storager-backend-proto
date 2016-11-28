@@ -2,16 +2,30 @@
 <div class="row workspace">
   <div class="col-lg-12">
     <h4>Свойства показателя</h4>
+	<div class="form-horizontal">
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="code">Код:</label>
+			<div class="col-sm-5">
+				<input class="form-control" name="code" type="text" ng-model="it.indicator.code" ng-disabled="!it.admin"/>
+			</div>
+		</div>
 
-    <label for="code">Код:</label>
-    <input name="code" type="text" ng-model="it.indicator.code" ng-disabled="!it.admin"/><br/>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="title">Название:</label>
+			<div class="col-sm-5">
+				<input class="form-control" name="title" type="text" ng-model="it.indicator.title" ng-disabled="!it.admin"/>
+			</div>
+		</div>
 
-    <label for="title">Название:</label>
-    <input name="title" type="text" ng-model="it.indicator.title" ng-disabled="!it.admin"/><br/>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="description">Описание:</label>
+			<div class="col-sm-5">
+				<input class="form-control" name="description" type="text" ng-model="it.indicator.description" ng-disabled="!it.admin"/>
+			</div>
+		</div>
 
-    <label for="description">Описание:</label>
-    <input name="description" type="text" ng-model="it.indicator.description" ng-disabled="!it.admin"/><br/>
-
-    <input type="button" ng-click="it.save()" value="Сохранить" ng-hide="!it.admin"/>
+		<input class="btn btn-default" type="button" ng-click="it.save()" value="Сохранить" ng-hide="!it.admin"/>
+	</div>
   </div>
 </div>
