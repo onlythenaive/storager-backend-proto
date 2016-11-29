@@ -32,7 +32,15 @@
       $http
           .put(baseUrl + '/' + code, self.indicator, {headers: {'Content-Type': 'application/json'}})
           .then(function (result) {
-            console.log(result.data.code);
+            $state.go('application.authorized.indicators');
+          });
+    };
+	
+	self.delete = function () {
+      $http
+          .delete(baseUrl + '/' + code)
+          .then(function (result) {
+            $state.go('application.authorized.indicators');
           });
     };
   }

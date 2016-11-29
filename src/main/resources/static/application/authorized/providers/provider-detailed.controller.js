@@ -42,23 +42,31 @@
         });
 
     self.save = function () {
+		var grants = [];
+		self.allIndicators.forEach(function (element){
+			if(element.selected){
+				grants.push(element.code);
+			}
+		});
       $http
           .put(baseUrl + '/' + id, self.provider, {headers: {'Content-Type': 'application/json'}})
           .then(function (result) {
             if (self.admin) {
               // TODO: grants
-					var grants = [];
-					self.allIndicators.forEach(function (element){
-						if(element.selected){
-							grants.push(element.code);
-						}
-					});
 			  		$http
 					.put(baseUrl+ '/' + id +  '/grants', grants, {headers: {'Content-Type': 'application/json'}})
 					.then(function (result){
 						$state.go('application.authorized.providers');
 					});
             }
+          });
+    };
+	
+	 self.delete = function () {
+      $http
+          .delete(baseUrl + '/' + id)
+          .then(function (result) {
+				$state.go('application.authorized.providers');
           });
     };
 

@@ -12,7 +12,7 @@
 		</div>
 	
 		<div class="form-group">  
-			<label class="col-sm-2 control-label" for="provider">Источник:</label>
+			<label class="col-sm-2 control-label" for="provider">Информационная система:</label>
 			<div class="col-sm-5">
 				<input class="form-control" name="provider" type="text" ng-model="it.provider.title" ng-disabled="true"/>
 			</div>
@@ -21,7 +21,7 @@
 		<div class="form-group"> 
 			<label class="col-sm-2 control-label" for="when">Дата загрузки:</label>
 			<div class="col-sm-5">
-				<input class="form-control" name="when" type="date" ng-model="it.patch.createdAtParsed" ng-disabled="true"/>
+				<input class="form-control" name="when"  value="{{it.patch.createdAtParsed | date:'dd.MM.yyyy HH:mm'}}"  ng-disabled="true"/>
 			</div>
 		</div>
 

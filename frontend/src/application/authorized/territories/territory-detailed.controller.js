@@ -32,7 +32,16 @@
       $http
           .put(baseUrl + '/' + code, self.territory, {headers: {'Content-Type': 'application/json'}})
           .then(function (result) {
-            console.log(result.data.code);
+			  $state.go('application.authorized.territories');
+            //console.log(result.data.code);
+          });
+    };
+	
+	self.delete = function () {
+      $http
+          .delete(baseUrl + '/' + code)
+          .then(function (result) {
+            $state.go('application.authorized.territories');
           });
     };
   }

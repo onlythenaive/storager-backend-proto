@@ -29,7 +29,8 @@
       $http
           .post(baseUrl, self.indicator, {headers: {'Content-Type': 'application/json'}})
           .then(function (result) {
-            $state.go('application.authorized.indicatorDetailed', {code: result.data.code});
+			  $state.go('application.authorized.indicators');
+            //$state.go('application.authorized.indicatorDetailed', {code: result.data.code});
           });
     };
 

@@ -18,7 +18,8 @@
 
     menuService.update('PATCHES');
 
-    var baseUrl = dataUrlService.getCompleteUrl('data/patches');
+    var baseUrl = dataUrlService.getCompleteUrl('data/patches');    
+	var providerBaseUrl = dataUrlService.getCompleteUrl('data/providers');
     var filter = {};
 
     var toPage = function (page) {
@@ -31,12 +32,19 @@
               createdSince: filter.since,
               createdUntil: filter.until,
               page: self.page,
-              size: 1
+              size: 10
             }
           })
           .then(function (result) {
             self.patches = result.data.items;
             self.totalPages = result.data.total;
+			self.patches.forEach(function(patch){
+				$http
+				  .get(providerBaseUrl + '/' + patch.providerId)
+				  .then(function (providerResult) {
+					patch.provider = providerResult.data;
+				  });
+			});
           });
     };
 

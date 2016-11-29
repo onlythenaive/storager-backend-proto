@@ -11,7 +11,7 @@
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="status">Статус:</label>
-			<div class="col-sm-3">
+			<div class="col-sm-5">
 				<select class="form-control" name="status" ng-model="it.status">
 				  <option value="ALL" selected>Все</option>
 				  <option value="SUCCESS">Успешные</option>
@@ -22,14 +22,14 @@
 
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="since">С:</label>
-			<div class="col-sm-3">
+			<div class="col-sm-5">
 				<input class="form-control" name="since" type="date" ng-model="it.since"/>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="until">До:</label>
-			<div class="col-sm-3">
+			<div class="col-sm-5">
 				<input class="form-control" name="until" type="date" ng-model="it.until"/>
 			</div>
 		</div>
@@ -46,11 +46,13 @@
         <th>ID</th>
         <th>Описание</th>
         <th>Дата загрузки</th>
+		<th>Информационная система</th>
       </tr>
       <tr ng-repeat="patch in it.patches">
         <td>{{patch.id}}</td>
         <td><a ng-click="it.toDetailed(patch.id)">{{patch.comment}}</a></td>
-        <td>{{patch.createdAt | date:'dd.MM.yyyy'}}</td>
+        <td>{{patch.createdAt | date:'dd.MM.yyyy HH:mm'}}</td>
+		<td>{{patch.provider.title}}</td>
       </tr>
     </table>
 

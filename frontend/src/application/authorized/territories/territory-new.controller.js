@@ -29,7 +29,8 @@
       $http
           .post(baseUrl, self.territory, {headers: {'Content-Type': 'application/json'}})
           .then(function (result) {
-            $state.go('application.authorized.territoryDetailed', {code: result.data.code});
+			  $state.go('application.authorized.territories');
+            //$state.go('application.authorized.territoryDetailed', {code: result.data.code});
           });
     };
 
