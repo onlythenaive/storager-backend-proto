@@ -34,7 +34,7 @@ public final class RequestForwardFilter extends OncePerRequestFilter {
 
         final String requestUri;
         if (baseUrl != null && baseUrl.length() > 0) {
-            requestUri = rawRequestUri.substring(0, baseUrl.length());
+            requestUri = rawRequestUri.substring(baseUrl.length());
         } else {
             requestUri = rawRequestUri;
         }
