@@ -29,7 +29,15 @@ public final class RequestForwardFilter extends OncePerRequestFilter {
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
                                     final FilterChain filterChain) throws ServletException, IOException {
 
-        final String requestUri = request.getRequestURI();
+        final String rawRequestUri = request.getRequestURI();
+        final String baseUrl = request.getContextPath();
+
+        final String requestUri;
+        if (baseUrl != null && baseUrl.length() > 0) {
+            requestUri = rawRequestUri.substring(0, baseUrl.length());
+        } else {
+            requestUri = rawRequestUri;
+        }
 
         final boolean notExcludedExplicitly = exclusions == null || exclusions
                 .stream()
