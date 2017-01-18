@@ -7,6 +7,6 @@
         .component('authorized', {
           controller: 'authorizedController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/authorized.component.html'
+          templateUrl: 'static/application/authorized/authorized.component.html'
         });
 })();

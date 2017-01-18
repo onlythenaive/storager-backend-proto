@@ -7,6 +7,6 @@
         .component('territoryWorkspace', {
           controller: 'territoryWorkspaceController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/territories/territory-workspace.component.html'
+          templateUrl: 'static/application/authorized/territories/territory-workspace.component.html'
         });
 })();

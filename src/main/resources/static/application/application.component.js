@@ -7,6 +7,6 @@
         .component('application', {
           controller: 'applicationController',
           controllerAs: 'it',
-          templateUrl: '/static/application/application.component.html'
+          templateUrl: 'static/application/application.component.html'
         });
 })();

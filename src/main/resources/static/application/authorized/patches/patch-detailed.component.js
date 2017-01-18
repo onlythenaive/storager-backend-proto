@@ -7,6 +7,6 @@
         .component('patchDetailed', {
           controller: 'patchDetailedController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/patches/patch-detailed.component.html'
+          templateUrl: 'static/application/authorized/patches/patch-detailed.component.html'
         });
 })();

@@ -7,6 +7,6 @@
         .component('indicatorWorkspace', {
           controller: 'indicatorWorkspaceController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/indicators/indicator-workspace.component.html'
+          templateUrl: 'static/application/authorized/indicators/indicator-workspace.component.html'
         });
 })();

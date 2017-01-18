@@ -7,6 +7,6 @@
         .component('customFooter', {
           controller: 'footerController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/footer/footer.component.html'
+          templateUrl: 'static/application/authorized/footer/footer.component.html'
         });
 })();

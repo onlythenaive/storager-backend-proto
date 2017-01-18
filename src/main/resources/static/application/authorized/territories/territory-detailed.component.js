@@ -7,6 +7,6 @@
         .component('territoryDetailed', {
           controller: 'territoryDetailedController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/territories/territory-detailed.component.html'
+          templateUrl: 'static/application/authorized/territories/territory-detailed.component.html'
         });
 })();

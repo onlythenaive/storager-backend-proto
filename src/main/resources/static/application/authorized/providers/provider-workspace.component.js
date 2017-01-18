@@ -7,6 +7,6 @@
         .component('providerWorkspace', {
           controller: 'providerWorkspaceController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/providers/provider-workspace.component.html'
+          templateUrl: 'static/application/authorized/providers/provider-workspace.component.html'
         });
 })();

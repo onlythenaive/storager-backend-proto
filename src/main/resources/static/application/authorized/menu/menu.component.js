@@ -7,6 +7,6 @@
         .component('menu', {
           controller: 'menuController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/menu/menu.component.html'
+          templateUrl: 'static/application/authorized/menu/menu.component.html'
         });
 })();

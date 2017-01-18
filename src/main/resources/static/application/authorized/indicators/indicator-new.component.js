@@ -7,6 +7,6 @@
         .component('indicatorNew', {
           controller: 'indicatorNewController',
           controllerAs: 'it',
-          templateUrl: '/static/application/authorized/indicators/indicator-new.component.html'
+          templateUrl: 'static/application/authorized/indicators/indicator-new.component.html'
         });
 })();

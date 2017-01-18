@@ -7,6 +7,6 @@
         .component('lost', {
           controller: 'lostController',
           controllerAs: 'it',
-          templateUrl: '/static/application/lost/lost.component.html'
+          templateUrl: 'static/application/lost/lost.component.html'
         });
 })();
