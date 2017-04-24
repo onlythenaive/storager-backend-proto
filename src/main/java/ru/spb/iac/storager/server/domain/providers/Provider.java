@@ -42,7 +42,7 @@ public class Provider implements Serializable {
     @Column(name = "APP_TOKEN", nullable = false, unique = true)
     private String token;
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Grant> grants;
 
     @JpaConstructor
